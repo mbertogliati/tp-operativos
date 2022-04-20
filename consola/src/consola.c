@@ -13,7 +13,7 @@ int main() {
 		string_append(&path, cwd);
 		string_append(&path, "/pseudocodigo.txt");
 	}
-
+	
 	consola(path, 0);
 }
 
@@ -88,8 +88,10 @@ int cantidad_de_parametros(id identificador) {
 }
 
 void leer_lista(t_list *lista_de_instrucciones) {
-	if(!list_is_empty(lista_de_instrucciones))
+	if(!list_is_empty(lista_de_instrucciones)) {
+		puts("\nLeyendo lista de instrucciones\n------------------------------\n");
 		list_iterate(lista_de_instrucciones, leer_instruccion);
+	}
 }
 
 void leer_instruccion(void *instruccion) {
