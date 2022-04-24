@@ -8,7 +8,8 @@
 void consola(char *path, int tamanio) {
 	t_list *lista_de_instrucciones = list_create();
 	leer_archivo(path, lista_de_instrucciones);
-	leer_lista(lista_de_instrucciones);
+	puts("***** se creó la lista de instrucciones *****\n");
+	//leer_lista(lista_de_instrucciones);
 	liberar_lista(lista_de_instrucciones);
 }
 
@@ -16,7 +17,7 @@ void leer_archivo(char *path, t_list *lista_de_instrucciones) {
 	FILE * fp = fopen(path, "r");
 
 	if (!fp) {
-		puts("no se encontro el archivo\n");
+		puts("no se encontró el archivo\n");
 		return;
 	}
 
@@ -77,7 +78,8 @@ int cantidad_de_parametros(id identificador) {
 
 void leer_lista(t_list *lista_de_instrucciones) {
 	if(!list_is_empty(lista_de_instrucciones)) {
-		puts("\nLeyendo lista de instrucciones\n------------------------------\n");
+		puts("\nLeyendo lista de instrucciones\n"
+			   "------------------------------\n");
 		list_iterate(lista_de_instrucciones, leer_instruccion);
 	}
 }
