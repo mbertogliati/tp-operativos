@@ -1,5 +1,11 @@
 # tp-2022-1c-Los-Simuladores
 
-En terminal desde tp-2022-1c-Los-Simuladores/consola:  
+https://docs.google.com/document/d/17WP76Vsi6ZrYlpYT8xOPXzLf42rQgtyKsOdVkyL5Jj0/edit#  
 
-`cd Default && gcc -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"src/consola.d" -MT"src/consola.o" -o "src/consola.o" "../src/consola.c" && gcc  -o "consola"  ./src/consola.o   -lcommons && cd .. && ./Default/consola`
+| Checkpoint | Fecha |
+| ---------- | ----- |
+| 1: Conexión inicial | 23/04 |
+| 2: Avance del Grupo | 14/05 |
+| 3: ***Obligatorio*** | 04/06 |
+| 4: Avance del Grupo | 25/06 |
+| 5: Entregas Finales | 16/07 - 23/07 - 30/07 |
