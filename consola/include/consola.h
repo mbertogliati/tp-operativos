@@ -2,7 +2,6 @@
 #define CONSOLA_H_
 
 #include <commons/collections/list.h>
-#define TAM 100
 
 typedef unsigned int uint4_t;
 
@@ -12,6 +11,7 @@ typedef enum {
 
 typedef struct {
 	id identificador;
+	int cant_parametros;
 	uint4_t *parametros;
 } t_instruccion;
 

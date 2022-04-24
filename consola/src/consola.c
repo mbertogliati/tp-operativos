@@ -2,21 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h> //getcwd()
 #include <commons/string.h>
 
-int main() {
-	char cwd[TAM];
-	char *path = string_new();
-
-	if (getcwd(cwd, TAM)) {
-		string_append(&path, cwd);
-		string_append(&path, "/pseudocodigo.txt");
-	}
-	
-	consola(path, 0);
-}
-
+//devolver t_list
 void consola(char *path, int tamanio) {
 	t_list *lista_de_instrucciones = list_create();
 	leer_archivo(path, lista_de_instrucciones);
@@ -49,11 +37,11 @@ void leer_archivo(char *path, t_list *lista_de_instrucciones) {
 t_instruccion *crear_instruccion(char **instruccion_leida) {
 	id identificador = get_identificador(instruccion_leida[0]);
 	if (identificador == -1) return NULL;
-
-	int cant_param = cantidad_de_parametros(identificador); //se podría guardar en instrucción
+	int cant_param = cantidad_de_parametros(identificador);
 
 	t_instruccion *instruccion = (t_instruccion*) malloc(sizeof(t_instruccion));
 	instruccion->identificador = identificador;
+	instruccion->cant_parametros = cant_param;
 
 	if (!cant_param)
 		instruccion->parametros = NULL;
