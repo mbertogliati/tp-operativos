@@ -1,30 +1,13 @@
-#ifndef CONSOLA_H_
-#define CONSOLA_H_
+#ifndef CONSOLA_INCLUDE_CONSOLA_H_
+#define CONSOLA_INCLUDE_CONSOLA_H_
 
-	#include <commons/collections/list.h>
+#include "lista_de_instrucciones.h"
+#include "../../shared/cliente/utils.h"
 
-	typedef unsigned int uint4_t;
+void consola(char *path, int tamanio);
+t_list *leer_archivo(char *path);
+t_paquete *crear_paquete_instrucciones(t_link_element *lista_de_instrucciones, int tamanio);
+void enviar_paquete_instrucciones(t_paquete *paquete);
+int conectar_a_kernel();
 
-	typedef enum {
-		NO_OP, IO, READ, COPY, WRITE, EXIT
-	} id;
-
-	typedef struct {
-		id identificador;
-		int cant_parametros;
-		uint4_t *parametros;
-	} t_instruccion;
-
-	void consola(char *path, int tamanio);
-	void leer_archivo(char *path, t_list *lista_de_instrucciones);
-	t_instruccion *crear_instruccion(char **instruccion_leida);
-	id get_identificador(char* identificador_leido);
-	int cantidad_de_parametros(id identificador);
-
-	void leer_lista(t_list *lista_de_instrucciones);
-	void leer_instruccion(void *instruccion);
-
-	void liberar_lista(t_list *lista_de_instrucciones);
-	void liberar_instruccion(void *instruccion);
-
-#endif
+#endif /* CONSOLA_INCLUDE_CONSOLA_H_ */

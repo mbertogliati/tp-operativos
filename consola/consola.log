@@ -1,0 +1,6 @@
+[INFO] 14:15:26:539 CONSOLA/(12450:12450): Archivo de instrucciones leído correctamente
+[INFO] 14:15:26:553 CONSOLA/(12450:12450): Lista de instrucciones creada
+[INFO] 14:15:26:553 CONSOLA/(12450:12450): Creando paquete de instrucciones...
+[INFO] 14:15:26:553 CONSOLA/(12450:12450): Paquete creado exitosamente
+[INFO] 14:15:26:553 CONSOLA/(12450:12450): Iniciando conexión con Kernel...
+[ERROR] 14:15:26:554 CONSOLA/(12450:12450): No se ha podido establecer comunicación con el Kernel

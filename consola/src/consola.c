@@ -1,109 +1,91 @@
 #include "../include/consola.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <commons/string.h>
+#include <commons/config.h>
 
-//devolver t_list
+t_log* log_consola;
+
 void consola(char *path, int tamanio) {
-	t_list *lista_de_instrucciones = list_create();
-	leer_archivo(path, lista_de_instrucciones);
-	puts("***** se creó la lista de instrucciones *****\n");
-	//leer_lista(lista_de_instrucciones);
+	log_consola = log_create("consola/consola.log", "CONSOLA", true, LOG_LEVEL_INFO);
+
+	t_list *lista_de_instrucciones = leer_archivo(path);
+
+	//tamanio = list_size(lista_de_instrucciones) * sizeof(t_link_element);
+
+	t_paquete *paquete = crear_paquete_instrucciones(lista_de_instrucciones->head, tamanio);
+	enviar_paquete_instrucciones(paquete);
 	liberar_lista(lista_de_instrucciones);
 }
 
-void leer_archivo(char *path, t_list *lista_de_instrucciones) {
-	FILE * fp = fopen(path, "r");
+t_list *leer_archivo(char *path) {
+	FILE *f = fopen(path, "r");
 
-	if (!fp) {
-		puts("no se encontró el archivo\n");
+	if (!f) {
+		log_error(log_consola, "No se encontró el archivo de instrucciones");
+		return NULL;
+	}
+
+	char *linea = NULL;
+	size_t lon = 0;
+	t_list *lista_de_instrucciones = list_create();
+
+	while (getline(&linea, &lon, f) != -1)
+		procesar_linea(string_split(linea, " "), lista_de_instrucciones);
+
+	fclose(f);
+	free(linea);
+
+	log_info(log_consola, "Archivo de instrucciones leído correctamente");
+	log_info(log_consola, "Lista de instrucciones creada");
+	//leer_lista(lista_de_instrucciones);
+	return lista_de_instrucciones;
+}
+
+t_paquete *crear_paquete_instrucciones(t_link_element *lista_de_instrucciones, int tamanio) {
+	log_info(log_consola, "Creando paquete de instrucciones...");
+
+	t_paquete *paquete = crear_paquete();
+	agregar_a_paquete(paquete, lista_de_instrucciones, tamanio);
+
+	log_info(log_consola, "Paquete creado exitosamente");
+
+	return paquete;
+}
+
+void enviar_paquete_instrucciones(t_paquete *paquete) {
+	log_info(log_consola, "Iniciando conexión con Kernel...");
+
+	int socket_cliente = conectar_a_kernel();
+
+	if (socket_cliente < 0) {
+		log_error(log_consola, "No se ha podido establecer comunicación con el Kernel");
 		return;
 	}
 
-	char * line = NULL;
-	size_t len = 0;
-	ssize_t read;
-	t_instruccion *instruccion = NULL;
-
-	while ((read = getline(&line, &len, fp)) != -1) {
-		instruccion = crear_instruccion(string_split(line, " "));
-		list_add(lista_de_instrucciones, instruccion);
-	}
-
-	fclose(fp);
-	if (line) free(line);
+	enviar_paquete(paquete, socket_cliente);
+	eliminar_paquete(paquete);
+	liberar_conexion(socket_cliente);
 }
 
-t_instruccion *crear_instruccion(char **instruccion_leida) {
-	id identificador = get_identificador(instruccion_leida[0]);
-	if (identificador == -1) return NULL;
-	int cant_param = cantidad_de_parametros(identificador);
+int conectar_a_kernel() {
+	t_config *config = config_create("consola/consola.config");
+	char *ip, *puerto;
 
-	t_instruccion *instruccion = (t_instruccion*) malloc(sizeof(t_instruccion));
-	instruccion->identificador = identificador;
-	instruccion->cant_parametros = cant_param;
+	if (!config) {
+		log_error(log_consola, "No se encontró el archivo de configuracion de Kernel");
+		return -1;
+	}
 
-	if (!cant_param)
-		instruccion->parametros = NULL;
+	if (config_has_property(config, "IP_KERNEL") && config_has_property(config, "PUERTO_KERNEL")) {
+		ip = config_get_string_value(config, "IP_KERNEL");
+		puerto = config_get_string_value(config, "PUERTO_KERNEL");
+	}
 	else {
-		instruccion->parametros = (uint4_t*) malloc(sizeof(uint4_t) * cant_param);
-		for (int i = 0; i < cant_param; i++)
-			instruccion->parametros[i] = atoi(instruccion_leida[i + 1]);
+		log_error(log_consola, "El archivo de configuración de Kernel es erróneo");
+		return -1;
 	}
-	return instruccion;
-}
 
-id get_identificador(char* identificador_leido) {
-	id identificador = -1;
-	if (!strcmp("NO_OP", identificador_leido))	identificador = NO_OP;
-	if (!strcmp("I/O", identificador_leido))	identificador = IO;
-	if (!strcmp("READ", identificador_leido))	identificador = READ;
-	if (!strcmp("COPY", identificador_leido))	identificador = COPY;
-	if (!strcmp("WRITE", identificador_leido))	identificador = WRITE;
-	if (!strcmp("EXIT", identificador_leido))	identificador = EXIT;
-	return identificador;
-}
+	config_destroy(config);
 
-int cantidad_de_parametros(id identificador) {
-	switch (identificador) {
-	case NO_OP: case IO: case READ: //ver parametro NO_OP
-		return 1;
-	case COPY: case WRITE:
-		return 2;
-	case EXIT: default:
-		return 0;
-	}
-}
-
-void leer_lista(t_list *lista_de_instrucciones) {
-	if(!list_is_empty(lista_de_instrucciones)) {
-		puts("\nLeyendo lista de instrucciones\n"
-			   "------------------------------\n");
-		list_iterate(lista_de_instrucciones, leer_instruccion);
-	}
-}
-
-void leer_instruccion(void *instruccion) {
-	id identificador = ((t_instruccion*) instruccion)->identificador;
-	uint4_t cant_param = cantidad_de_parametros(identificador);
-	uint4_t *parametros = ((t_instruccion*) instruccion)->parametros;
-
-	printf("identificador: %d\nparametros: ", identificador);
-
-	if (!cant_param) puts("no hay parametros\n\n");
-
-	for (int i = 0; i < cant_param; i++) {
-		if (i == cant_param - 1) printf("%d\n\n", parametros[i]);
-		else printf("%d, ", parametros[i]);
-	}
-}
-
-void liberar_lista(t_list *lista_de_instrucciones) {
-	list_destroy_and_destroy_elements(lista_de_instrucciones, liberar_instruccion);
-}
-
-void liberar_instruccion(void *instruccion) {
-	free(((t_instruccion*) instruccion)->parametros);
-	free((t_instruccion*) instruccion);
+	return crear_conexion(ip, puerto);
 }
