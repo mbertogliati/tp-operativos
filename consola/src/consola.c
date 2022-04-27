@@ -11,7 +11,7 @@ void consola(char *path, int tamanio) {
 	t_list *lista_de_instrucciones = leer_archivo(path);
 
 	//tamanio = list_size(lista_de_instrucciones) * sizeof(t_link_element);
-
+	leer_lista(lista_de_instrucciones);
 	t_paquete *paquete = crear_paquete_instrucciones(lista_de_instrucciones->head, tamanio);
 	enviar_paquete_instrucciones(paquete);
 	liberar_lista(lista_de_instrucciones);
@@ -88,4 +88,24 @@ int conectar_a_kernel() {
 	config_destroy(config);
 
 	return crear_conexion(ip, puerto);
+}
+bool son_argumentos_validos(int cantidad_argumentos, char** argv){
+
+	log_consola = log_create("consola/consola.log", "CONSOLA", true, LOG_LEVEL_INFO);
+	if(cantidad_argumentos<3){
+		if (cantidad_argumentos < 2) 
+			log_error(log_consola,"ERROR - Archivo no especificado.\n");
+		else 
+			log_error(log_consola,"ERROR - Tamanio no especificado.\n");
+		return false;
+	}
+	int tamanio = atoi(argv[2]);
+
+	if (tamanio <= 0){
+		log_error(log_consola,"ERROR - El tamaño es invalido.\n");
+		return false;
+	}
+	log_destroy(log_consola);
+	return true;
+
 }

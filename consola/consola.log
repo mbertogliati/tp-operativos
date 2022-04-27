@@ -4,3 +4,15 @@
 [INFO] 14:15:26:553 CONSOLA/(12450:12450): Paquete creado exitosamente
 [INFO] 14:15:26:553 CONSOLA/(12450:12450): Iniciando conexión con Kernel...
 [ERROR] 14:15:26:554 CONSOLA/(12450:12450): No se ha podido establecer comunicación con el Kernel
+[ERROR] 22:08:41:642 CONSOLA/(10869:10869): ERROR - Tamanio no especificado.
+
+[ERROR] 23:18:55:633 CONSOLA/(15343:15343): No se encontró el archivo de instrucciones
+[ERROR] 23:19:52:840 CONSOLA/(15393:15393): No se encontró el archivo de instrucciones
+[ERROR] 23:20:23:850 CONSOLA/(15425:15425): No se encontró el archivo de instrucciones
+[ERROR] 23:20:55:114 CONSOLA/(15456:15456): No se encontró el archivo de instrucciones
+[INFO] 23:22:27:863 CONSOLA/(15550:15550): Archivo de instrucciones leído correctamente
+[INFO] 23:22:27:864 CONSOLA/(15550:15550): Lista de instrucciones creada
+[INFO] 23:22:27:864 CONSOLA/(15550:15550): Creando paquete de instrucciones...
+[INFO] 23:22:27:864 CONSOLA/(15550:15550): Paquete creado exitosamente
+[INFO] 23:22:27:864 CONSOLA/(15550:15550): Iniciando conexión con Kernel...
+[ERROR] 23:22:28:216 CONSOLA/(15550:15550): No se ha podido establecer comunicación con el Kernel
