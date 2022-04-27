@@ -13,7 +13,7 @@ bool son_argumentos_validos(int cantidad_argumentos, char **argv);
 void consola(char *path, int tamanio);
 
 t_list *leer_archivo(char *path);
-t_paquete *crear_paquete_instrucciones(t_list *instrucciones, int tamanio);
-void enviar_paquete_instrucciones(t_paquete *paquete);
+t_paquete *crear_paquete_instrucciones(t_list *instrucciones);
+void enviar_paquete_instrucciones(t_paquete *paquete, int tamanio);
 
 #endif /* CONSOLA_H_ */

@@ -37,3 +37,11 @@
 [INFO] 17:41:01:188 CONSOLA/(27487:27487): Iniciando conexión con Kernel...
 [INFO] 17:41:01:191 CONSOLA/(27487:27487): Conexión exitosa
 [INFO] 17:41:01:192 CONSOLA/(27487:27487): Paquete enviado
+[INFO] 18:50:05:428 CONSOLA/(6303:6303): Archivo de instrucciones leído correctamente
+[INFO] 18:50:05:429 CONSOLA/(6303:6303): Lista de instrucciones creada
+[INFO] 18:50:05:429 CONSOLA/(6303:6303): Creando paquete de instrucciones...
+[INFO] 18:50:05:429 CONSOLA/(6303:6303): Paquete creado exitosamente
+[INFO] 18:50:05:429 CONSOLA/(6303:6303): Iniciando conexión con Kernel...
+[INFO] 18:50:05:431 CONSOLA/(6303:6303): Conexión exitosa
+[INFO] 18:50:05:431 CONSOLA/(6303:6303): Paquete enviado
+[INFO] 18:50:05:432 CONSOLA/(6303:6303): Mensaje enviado

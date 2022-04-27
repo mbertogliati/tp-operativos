@@ -30,8 +30,8 @@ bool son_argumentos_validos(int cantidad_argumentos, char **argv) {
 
 void consola(char *path, int tamanio) {
 	t_list *instrucciones = leer_archivo(path);
-	t_paquete *paquete = crear_paquete_instrucciones(instrucciones, tamanio);
-	enviar_paquete_instrucciones(paquete);
+	t_paquete *paquete = crear_paquete_instrucciones(instrucciones);
+	enviar_paquete_instrucciones(paquete, tamanio);
 	liberar_lista(instrucciones);
 	log_destroy(logger);
 }

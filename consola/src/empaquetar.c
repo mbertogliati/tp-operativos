@@ -1,7 +1,7 @@
 #include "../include/consola.h"
 #include <commons/config.h>
 
-t_paquete *crear_paquete_instrucciones(t_list *instrucciones, int tamanio) {
+t_paquete *crear_paquete_instrucciones(t_list *instrucciones) {
 	log_info(logger, "Creando paquete de instrucciones...");
 
 	t_paquete *paquete = crear_paquete();
@@ -20,9 +20,6 @@ t_paquete *crear_paquete_instrucciones(t_list *instrucciones, int tamanio) {
 	}
 
 	list_iterator_destroy(iterador);
-
-	//agregar_a_paquete(paquete, &tamanio, sizeof(int));
-
 	log_info(logger, "Paquete creado exitosamente");
 
 	return paquete;
@@ -53,7 +50,7 @@ int conectar_a_kernel() {
 	return conexion;
 }
 
-void enviar_paquete_instrucciones(t_paquete *paquete) {
+void enviar_paquete_instrucciones(t_paquete *paquete, int tamanio) {
 	log_info(logger, "Iniciando conexión con Kernel...");
 	int socket_cliente = conectar_a_kernel();
 
@@ -67,6 +64,8 @@ void enviar_paquete_instrucciones(t_paquete *paquete) {
 
 	enviar_paquete(paquete, socket_cliente);
 	log_info(logger, "Paquete enviado");
+	enviar_mensaje(&tamanio, socket_cliente);
+	log_info(logger, "Mensaje enviado");
 
 	eliminar_paquete(paquete);
 	liberar_conexion(socket_cliente);

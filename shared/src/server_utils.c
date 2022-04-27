@@ -31,7 +31,7 @@ int recibir_operacion(int socket_cliente) {
 	}
 }
 
-void *recibir_buffer(int* size, int socket_cliente) {
+void *recibir_buffer(int *size, int socket_cliente) {
 	void *buffer;
 
 	recv(socket_cliente, size, sizeof(int), MSG_WAITALL);
@@ -43,8 +43,8 @@ void *recibir_buffer(int* size, int socket_cliente) {
 
 void recibir_mensaje(int socket_cliente) {
 	int size;
-	char *buffer = recibir_buffer(&size, socket_cliente);
-	log_info(logger, "Me llegó el mensaje %s", buffer);
+	int *buffer = recibir_buffer(&size, socket_cliente);
+	log_info(logger, "Me llegó el mensaje %d", *buffer);
 	free(buffer);
 }
 
