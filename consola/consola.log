@@ -1,18 +1,39 @@
-[INFO] 14:15:26:539 CONSOLA/(12450:12450): Archivo de instrucciones leído correctamente
-[INFO] 14:15:26:553 CONSOLA/(12450:12450): Lista de instrucciones creada
-[INFO] 14:15:26:553 CONSOLA/(12450:12450): Creando paquete de instrucciones...
-[INFO] 14:15:26:553 CONSOLA/(12450:12450): Paquete creado exitosamente
-[INFO] 14:15:26:553 CONSOLA/(12450:12450): Iniciando conexión con Kernel...
-[ERROR] 14:15:26:554 CONSOLA/(12450:12450): No se ha podido establecer comunicación con el Kernel
-[ERROR] 22:08:41:642 CONSOLA/(10869:10869): ERROR - Tamanio no especificado.
-
-[ERROR] 23:18:55:633 CONSOLA/(15343:15343): No se encontró el archivo de instrucciones
-[ERROR] 23:19:52:840 CONSOLA/(15393:15393): No se encontró el archivo de instrucciones
-[ERROR] 23:20:23:850 CONSOLA/(15425:15425): No se encontró el archivo de instrucciones
-[ERROR] 23:20:55:114 CONSOLA/(15456:15456): No se encontró el archivo de instrucciones
-[INFO] 23:22:27:863 CONSOLA/(15550:15550): Archivo de instrucciones leído correctamente
-[INFO] 23:22:27:864 CONSOLA/(15550:15550): Lista de instrucciones creada
-[INFO] 23:22:27:864 CONSOLA/(15550:15550): Creando paquete de instrucciones...
-[INFO] 23:22:27:864 CONSOLA/(15550:15550): Paquete creado exitosamente
-[INFO] 23:22:27:864 CONSOLA/(15550:15550): Iniciando conexión con Kernel...
-[ERROR] 23:22:28:216 CONSOLA/(15550:15550): No se ha podido establecer comunicación con el Kernel
+[INFO] 16:20:03:154 CONSOLA/(23288:23288): Archivo de instrucciones leído correctamente
+[INFO] 16:20:03:157 CONSOLA/(23288:23288): Lista de instrucciones creada
+[INFO] 16:20:03:157 CONSOLA/(23288:23288): Creando paquete de instrucciones...
+[INFO] 16:20:03:157 CONSOLA/(23288:23288): Paquete creado exitosamente
+[INFO] 16:20:03:157 CONSOLA/(23288:23288): Iniciando conexión con Kernel...
+[INFO] 17:28:58:370 CONSOLA/(26658:26658): Archivo de instrucciones leído correctamente
+[INFO] 17:28:58:372 CONSOLA/(26658:26658): Lista de instrucciones creada
+[INFO] 17:28:58:372 CONSOLA/(26658:26658): Creando paquete de instrucciones...
+[INFO] 17:28:58:372 CONSOLA/(26658:26658): Paquete creado exitosamente
+[INFO] 17:28:58:372 CONSOLA/(26658:26658): Iniciando conexión con Kernel...
+[INFO] 17:28:58:378 CONSOLA/(26658:26658): Conexión exitosa
+[INFO] 17:28:58:378 CONSOLA/(26658:26658): Paquete enviado
+[INFO] 17:35:09:979 CONSOLA/(27147:27147): Archivo de instrucciones leído correctamente
+[INFO] 17:35:09:980 CONSOLA/(27147:27147): Lista de instrucciones creada
+[INFO] 17:35:09:980 CONSOLA/(27147:27147): Creando paquete de instrucciones...
+[INFO] 17:35:09:980 CONSOLA/(27147:27147): Paquete creado exitosamente
+[INFO] 17:35:09:980 CONSOLA/(27147:27147): Iniciando conexión con Kernel...
+[INFO] 17:35:09:981 CONSOLA/(27147:27147): Conexión exitosa
+[INFO] 17:35:09:981 CONSOLA/(27147:27147): Paquete enviado
+[INFO] 17:39:26:436 CONSOLA/(27369:27369): Archivo de instrucciones leído correctamente
+[INFO] 17:39:26:438 CONSOLA/(27369:27369): Lista de instrucciones creada
+[INFO] 17:39:26:438 CONSOLA/(27369:27369): Creando paquete de instrucciones...
+[INFO] 17:39:26:439 CONSOLA/(27369:27369): Paquete creado exitosamente
+[INFO] 17:39:26:439 CONSOLA/(27369:27369): Iniciando conexión con Kernel...
+[ERROR] 17:39:26:450 CONSOLA/(27369:27369): No se ha podido establecer comunicación con el Kernel
+[INFO] 17:39:44:799 CONSOLA/(27400:27400): Archivo de instrucciones leído correctamente
+[INFO] 17:39:44:802 CONSOLA/(27400:27400): Lista de instrucciones creada
+[INFO] 17:39:44:802 CONSOLA/(27400:27400): Creando paquete de instrucciones...
+[INFO] 17:39:44:802 CONSOLA/(27400:27400): Paquete creado exitosamente
+[INFO] 17:39:44:802 CONSOLA/(27400:27400): Iniciando conexión con Kernel...
+[INFO] 17:39:44:813 CONSOLA/(27400:27400): Conexión exitosa
+[INFO] 17:39:44:813 CONSOLA/(27400:27400): Paquete enviado
+[INFO] 17:41:01:187 CONSOLA/(27487:27487): Archivo de instrucciones leído correctamente
+[INFO] 17:41:01:188 CONSOLA/(27487:27487): Lista de instrucciones creada
+[INFO] 17:41:01:188 CONSOLA/(27487:27487): Creando paquete de instrucciones...
+[INFO] 17:41:01:188 CONSOLA/(27487:27487): Paquete creado exitosamente
+[INFO] 17:41:01:188 CONSOLA/(27487:27487): Iniciando conexión con Kernel...
+[INFO] 17:41:01:191 CONSOLA/(27487:27487): Conexión exitosa
+[INFO] 17:41:01:192 CONSOLA/(27487:27487): Paquete enviado
