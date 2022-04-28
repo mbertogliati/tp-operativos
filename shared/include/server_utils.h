@@ -16,6 +16,7 @@ int esperar_cliente(int);
 int recibir_operacion(int);
 void *recibir_buffer(int*, int);
 void recibir_mensaje(int);
-t_list *recibir_paquete(int);
+
+int recibir_tamanio_en_memoria(void *buffer);
 
 #endif /* SERVER_UTILS_H_ */

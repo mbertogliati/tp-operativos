@@ -17,20 +17,28 @@ void liberar_conexion(int socket_cliente) {
 }
 
 /******* SERIALIZAR *******/
-void *serializar_paquete(t_paquete *paquete, int bytes) {
-	void *magic = malloc(bytes);
+/*
+	Cambie la variable bytes por size_serializado y ademas ahora la variable se sobreescribe al terminar la funcion
+	dando el tamaño correcto del buffer a enviar
+*/
+void *serializar_paquete(t_paquete *paquete, int *size_serializado) {
+	void *magic=NULL;
 	int desplazamiento = 0;
 	t_buffer *buffer = paquete->buffer;
 
+	magic = realloc(magic,sizeof(int)+desplazamiento);
 	memcpy(magic + desplazamiento, &(paquete->codigo_operacion), sizeof(int));
 	desplazamiento += sizeof(int);
 
+	magic = realloc(magic,sizeof(int)+desplazamiento);
 	memcpy(magic + desplazamiento, &(buffer->size), sizeof(int));
 	desplazamiento += sizeof(int);
 
+	magic = realloc(magic,buffer->size+desplazamiento);
 	memcpy(magic + desplazamiento, buffer->stream, buffer->size);
 	desplazamiento += buffer->size;
 
+	*size_serializado = desplazamiento;
 	return magic;
 }
 
@@ -61,9 +69,9 @@ void crear_buffer(t_paquete* paquete) {
 	paquete->buffer->stream = NULL;
 }
 
-t_paquete *crear_paquete(void) {
+t_paquete *crear_paquete(op_code codigo_operacion) {
 	t_paquete *paquete = malloc(sizeof(t_paquete));
-	paquete->codigo_operacion = PAQUETE;
+	paquete->codigo_operacion = codigo_operacion;
 	crear_buffer(paquete);
 	return paquete;
 }
@@ -75,11 +83,11 @@ void agregar_a_paquete(t_paquete *paquete, void *valor, int bytes) {
 	memcpy(buffer->stream + buffer->size, valor, bytes);
 	buffer->size += bytes;
 }
-
+/*Modifique la variable bytes por size_serializado nada mas*/
 void enviar_paquete(t_paquete* paquete, int socket_cliente) {
-	int bytes = paquete->buffer->size + 2 * sizeof(int);
-	void *a_enviar = serializar_paquete(paquete, bytes);
-	send(socket_cliente, a_enviar, bytes, 0);
+	int size_serializado;
+	void *a_enviar = serializar_paquete(paquete, &size_serializado);
+	send(socket_cliente, a_enviar, size_serializado, 0);
 	free(a_enviar);
 }
 

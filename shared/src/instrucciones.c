@@ -45,7 +45,10 @@ void leer_instruccion(t_instruccion *instruccion) {
 			printf("%d, ", parametros[i]);
 	}
 }
-
+/*
+	Sostengo FUERTEMENTE que hay que cambiar el nombre de esta funcion
+	por imprimir_lista porque sino es medio confuso
+*/
 void leer_lista(t_list *lista_de_instrucciones) {
 	if (!list_is_empty(lista_de_instrucciones)) {
 		puts("\nLeyendo lista de instrucciones\n"

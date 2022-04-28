@@ -23,9 +23,10 @@ void liberar_conexion(int socket_cliente);
 
 void enviar_mensaje(int *mensaje, int socket_cliente);
 
-t_paquete *crear_paquete(void);
+t_paquete *crear_paquete(op_code codigo_operacion);
 void agregar_a_paquete(t_paquete *paquete, void *valor, int bytes);
 void enviar_paquete(t_paquete *paquete, int socket_cliente);
 void eliminar_paquete(t_paquete *paquete);
+void *serializar_paquete(t_paquete *paquete, int *size_serializado);
 
 #endif /* CLIENT_UTILS_H_ */

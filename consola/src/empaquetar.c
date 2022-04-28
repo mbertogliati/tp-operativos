@@ -1,11 +1,12 @@
-#include "../include/consola.h"
-#include <commons/config.h>
+#include "../include/empaquetar.h"
 
-t_paquete *crear_paquete_instrucciones(t_list *instrucciones) {
+t_paquete *crear_paquete_instrucciones(t_list *instrucciones, int tamanio) {
 	log_info(logger, "Creando paquete de instrucciones...");
 
-	t_paquete *paquete = crear_paquete();
+	t_paquete *paquete = crear_paquete(INSTRUCCIONES_CONSOLA);
 	t_list_iterator *iterador = list_iterator_create(instrucciones);
+
+	agregar_a_paquete(paquete, &tamanio, sizeof(int));
 
 	while (list_iterator_has_next(iterador)) {
 		t_instruccion *instruccion = list_iterator_next(iterador);
@@ -50,7 +51,7 @@ int conectar_a_kernel() {
 	return conexion;
 }
 
-void enviar_paquete_instrucciones(t_paquete *paquete, int tamanio) {
+void enviar_paquete_instrucciones(t_paquete *paquete) {
 	log_info(logger, "Iniciando conexión con Kernel...");
 	int socket_cliente = conectar_a_kernel();
 
@@ -64,8 +65,6 @@ void enviar_paquete_instrucciones(t_paquete *paquete, int tamanio) {
 
 	enviar_paquete(paquete, socket_cliente);
 	log_info(logger, "Paquete enviado");
-	enviar_mensaje(&tamanio, socket_cliente);
-	log_info(logger, "Mensaje enviado");
 
 	eliminar_paquete(paquete);
 	liberar_conexion(socket_cliente);

@@ -1,6 +1,4 @@
-#include "../include/consola.h"
-#include <stdlib.h>
-#include <commons/string.h>
+#include "../include/leer_archivo.h"
 
 void procesar_linea(char **instruccion_leida, t_list *instrucciones) {
 	int identificador = get_identificador(instruccion_leida[0]);

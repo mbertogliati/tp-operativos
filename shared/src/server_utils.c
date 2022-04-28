@@ -40,6 +40,15 @@ void *recibir_buffer(int *size, int socket_cliente) {
 
 	return buffer;
 }
+/*
+	nueva funcion que toma el valor del buffer en ese momento y lo castea a int 
+	(que es supuestamente donde esta el argumento "tamanio")
+*/
+int recibir_tamanio_en_memoria(void *buffer){ 
+	int *memory_size;
+	memory_size = buffer;
+	return (*memory_size);
+}
 
 void recibir_mensaje(int socket_cliente) {
 	int size;
@@ -48,37 +57,3 @@ void recibir_mensaje(int socket_cliente) {
 	free(buffer);
 }
 
-t_list *recibir_paquete(int socket_cliente) {
-	int size, desplazamiento = 0;
-	void *buffer;
-	buffer = recibir_buffer(&size, socket_cliente);
-
-	t_list *instrucciones = list_create();
-	t_instruccion *instruccion;
-
-	while (desplazamiento < size) {
-		int identificador, cant_parametros;
-		uint32_t *parametros;
-
-		memcpy(&identificador, buffer + desplazamiento, sizeof(int));
-		desplazamiento += sizeof(int);
-
-		memcpy(&cant_parametros, buffer + desplazamiento, sizeof(int));
-		desplazamiento += sizeof(int);
-
-		if (cant_parametros) {
-			int tam_cant_parametros = cant_parametros * sizeof(uint32_t);
-			parametros = (uint32_t *) malloc(tam_cant_parametros);
-
-			memcpy(parametros, buffer + desplazamiento, tam_cant_parametros);
-			desplazamiento += tam_cant_parametros;
-		}
-		else parametros = NULL;
-
-		instruccion = crear_instruccion(identificador, cant_parametros, parametros);
-		list_add(instrucciones, instruccion);
-	}
-
-	free(buffer);
-	return instrucciones;
-}
