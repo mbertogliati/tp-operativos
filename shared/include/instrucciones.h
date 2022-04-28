@@ -18,8 +18,8 @@ typedef struct {
 t_instruccion *crear_instruccion(int identificador, int cant_parametros, uint32_t *parametros);
 int get_identificador(char* identificador_leido);
 
-void leer_instruccion(t_instruccion *instruccion);
-void leer_lista(t_list *lista_de_instrucciones);
+void imprimir_instruccion(t_instruccion *instruccion);
+void imprimir_lista(t_list *lista_de_instrucciones);
 
 void liberar_instruccion(t_instruccion *instruccion);
 void liberar_lista(t_list *lista_de_instrucciones);

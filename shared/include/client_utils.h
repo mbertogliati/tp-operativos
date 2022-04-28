@@ -21,12 +21,14 @@ typedef struct {
 int crear_conexion(char *ip, char *puerto);
 void liberar_conexion(int socket_cliente);
 
-void enviar_mensaje(int *mensaje, int socket_cliente);
-
 t_paquete *crear_paquete(op_code codigo_operacion);
 void agregar_a_paquete(t_paquete *paquete, void *valor, int bytes);
-void enviar_paquete(t_paquete *paquete, int socket_cliente);
 void eliminar_paquete(t_paquete *paquete);
+
+void *serializar_paquete_original(t_paquete *paquete, int size_serializado);
+void enviar_paquete_original(t_paquete *paquete, int socket_cliente);
+
 void *serializar_paquete(t_paquete *paquete, int *size_serializado);
+void enviar_paquete(t_paquete *paquete, int socket_cliente);
 
 #endif /* CLIENT_UTILS_H_ */

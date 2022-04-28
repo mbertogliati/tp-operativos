@@ -9,14 +9,11 @@ int iniciar_servidor(void) {
 	listen(socket_servidor, SOMAXCONN);
 
 	freeaddrinfo(server_info);
-	log_trace(logger, "Listo para escuchar a mi cliente");
-
 	return socket_servidor;
 }
 
 int esperar_cliente(int socket_servidor) {
 	int socket_cliente = accept(socket_servidor, NULL, NULL);
-	log_info(logger, "Se conectó un cliente!");
 	return socket_cliente;
 }
 
@@ -40,20 +37,3 @@ void *recibir_buffer(int *size, int socket_cliente) {
 
 	return buffer;
 }
-/*
-	nueva funcion que toma el valor del buffer en ese momento y lo castea a int 
-	(que es supuestamente donde esta el argumento "tamanio")
-*/
-int recibir_tamanio_en_memoria(void *buffer){ 
-	int *memory_size;
-	memory_size = buffer;
-	return (*memory_size);
-}
-
-void recibir_mensaje(int socket_cliente) {
-	int size;
-	int *buffer = recibir_buffer(&size, socket_cliente);
-	log_info(logger, "Me llegó el mensaje %d", *buffer);
-	free(buffer);
-}
-

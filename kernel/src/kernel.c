@@ -1,25 +1,18 @@
-#include "../../shared/include/server_utils.h"
 #include "../include/kernel.h"
 
 int main() {
 	logger = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
 
-	int server_fd = iniciar_servidor();
+	int socket_servidor = iniciar_servidor();
 	log_info(logger, "Servidor listo para recibir al cliente");
-	int cliente_fd = esperar_cliente(server_fd);
+	int socket_cliente = esperar_cliente(socket_servidor);
 
-	t_paquete_consola* paquete_consola;
-
+	//t_paquete_consola* paquete_consola;
 	while (1) {
-		int cod_op = recibir_operacion(cliente_fd);
-
-		switch (cod_op) {
-		case MENSAJE:
-			recibir_mensaje(cliente_fd);
-			break;
-
+		switch (recibir_operacion(socket_cliente)) {
 		case INSTRUCCIONES_CONSOLA:
-
+			log_info(logger, "Se conectó un cliente!");
+			/*
 			paquete_consola = recibir_paquete_instrucciones_consola(cliente_fd);
 			log_info(logger, "Me llegaron los siguientes valores:\n");
 			leer_lista(paquete_consola->lista_de_instrucciones);
@@ -29,14 +22,14 @@ int main() {
 
 			liberar_lista(paquete_consola->lista_de_instrucciones);
 			free(paquete_consola);
+			*/
+			recibir_proceso(socket_cliente);
 			break;
-
 		case -1:
 			log_error(logger, "El cliente se desconectó. Terminando servidor");
 			return EXIT_FAILURE;
-
 		default:
-			log_warning(logger, "Operación desconocida.");
+			log_warning(logger,"Operación desconocida");
 			break;
 		}
 	}
@@ -44,49 +37,24 @@ int main() {
 	log_destroy(logger);
 	return EXIT_SUCCESS;
 }
-/*
-	Cree una nueva estructura que tiene la lista + el tamaño que se ingreso por consola
-	solo para no hacerme lio, si queres despues lo podes cambiar
-*/
-t_paquete_consola *recibir_paquete_instrucciones_consola(int socket_cliente) {
-	int size, tamanio_en_memoria, desplazamiento = 0;
-	void *buffer;
 
-	buffer = recibir_buffer(&size, socket_cliente);
-	
-	tamanio_en_memoria = recibir_tamanio_en_memoria(buffer);
-	desplazamiento += sizeof(int);
+// Ejemplo de cómo se recibiría un proceso + implementación de las funciones que agregué
 
-
-	t_paquete_consola *paquete_recibido = malloc(sizeof(t_paquete_consola));
+void recibir_proceso(int socket_cliente) {
+	int tamanio;
 	t_list *instrucciones = list_create();
-	t_instruccion *instruccion;
+	recibir_proceso_consola(socket_cliente, &tamanio, instrucciones);
 
-	while (desplazamiento < size) {
-		int identificador, cant_parametros;
-		uint32_t *parametros;
+	pcb bloque_control = {
+			.id = 1234,
+			.tamanio = tamanio,
+			.instrucciones = instrucciones,
+			.program_counter = 0
+	};
 
-		memcpy(&identificador, buffer + desplazamiento, sizeof(int));
-		desplazamiento += sizeof(int);
-
-		memcpy(&cant_parametros, buffer + desplazamiento, sizeof(int));
-		desplazamiento += sizeof(int);
-
-		if (cant_parametros) {
-			int tam_cant_parametros = cant_parametros * sizeof(uint32_t);
-			parametros = (uint32_t *) malloc(tam_cant_parametros);
-
-			memcpy(parametros, buffer + desplazamiento, tam_cant_parametros);
-			desplazamiento += tam_cant_parametros;
-		}
-		else parametros = NULL;
-
-		instruccion = crear_instruccion(identificador, cant_parametros, parametros);
-		list_add(instrucciones, instruccion);
-	}
-	free(buffer);
-	paquete_recibido->lista_de_instrucciones = instrucciones;
-	paquete_recibido->memory_size =	tamanio_en_memoria;
-	
-	return paquete_recibido;
+	log_info(logger, "Recibí el proceso:\n");
+	printf("\n\nId: %d\nTamaño: %d\nInstrucciones:\n\n",
+			bloque_control.id, bloque_control.tamanio);
+	imprimir_lista(bloque_control.instrucciones);
+	liberar_lista(bloque_control.instrucciones);
 }

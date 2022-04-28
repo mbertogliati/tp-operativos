@@ -63,7 +63,7 @@ void enviar_paquete_instrucciones(t_paquete *paquete) {
 
 	log_info(logger, "Conexión exitosa");
 
-	enviar_paquete(paquete, socket_cliente);
+	enviar_paquete_original(paquete, socket_cliente);
 	log_info(logger, "Paquete enviado");
 
 	eliminar_paquete(paquete);

@@ -28,12 +28,12 @@ int get_identificador(char *identificador_leido) {
 	return identificador;
 }
 
-void leer_instruccion(t_instruccion *instruccion) {
+void imprimir_instruccion(t_instruccion *instruccion) {
 	int identificador = instruccion->identificador;
 	int cant_parametros = instruccion->cant_parametros;
 	uint32_t *parametros = instruccion->parametros;
 
-	printf("identificador: %d\nparametros: ", identificador);
+	printf("\tidentificador: %d\n\tparametros: ", identificador);
 
 	if (!parametros)
 		puts("no hay parametros\n");
@@ -45,16 +45,10 @@ void leer_instruccion(t_instruccion *instruccion) {
 			printf("%d, ", parametros[i]);
 	}
 }
-/*
-	Sostengo FUERTEMENTE que hay que cambiar el nombre de esta funcion
-	por imprimir_lista porque sino es medio confuso
-*/
-void leer_lista(t_list *lista_de_instrucciones) {
-	if (!list_is_empty(lista_de_instrucciones)) {
-		puts("\nLeyendo lista de instrucciones\n"
-				"------------------------------\n");
-		list_iterate(lista_de_instrucciones, (void *) leer_instruccion);
-	}
+
+void imprimir_lista(t_list *lista_de_instrucciones) {
+	if (!list_is_empty(lista_de_instrucciones))
+		list_iterate(lista_de_instrucciones, (void *) imprimir_instruccion);
 }
 
 void liberar_instruccion(t_instruccion *instruccion) {

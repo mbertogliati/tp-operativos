@@ -8,7 +8,7 @@
 #define PUERTO "8000"
 
 typedef enum {
-	MENSAJE, INSTRUCCIONES_CONSOLA
+	INSTRUCCIONES_CONSOLA
 } op_code;
 
 struct addrinfo *addrinfo_servidor(char *ip, char *puerto);

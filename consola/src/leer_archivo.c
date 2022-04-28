@@ -2,24 +2,39 @@
 
 void procesar_linea(char **instruccion_leida, t_list *instrucciones) {
 	int identificador = get_identificador(instruccion_leida[0]);
+	int cant_parametros = 0;
 	uint32_t *parametros = NULL;
-	int i = 0;
 
 	switch (identificador) {
 	case NO_OP:
-		for (; i < atoi(instruccion_leida[1]); i++)
-			list_add(instrucciones, crear_instruccion(identificador, 0, parametros));
+		for (int i = 0; i < atoi(instruccion_leida[1]); i++)
+			list_add(instrucciones, crear_instruccion(identificador, cant_parametros, parametros));
+		return;
+
+	case IO: case READ:
+		cant_parametros = 1;
 		break;
 
-	case IO: case READ: case WRITE: case COPY: case EXIT:
-		while (instruccion_leida[i + 1]) {
-			parametros = (uint32_t*) realloc(parametros, sizeof(uint32_t) * (i + 1));
-			parametros[i] = atoi(instruccion_leida[i + 1]);
-			i++;
-		}
-		list_add(instrucciones, crear_instruccion(identificador, i, parametros));
+	case WRITE: case COPY:
+		cant_parametros = 2;
 		break;
+
+	case EXIT:
+		break;
+
+	default:
+		// identificador no reconocido
+		return;
 	}
+
+	if (cant_parametros) {
+		parametros = (uint32_t *) malloc(cant_parametros * sizeof(uint32_t));
+
+		for (int i = 0; i < cant_parametros; i++)
+			parametros[i] = atoi(instruccion_leida[i + 1]);
+	}
+
+	list_add(instrucciones, crear_instruccion(identificador, cant_parametros, parametros));
 }
 
 t_list *leer_archivo(char *path) {
