@@ -1,6 +1,9 @@
 #ifndef SOCKET_H_
 #define SOCKET_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <netdb.h>
 #include <sys/socket.h>
 
@@ -8,7 +11,7 @@
 #define PUERTO "8000"
 
 typedef enum {
-	INSTRUCCIONES_CONSOLA
+	INSTRUCCIONES_CONSOLA, MENSAJE
 } op_code;
 
 struct addrinfo *addrinfo_servidor(char *ip, char *puerto);
