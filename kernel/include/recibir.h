@@ -2,6 +2,7 @@
 #define RECIBIR_H_
 
 #include <string.h>
+#include <commons/collections/list.h>
 #include "../../shared/include/instrucciones.h"
 #include "../../shared/include/server_utils.h"
 

@@ -62,5 +62,5 @@ void imprimir_pcb(pcb *bloque_control) {
 	printf("\n\nId: %d\nTamaño: %d\nInstrucciones:\n\n",
 			bloque_control->id,
 			bloque_control->tamanio);
-	imprimir_lista(bloque_control->instrucciones);
+	list_iterate(bloque_control->instrucciones, (void *) imprimir_instruccion);
 }

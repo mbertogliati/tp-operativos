@@ -17,12 +17,12 @@ int main() {
 			bloque_control = generar_pcb(socket_cliente);
 			log_info(logger, "Recibí el proceso:\n");
 			imprimir_pcb(bloque_control);
-			liberar_lista(bloque_control->instrucciones);
+			list_destroy_and_destroy_elements(bloque_control->instrucciones, (void *) liberar_instruccion);
 			break;
 
 		case MENSAJE:
 			mensaje = recibir_mensaje(socket_cliente);
-			log_info(logger, "Me llegó el mensaje %s", mensaje);
+			log_info(logger, "Me llegó el mensaje: %s", mensaje);
 			free(mensaje);
 			break;
 

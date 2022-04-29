@@ -7,6 +7,6 @@ int iniciar_servidor(void);
 int esperar_cliente(int);
 void *recibir_buffer(int *, int);
 int recibir_operacion(int);
-char *recibir_mensaje(int);
+void *recibir_mensaje(int);
 
 #endif /* SERVER_UTILS_H_ */

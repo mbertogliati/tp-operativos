@@ -1,11 +1,10 @@
 #include "../include/consola.h"
 
 int main(int argc, char **argv) {
-	if(!son_argumentos_validos(argc, argv))
-		return EXIT_FAILURE;
-
-	consola(argv[1], atoi(argv[2]));
-
+	if(!son_argumentos_validos(argc, argv)) return EXIT_FAILURE;
+	t_paquete *paquete = crear_paquete_instrucciones(argv[1], atoi(argv[2]));
+	enviar_paquete_instrucciones(paquete);
+	log_destroy(logger);
 	return EXIT_SUCCESS;
 }
 
@@ -25,12 +24,4 @@ bool son_argumentos_validos(int cantidad_argumentos, char **argv) {
 	}
 
 	return true;
-}
-
-void consola(char *path, int tamanio) {
-	t_list *instrucciones = leer_archivo(path);
-	t_paquete *paquete = crear_paquete_instrucciones(instrucciones, tamanio);
-	enviar_paquete_instrucciones(paquete);
-	liberar_lista(instrucciones);
-	log_destroy(logger);
 }

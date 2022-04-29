@@ -46,16 +46,7 @@ void imprimir_instruccion(t_instruccion *instruccion) {
 	}
 }
 
-void imprimir_lista(t_list *lista_de_instrucciones) {
-	if (!list_is_empty(lista_de_instrucciones))
-		list_iterate(lista_de_instrucciones, (void *) imprimir_instruccion);
-}
-
 void liberar_instruccion(t_instruccion *instruccion) {
 	free(instruccion->parametros);
 	free(instruccion);
-}
-
-void liberar_lista(t_list *lista_de_instrucciones) {
-	list_destroy_and_destroy_elements(lista_de_instrucciones, (void *) liberar_instruccion);
 }
