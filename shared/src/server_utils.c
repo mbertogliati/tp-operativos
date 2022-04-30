@@ -1,8 +1,8 @@
 #include "../include/server_utils.h"
 
 /******* CONECTAR *******/
-int iniciar_servidor(void) {
-	struct addrinfo *server_info = addrinfo_servidor(IP, PUERTO);
+int iniciar_servidor(char* puerto) {
+	struct addrinfo *server_info = addrinfo_servidor(NULL, puerto);
 	int socket_servidor = crear_socket(server_info);
 
 	bind(socket_servidor, server_info->ai_addr, server_info->ai_addrlen);
