@@ -58,3 +58,4 @@ dkms.conf
 #Archivos innecesarios
 *.log
 *.github
+/.metadata/
