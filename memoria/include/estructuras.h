@@ -9,6 +9,8 @@
 #include <math.h>
 
 t_log *memoria_log;
+void* memoria_principal;
+t_list *tablas;
 
 typedef struct{
     char* puerto;
@@ -24,6 +26,13 @@ typedef struct{
 
 t_config_memoria* configuracion_memoria;
 t_list* procesos;
+
+typedef struct{
+    int marco;
+    char P;
+    char U;
+    char M;
+} t_tabla;
 
 t_config_memoria *cargar_configuraciones(char** path);
 bool es_configuracion_valida(t_config *config_memoria);

@@ -3,11 +3,6 @@
 #include <stdlib.h>
 
 int main() {
-
-    int tam_memoria,
-        tam_pagina,
-        entradas_por_tabla;
-    void* memoria_principal;
     
     configuracion_memoria = cargar_configuraciones("config/memoria.config");
 
@@ -23,7 +18,6 @@ int main() {
     //memset(tablas_de_paginas,0,entradas_por_tabla*entradas_por_tabla*sizeof(t_tabla));
 
     //memoria_principal = malloc(tam_memoria);
-
 
     return EXIT_SUCCESS;
 }

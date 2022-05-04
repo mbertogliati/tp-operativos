@@ -4,6 +4,8 @@
 #include "estructuras.h"
 #include <stdbool.h>
 
+
+
 int iniciar_conexion(t_config_memoria *configs);
 
 
