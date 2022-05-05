@@ -1,12 +1,25 @@
 #include "../include/memoria.h"
-#include <stdio.h>
-#include <stdlib.h>
+
+
+void funcion_test1(){
+	tablas = list_create();
+	int proceso1 = agregar_proceso(16);
+	int proceso2 = agregar_proceso(17);
+	int proceso3 = agregar_proceso(16);
+
+	int tabla2 = obtener_tabla2(proceso1, 1);
+
+	printf("Direccion tabla1 proceso 1: %d\n", proceso1);
+	printf("Direccion tabla1 proceso 2: %d\n", proceso2);
+	printf("Direccion tabla1 proceso 3: %d\n", proceso3);
+	printf("direccion tabla2: %d\n", tabla2);
+}
 
 int main() {
     
-    configuracion_memoria = cargar_configuraciones("config/memoria.config");
+    cargar_configuraciones("config/memoria.config");
 
-    if(!configuracion_memoria)
+    if(!configuracion)
         return EXIT_FAILURE;
 
     //iniciar_conexion(configuracion_memoria);
@@ -20,27 +33,4 @@ int main() {
     //memoria_principal = malloc(tam_memoria);
 
     return EXIT_SUCCESS;
-}
-
-void funcion_test1(){
-	agregar_proceso(0, 16);
-	agregar_proceso(1, 16);
-	agregar_proceso(2, 16);
-
-	t_tabla2* tabla_test = encontrar_tabla2(0, 1, 0);
-	tabla_test->M = 1;
-	tabla_test->P = 1;
-	tabla_test = encontrar_tabla2(1, 0, 1);
-	tabla_test->marco = 55;
-
-	tabla_test = encontrar_tabla2(0, 1, 0);
-	if(tabla_test->M)
-		printf("M correcto");
-	if(tabla_test->P)
-		printf("P correcto");
-	if(tabla_test->U)
-		printf("U correcto");
-
-	tabla_test = encontrar_tabla2(1, 0, 1);
-	printf("%d", tabla_test->marco);
 }

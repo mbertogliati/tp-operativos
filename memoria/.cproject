@@ -39,6 +39,7 @@
 								<option id="gnu.c.link.option.other.839526618" name="Other options (-Xlinker [option])" superClass="gnu.c.link.option.other" useByScannerDiscovery="false" valueType="stringList">
 									<listOptionValue builtIn="false" value="-lm"/>
 								</option>
+								<option id="gnu.c.link.option.ldflags.1777842441" name="Linker flags" superClass="gnu.c.link.option.ldflags" useByScannerDiscovery="false" value="" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.144823914" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

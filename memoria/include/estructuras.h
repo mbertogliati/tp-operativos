@@ -5,12 +5,11 @@
 #include <commons/config.h>
 #include <commons/collections/list.h>
 #include <stdlib.h>
-#include "paginacion.h"
 #include <math.h>
 
 t_log *memoria_log;
 void* memoria_principal;
-t_list *tablas;
+t_list* tablas;
 
 typedef struct{
     char* puerto;
@@ -24,20 +23,18 @@ typedef struct{
     char* path_swap;
 } t_config_memoria;
 
-t_config_memoria* configuracion_memoria;
-t_list* procesos;
+t_config_memoria* configuracion;
 
 typedef struct{
     int marco;
     char P;
     char U;
     char M;
-} t_tabla;
+} t_tabla2;
 
-t_config_memoria *cargar_configuraciones(char** path);
+void cargar_configuraciones(char* path);
 bool es_configuracion_valida(t_config *config_memoria);
-void agregar_proceso(int id_proceso, int tamanio_proceso);
-t_tabla2* encontrar_tabla2(int proceso_id, int entrada_primer_nivel, int entrada_segundo_nivel);
-
+int agregar_proceso(int tamanio_proceso);
+int obtener_tabla2(int direccion, int indice);
 
 #endif
