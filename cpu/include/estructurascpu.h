@@ -11,5 +11,7 @@ typedef struct{
     char* puerto_escucha_interrupt;
 }t_config_cpu;
 
+t_config_cpu *cargar_config (char** path);
+bool es_configuracion_valida(t_config *config_cpu);
 
 #endif
