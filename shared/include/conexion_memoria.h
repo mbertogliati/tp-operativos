@@ -7,3 +7,5 @@ typedef enum {
 } inst_memoria;
 
 #endif
+//[INST_MEMORIA][SIZE_BUFFER][BUFFER]
+//[DEVOLVER_INDICE_TABLA_NVL2][SIZEOF(INT)][TAMAÑO]

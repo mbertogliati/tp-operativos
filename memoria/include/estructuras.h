@@ -5,8 +5,10 @@
 #include <commons/config.h>
 #include <commons/collections/list.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 t_log *memoria_log;
+t_config_memoria *configuracion_memoria;
 void* memoria_principal;
 t_list *tablas;
 
@@ -29,8 +31,7 @@ typedef struct{
     char M;
 } t_tabla;
 
-t_config_memoria *cargar_configuraciones(char** path);
-bool es_configuracion_valida(t_config *config_memoria);
+t_config_memoria *cargar_configuraciones(char* path);
 
 
 #endif
