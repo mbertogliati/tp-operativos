@@ -42,8 +42,6 @@ void cargar_configuraciones(char* path){
     configuracion->path_swap = config_get_string_value(config_memoria,"PATH_SWAP");
     
     log_info(memoria_log, "Listo!\n");
-
-    return configuracion;
 }
 
 bool es_configuracion_valida(t_config *config_memoria){

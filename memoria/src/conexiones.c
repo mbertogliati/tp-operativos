@@ -9,8 +9,8 @@ int iniciar_conexiones(){
         socket_cpu,
         socket_kernel;
 
-    memoria_principal = malloc(configuracion_memoria -> tam_memoria);
-    socket_servidor = iniciar_servidor(configuracion_memoria -> puerto);
+    memoria_principal = malloc(configuracion->tam_memoria);
+    socket_servidor = iniciar_servidor(configuracion->puerto);
 
     pthread_t comunicacion_cpu;
     pthread_t comunicacion_kernel;

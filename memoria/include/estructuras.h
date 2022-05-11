@@ -11,12 +11,6 @@
 #include <string.h>
 #include <unistd.h>
 
-t_log *memoria_log;
-t_config_memoria *configuracion_memoria;
-void* memoria_principal;
-t_list* tablas;
-t_list* tabla_planificacion;
-
 typedef struct{
     char* puerto;
     int tam_memoria;
@@ -29,6 +23,10 @@ typedef struct{
     char* path_swap;
 } t_config_memoria;
 
+t_log *memoria_log;
+void* memoria_principal;
+t_list* tablas;
+t_list* tabla_planificacion;
 t_config_memoria* configuracion;
 
 typedef struct{

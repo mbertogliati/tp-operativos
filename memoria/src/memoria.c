@@ -42,9 +42,9 @@ int main() {
     if(!configuracion)
         return EXIT_FAILURE;
 
-    printf("El puerto es: %s\n", configuracion_memoria->puerto);
+    printf("El puerto es: %s\n", configuracion->puerto);
 
-    iniciar_conexiones(configuracion_memoria);
+    iniciar_conexiones(configuracion);
     //iniciar_conexion(configuracion_memoria);
 
     funcion_test1();
