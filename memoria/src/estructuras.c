@@ -137,6 +137,8 @@ int agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso){
 	return direccion_tabla;
 }
 
+
+
 //Version con id_proceso
 
 

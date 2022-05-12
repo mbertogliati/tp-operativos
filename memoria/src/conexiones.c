@@ -35,7 +35,6 @@ int iniciar_conexiones(){
 
 
 
-
     return EXIT_SUCCESS;
 }
 void *conectar_con_cpu(int* socket_cpu){

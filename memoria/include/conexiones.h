@@ -2,6 +2,7 @@
 #define CONEXIONES_H_
 #include "../shared/include/server_utils.h"
 #include "../shared/include/conexion_memoria.h"
+#include "reemplazo.h"
 #include "estructuras.h"
 #include <string.h>
 #include <stdbool.h>
