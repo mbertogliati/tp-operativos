@@ -40,8 +40,10 @@ int iniciar_conexiones(){
 void *conectar_con_cpu(int* socket_cpu){
 
     printf("Aca se hace la conexion con CPU en el socket: %d\n", *socket_cpu);
-
-    
+    t_paquete* paquete_configuraciones = crear_paquete(-1);
+    agregar_a_paquete(paquete_configuraciones, &(configuracion->entradas_por_tabla), sizeof(int));
+    agregar_a_paquete(paquete_configuraciones, &(configuracion->tam_pagina), sizeof(int));
+    enviar_paquete(paquete_configuraciones, *socket_cpu);
 
     return NULL;
 }

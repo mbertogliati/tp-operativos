@@ -1,6 +1,7 @@
 #ifndef CONEXIONES_H_
 #define CONEXIONES_H_
 #include "../shared/include/server_utils.h"
+#include "../shared/include/client_utils.h"
 #include "../shared/include/conexion_memoria.h"
 #include "reemplazo.h"
 #include "estructuras.h"
