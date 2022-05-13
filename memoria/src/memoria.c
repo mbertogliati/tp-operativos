@@ -36,15 +36,16 @@ void funcion_test1(){
 
 int main() {
 
-    
+    configuracion = NULL;
+	
     iniciar_estructuras();
+	//iniciar_conexiones(configuracion);
 
     if(!configuracion)
         return EXIT_FAILURE;
 
     printf("El puerto es: %s\n", configuracion->puerto);
-
-    iniciar_conexiones(configuracion);
+    
     //iniciar_conexion(configuracion_memoria);
 
     funcion_test1();
