@@ -62,7 +62,7 @@ void *conectar_con_cpu(int* socket_cpu){
         buffer->stream = recibir_buffer(&(buffer->size), socket_cpu);
 
         switch(instruccion_recibida){
-            case DEVOLVER_INDICE_TABLA_NVL2:
+            case DEVOLVER_INDICE_TABLA_NVL2:  
             case DEVOLVER_MARCO:
             case LEER:
             case ESCRIBIR:
