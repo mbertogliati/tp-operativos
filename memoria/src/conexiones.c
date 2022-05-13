@@ -1,33 +1,54 @@
 #include "../include/conexiones.h"
 
-int iniciar_conexion(t_config_memoria *configs){
-    int socket_servidor;
-    socket_servidor = iniciar_servidor(configs->puerto);
 
-    int socket_cliente;
 
-    while(true){
+int iniciar_conexiones(){
+
+    int socket_servidor,
+        socket_cliente,
+        socket_cpu,
+        socket_kernel;
+
+    memoria_principal = malloc(configuracion_memoria -> tam_memoria);
+    socket_servidor = iniciar_servidor(configuracion_memoria -> puerto);
+
+    pthread_t comunicacion_cpu;
+    pthread_t comunicacion_kernel;
+
+    for(int i=0; i<2; i++){
+
         socket_cliente = esperar_cliente(socket_servidor);
 
-        if (esKernel(socket_cliente)){
-            conectar_con_kernel(configs,socket_cliente);
+        if (recibir_operacion(socket_cliente) == 0){
+            socket_cpu = socket_cliente;
+            pthread_create(&comunicacion_cpu,NULL,&conectar_con_cpu,&socket_cpu);
         }
-        else conectar_con_cpu(configs,socket_cliente);
+        
+        else{
+            socket_kernel = socket_cliente;
+            pthread_create(&comunicacion_kernel,NULL,&conectar_con_kernel,&socket_kernel);
+        }
     }
-}
 
-bool esKernel(int socket_cliente){
-    uint8_t recibido;
-    recibido = recv(socket_cliente,&recibido,sizeof(uint8_t),MSG_WAITALL);
-    send(socket_cliente,&recibido,sizeof(uint8_t),0);
-    if (recibido == 0)
-        return true;
-    
-    return false;
-}
-int conectar_con_kernel(t_config_memoria *configs, int socket_cliente){
-    
-    send(socket_cliente,)
+    pthread_join(comunicacion_cpu, NULL);
+    pthread_join(comunicacion_kernel, NULL);
 
+
+
+
+    return EXIT_SUCCESS;
 }
-int conectar_con_cpu(t_config_memoria *configs, int socket_cliente);
+void *conectar_con_cpu(int* socket_cpu){
+
+    printf("Aca se hace la conexion con CPU en el socket: %d\n", *socket_cpu);
+
+    
+
+    return NULL;
+}
+void *conectar_con_kernel(int *socket_kernel){
+
+    printf("Aca se hace la conexion con KERNEL en el socket: %d\n", *socket_kernel);
+
+    return NULL;
+}
