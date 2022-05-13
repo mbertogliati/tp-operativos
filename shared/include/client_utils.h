@@ -11,11 +11,11 @@ typedef struct {
 } t_buffer;
 
 typedef struct {
-	op_code codigo_operacion;
+	int codigo_operacion;
 	t_buffer *buffer;
 } t_paquete;
 
-t_paquete *crear_paquete(op_code codigo_operacion);
+t_paquete *crear_paquete(int codigo_operacion);
 void agregar_a_paquete(t_paquete *paquete, void *valor, int bytes);
 int crear_conexion(char *ip, char *puerto);
 void enviar_paquete(t_paquete *paquete, int socket_cliente);
