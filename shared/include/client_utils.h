@@ -3,7 +3,7 @@
 
 #include <string.h>
 #include <signal.h>
-#include "socket.h"
+#include <socket.h>
 
 typedef struct {
 	int size;

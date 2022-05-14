@@ -121,22 +121,14 @@ void escribir_a_memoria(int direccion, int tamanio_a_escribir, void* a_escribir)
 }
 
 void* leer_de_memoria(int direccion, int tamanio_a_leer){
-	char* puntero = memoria_principal;
+
+	void* puntero = memoria_principal;
 	puntero += direccion;
-	uint8_t* valor_actual;
 	void* lectura = malloc(tamanio_a_leer);
 
-	for (int i=0; i<tamanio_a_leer; i++){
-		valor_actual = leer_byte_de_memoria(direccion+i);
-		memcpy(lectura+i,valor_actual,1);
-		free(valor_actual);
-	}
+	memcpy(lectura,puntero,tamanio_a_leer);
 
 	return lectura;
-}
-uint8_t *leer_byte_de_memoria(int direccion_fisica){
-	uint8_t *valor_leido = memoria_principal+direccion_fisica;
-	return valor_leido;
 }
 
 void leer_pagina_SWAP(int id_proceso, int pagina, int marco){

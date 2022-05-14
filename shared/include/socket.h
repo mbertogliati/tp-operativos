@@ -1,11 +1,12 @@
 #ifndef SOCKET_H_
 #define SOCKET_H_
 
+#include <netdb.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <netdb.h>
-#include <sys/socket.h>
 
 /*
 	Esto no va bajo ningun punto de vista, estos datos entran por parametro
