@@ -1,5 +1,10 @@
 #ifndef ESTRUCTURASCPU_H_
 #define ESTRUCTURASCPU_H_
+#include <commons/config.h>
+#include <commons/log.h>
+#include <stdbool.h>
+
+
 
 typedef struct{
     int entradas_tlb;
@@ -13,5 +18,7 @@ typedef struct{
 
 t_config_cpu *cargar_config (char** path);
 bool es_configuracion_valida(t_config *config_cpu);
+t_log *cpu_log;
+
 
 #endif
