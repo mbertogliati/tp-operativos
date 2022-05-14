@@ -207,7 +207,7 @@ void *conectar_con_kernel(int *socket_kernel){
         }
 
     }
-
+    free(buffer);
     return NULL;
 }
 void loguear_protegido (char* cadena, t_log_level level){
