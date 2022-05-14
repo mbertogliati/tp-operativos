@@ -62,17 +62,42 @@ void *conectar_con_cpu(int* socket_cpu){
         buffer->stream = recibir_buffer(&(buffer->size), socket_cpu);
 
         switch(instruccion_recibida){
-            case DEVOLVER_INDICE_TABLA_NVL2:  
+            case DEVOLVER_INDICE_TABLA_NVL2:
+                int *indice,
+                    *direccion;
+                direccion = sacar_de_buffer(buffer, sizeof(int));
+                indice = sacar_de_buffer(buffer, sizeof(int));
+
+                int direccion_tabla2 = obtener_tabla2(*direccion, *indice);
+                send(socket_cpu, &direccion_tabla2, sizeof(int), 0);
+                break;
+
             case DEVOLVER_MARCO:
+                int *indice,
+                    *direccion;
+                direccion = sacar_de_buffer(buffer, sizeof(int));
+                indice = sacar_de_buffer(buffer, sizeof(int));
+
+                int marco = obtener_marco(*direccion, *indice);
+                send(socket_cpu, &marco, sizeof(int), 0);
+                break;                
             case LEER:
+                int *direccion_fisica,
+                    *tam_leer;
+
+                direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
+                tam_leer = sacar_de_buffer(buffer, sizeof(int));
+
+                
+
             case ESCRIBIR:
             case LIBERAR:
             default:
             
         }
-        free(buffer);
+        free(buffer->stream); 
     }
-
+    free(buffer);
     return NULL;
 }
 void *conectar_con_kernel(int *socket_kernel){
