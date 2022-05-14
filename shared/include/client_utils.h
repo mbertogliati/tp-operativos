@@ -3,7 +3,7 @@
 
 #include <string.h>
 #include <signal.h>
-#include "socket.h"
+#include <socket.h>
 
 typedef struct {
 	int size;
@@ -22,5 +22,6 @@ void enviar_paquete(t_paquete *paquete, int socket_cliente);
 void enviar_mensaje(char* mensaje, int socket_cliente);
 void eliminar_paquete(t_paquete *paquete);
 void liberar_conexion(int socket_cliente);
+void* sacar_de_buffer(t_buffer* buffer, int tam_dato);
 
 #endif /* CLIENT_UTILS_H_ */

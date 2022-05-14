@@ -71,3 +71,19 @@ void eliminar_paquete(t_paquete *paquete) {
 void liberar_conexion(int socket_cliente) {
 	close(socket_cliente);
 }
+
+void* sacar_de_buffer(t_buffer* buffer, int tam_dato){
+	
+	void* buffer_nuevo = malloc(buffer->size-tam_dato);
+	void* dato = malloc(tam_dato);
+
+	memcpy(dato, buffer->stream, tam_dato);
+	memcpy(buffer_nuevo, buffer->stream+tam_dato, (buffer->size-tam_dato));
+
+	free(buffer->stream);
+
+	buffer->size -= tam_dato;
+	buffer -> stream = buffer_nuevo;
+
+	return dato;
+}
