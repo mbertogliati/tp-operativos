@@ -3,7 +3,7 @@
 #include <commons/config.h>
 #include <commons/log.h>
 #include <stdbool.h>
-
+#include <string.h>
 
 
 typedef struct{
@@ -16,9 +16,10 @@ typedef struct{
     char* puerto_escucha_interrupt;
 }t_config_cpu;
 
-t_config_cpu *cargar_config (char** path);
-bool es_configuracion_valida(t_config *config_cpu);
 t_log *cpu_log;
+t_config_cpu* cpuconfig;
 
+bool es_configuracion_valida(t_config *config_cpu);
+t_config_cpu *cargar_config (char** path);
 
 #endif

@@ -2,7 +2,7 @@
 
 t_config_cpu *cargar_config (char** path){
     t_config *config_cpu = NULL;
-    t_config_cpu *cpuconfig;
+    
 
     cpu_log = log_create("logs/cpu.log","CPU",true,LOG_LEVEL_INFO);
 
@@ -13,6 +13,8 @@ t_config_cpu *cargar_config (char** path){
 
    if (! es_configuracion_valida(config_cpu))
     return NULL;
+
+    cpuconfig = malloc(sizeof(t_config_cpu));
 
     cpuconfig -> entradas_tlb = config_get_int_value(config_cpu, "ENTRADAS_TLB");
     cpuconfig -> reemplazo_tlb = config_get_string_value(config_cpu, "REEMPLAZO_TLB");

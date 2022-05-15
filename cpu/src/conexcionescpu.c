@@ -3,17 +3,31 @@
 
 void iniciar_conexion_memoria (){
 
-    int socket_cpu;
+    int socket_memoria;
     void* buffer;
 
-    socket_cpu = crear_conexion();  //no se como llamar a mi estructura
-        
-    buffer = recibir_buffer(); 
+    socket_memoria = crear_conexion(cpuconfig -> ip_memoria, cpuconfig -> puerto_memoria);  
     
-    // tengo que hacer un recieve y crear un buffer
+    int* identificador = malloc(sizeof(int));
+    *identificador = 0;
+    send(socket_memoria, identificador, sizeof(int), 0);
+    free (identificador);
+
+    //[932][Tamaño][Entradas por tabla][Tamaño de pagina] son int
+    if (recibir_operacion(socket_memoria) != 932){
+        //error
+        return; 
+    }
+
+    t_buffer* buffer = malloc(sizeof(t_buffer));
+    buffer -> stream = recibir_buffer(&(buffer -> size), socket_memoria);
+
+    int* entradas_por_tabla = sacar_de_buffer(buffer, sizeof(int)); // Hay que hacer un free cuando lo termine de usar
+    int* tam_de_pagina = sacar_de_buffer(buffer, sizeof(int)); // Hay que hacer un free cuando lo termine de usar
 
 };
 
+/*
 void iniciar_conexion_dispatch(){
     //socket servidor
     int socket_dispatch; 

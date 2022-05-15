@@ -7,5 +7,5 @@ int main(void){
     
 
 
-    
+    free(cpuconfig);
 };
