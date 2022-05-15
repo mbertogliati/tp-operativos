@@ -3,7 +3,7 @@
 
 #include "../include/estructurascpu.h"
 #include "../../shared/include/client_utils.h"
-
+#include "../../shared/include/server_utils.h"
 
 
 
