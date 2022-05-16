@@ -42,12 +42,4 @@ void iniciar_estructuras();
 void cargar_configuraciones(char* path);
 bool es_configuracion_valida(t_config *config_memoria);
 int agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso);
-void suspender_proceso(int id_proceso);
-void suspender_proceso2(int direccion);
-void finalizar_proceso(int direccion);
-int obtener_tabla2(int direccion, int indice);
-int obtener_marco(int direccion, int indice);
-void escribir_a_memoria(int direccion, int tamanio_a_escribir, void* a_escribir);
-void* leer_de_memoria(int direccion, int tamanio_a_leer);
-
 #endif

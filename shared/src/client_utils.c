@@ -6,7 +6,7 @@ void crear_buffer(t_paquete *paquete) {
 	paquete->buffer->stream = NULL;
 }
 
-t_paquete *crear_paquete(op_code codigo_operacion) {
+t_paquete *crear_paquete(int codigo_operacion) {
 	t_paquete *paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = codigo_operacion;
 	crear_buffer(paquete);
@@ -70,4 +70,20 @@ void eliminar_paquete(t_paquete *paquete) {
 
 void liberar_conexion(int socket_cliente) {
 	close(socket_cliente);
+}
+
+void* sacar_de_buffer(t_buffer* buffer, int tam_dato){
+	
+	void* buffer_nuevo = malloc(buffer->size-tam_dato);
+	void* dato = malloc(tam_dato);
+
+	memcpy(dato, buffer->stream, tam_dato);
+	memcpy(buffer_nuevo, buffer->stream+tam_dato, (buffer->size-tam_dato));
+
+	free(buffer->stream);
+
+	buffer->size -= tam_dato;
+	buffer -> stream = buffer_nuevo;
+
+	return dato;
 }
