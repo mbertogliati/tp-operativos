@@ -22,10 +22,9 @@ void suspender_proceso(int id_proceso){
 	int marcos_counter = 0;
 	for(int i = 0; i < (configuracion->tam_memoria / configuracion->tam_pagina); i++){
 		tabla2 = list_get(tabla_planificacion, i);
-		if(marcos_counter < configuracion->marcos_por_proceso && tabla2->id == id_proceso){
+		if(marcos_counter < configuracion->marcos_por_proceso && tabla2 != NULL && tabla2->id == id_proceso){
 			tabla2->P = 0;
 			escribir_pagina_SWAP(id_proceso, tabla2->pagina, i);
-			tabla2 = NULL;
 			marcos_counter++;
 		}
 
@@ -40,12 +39,17 @@ void suspender_proceso2(int direccion){
 		t_list* tabla2 = list_get(tabla1, i);
 		for(int j = 0; j < list_size(tabla2); j++){
 			t_tabla2* pagina = list_get(tabla2, j);
-			if(!pagina->P){
-				pagina->P = 0;
-				escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
+			if(pagina->P){
+				pagina->P = false;
+				if(!strcmp(configuracion->algoritmo_reemplazo, "CLOCK-M")){
+					escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
+				}else{
+					if(pagina->M){
+						escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
+					}
+				}
 				//Saco la pagina de la tabla de planificacion
-				tabla2 = list_get(tabla_planificacion, pagina->marco);
-				tabla2 = NULL;
+				list_replace(tabla_planificacion, pagina->marco, NULL);
 			}
 		}
 	}
@@ -62,8 +66,7 @@ void finalizar_proceso(int direccion){
 		for(int j = 0; j < tamanio_tabla2; j++){
 			t_tabla2* pagina = list_get(tabla2, 0);
 			if(!pagina->P){
-				t_tabla2* marco = list_get(tabla_planificacion, pagina->marco);
-				marco = NULL;
+				list_replace(tabla_planificacion, pagina->marco, NULL);
 			}
 			id_proceso = pagina->id;
 			free(pagina);
@@ -96,15 +99,15 @@ int obtener_marco(int direccion, int indice){
 		//Todo Implementar algoritmos de reemplazo
 		//Esta version previa guardara siempre en el primer marco de memoria y guardara en SWAP la
 		//pagina anterior
-		t_tabla2* marco_ptr = list_get(tabla_planificacion, 0);
+
 //		if(!marco_ptr){
 //			marco_ptr->P = 0;
 //			escribir_pagina_SWAP(marco_ptr->id, marco_ptr->pagina, marco_ptr->marco);
 //		}
 
-		marco_ptr = pagina;
 		pagina->marco = 0;
 		pagina->P = 1;
+		list_replace(tabla_planificacion, 0, pagina);
 		leer_pagina_SWAP(pagina->id, pagina->pagina, 0);
 	}
 
@@ -151,6 +154,7 @@ void leer_pagina_SWAP(int id_proceso, int pagina, int marco){
 	sleep(0.001 * configuracion->retardo_swap);
 
 }
+
 void escribir_pagina_SWAP(int id_proceso, int pagina, int marco){
 	FILE* SWAP_file = encontrar_SWAP(id_proceso);
 

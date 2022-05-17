@@ -3,6 +3,8 @@
 #include "estructuras.h"
 #include <stdint.h>
 #include <string.h>
+
+
 void suspender_proceso(int id_proceso);
 void suspender_proceso2(int direccion);
 void finalizar_proceso(int direccion);
