@@ -39,7 +39,7 @@ int main() {
     configuracion = NULL;
 	
     iniciar_estructuras();
-	//iniciar_conexiones(configuracion);
+	iniciar_conexiones(configuracion);
 
     if(!configuracion)
         return EXIT_FAILURE;

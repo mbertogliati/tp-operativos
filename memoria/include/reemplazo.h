@@ -12,5 +12,4 @@
     * ocupa y ahora lo ocupa esta pagina
 */
 int ejecutar_algoritmo_de_reemplazo(int pagina, int id_proceso);
-
 #endif

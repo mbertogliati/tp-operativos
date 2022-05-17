@@ -1,14 +1,5 @@
 #include "../include/reemplazo.h"
 
-int ejecutar_algoritmo_de_reemplazo(int pagina, int id_proceso){
-
-    if (strcmp(configuracion -> algoritmo_reemplazo, "CLOCK") == 0)
-        return clock_normal (id_proceso, pagina);
-    
-    return clock_modificado (id_proceso, pagina);
-
-}
-
 int clock_normal(int id_proceso, int pagina){
 
     int size_tabla_planificacion = list_size(tabla_planificacion);
@@ -37,6 +28,7 @@ int clock_normal(int id_proceso, int pagina){
         }
     }//El for de "j" asegura que si no se puede elegir un marco para reemplazar a la primera vuelta, se haga una segunda.
     //Si a las 2da vuelta no se reemplaza nada, se rompe todo
+    return -1;
 
 }
 int clock_modificado(int id_proceso, int pagina){
@@ -75,4 +67,14 @@ int clock_modificado(int id_proceso, int pagina){
                 pagina_actual -> U = false; //En este paso si se cambian los bits U
         }
     }//Si llega aca tiene que hacer otra vuelta, sino se rompe todo como antes
+    return -1;
 }
+int ejecutar_algoritmo_de_reemplazo(int pagina, int id_proceso){
+
+    if (strcmp(configuracion -> algoritmo_reemplazo, "CLOCK") == 0)
+        return clock_normal (id_proceso, pagina);
+
+    return clock_modificado (id_proceso, pagina);
+
+}
+
