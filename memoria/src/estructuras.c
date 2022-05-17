@@ -102,8 +102,8 @@ t_tabla2* inicializar_tabla2(int id_proceso, int numero_pagina){
 int crear_metadata(int tamanio_proceso, int id_proceso){
 	t_list* tabla1 = list_create();
 
-	int cant_paginas = ceil(tamanio_proceso / configuracion->tam_pagina);
-	int cant_tablas2 = ceil(cant_paginas / configuracion->entradas_por_tabla);
+	int cant_paginas = ceil((double) tamanio_proceso / (double) configuracion->tam_pagina);
+	int cant_tablas2 = ceil((double) cant_paginas / (double) configuracion->entradas_por_tabla);
 	int pagina_counter = 0;
 
 	//Verifico que el tamaño del proceso no sea mayor al maximo
@@ -138,8 +138,6 @@ int agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso){
 }
 
 
-
-//Version con id_proceso
 
 
 //Funciones viejas
