@@ -42,7 +42,7 @@ int iniciar_conexiones(){
 void *conectar_con_cpu(int* socket_cpu){
 
     printf("Aca se hace la conexion con CPU en el socket: %d\n", *socket_cpu);
-    t_paquete* paquete_configuraciones = crear_paquete(-1);
+    t_paquete* paquete_configuraciones = crear_paquete(932);
     agregar_a_paquete(paquete_configuraciones, &(configuracion->entradas_por_tabla), sizeof(int));
     agregar_a_paquete(paquete_configuraciones, &(configuracion->tam_pagina), sizeof(int));
     enviar_paquete(paquete_configuraciones, *socket_cpu);
@@ -51,6 +51,21 @@ void *conectar_con_cpu(int* socket_cpu){
 
     inst_memoria instruccion_recibida;
     t_buffer *buffer = malloc(sizeof(t_buffer));
+
+    int *marco,
+        *direccion_tabla2;
+
+    int *indice,
+        *direccion;
+        
+    int *direccion_fisica,
+        *tam_leer,
+        *tam_escribir;
+    
+    void *datos = NULL,
+         *datos_leidos = NULL;
+
+    bool *confirmacion;
 
     while(true){
         instruccion_recibida = recibir_operacion(*socket_cpu);
@@ -62,70 +77,62 @@ void *conectar_con_cpu(int* socket_cpu){
         buffer->stream = recibir_buffer(&(buffer->size), socket_cpu);
 
         switch(instruccion_recibida){
+            
             case DEVOLVER_INDICE_TABLA_NVL2:
-                {
-                    int *indice,
-                        *direccion;
-                    direccion = sacar_de_buffer(buffer, sizeof(int));
-                    indice = sacar_de_buffer(buffer, sizeof(int));
+                    
+                direccion = sacar_de_buffer(buffer, sizeof(int));
+                indice = sacar_de_buffer(buffer, sizeof(int));
+                direccion_tabla2 = malloc(sizeof(int));
 
-                    int direccion_tabla2 = obtener_tabla2(*direccion, *indice);
-                    send(socket_cpu, &direccion_tabla2, sizeof(int), 0);
-                    free(indice);
-                    free(direccion);
-                    break;
-                }
+                *direccion_tabla2 = obtener_tabla2(*direccion, *indice);
+                send(socket_cpu, direccion_tabla2, sizeof(int), 0);
+
+                free(direccion_tabla2);
+                free(indice);
+                free(direccion);
+                break;
 
             case DEVOLVER_MARCO:
-                {
-                    int *indice,
-                        *direccion;
-                    direccion = sacar_de_buffer(buffer, sizeof(int));
-                    indice = sacar_de_buffer(buffer, sizeof(int));
+                direccion = sacar_de_buffer(buffer, sizeof(int));
+                indice = sacar_de_buffer(buffer, sizeof(int));
+                marco = malloc(sizeof(int));
 
-                    int marco = obtener_marco(*direccion, *indice);
-                    send(socket_cpu, &marco, sizeof(int), 0);
-                    free(indice);
-                    free(direccion);
-                    break; 
-                }               
+                *marco = obtener_marco(*direccion, *indice);
+                send(socket_cpu, marco, sizeof(int), 0);
+
+                free(marco);
+                free(indice);
+                free(direccion);
+                break;              
             case LEER:
-                {
-                    int *direccion_fisica,
-                        *tam_leer;
-
-                    direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
-                    tam_leer = sacar_de_buffer(buffer, sizeof(int));
-                    void* datos_leidos = leer_de_memoria(*direccion_fisica, *tam_leer);
-                    send(socket_cpu, datos_leidos, *tam_leer, 0);
-                    free(direccion_fisica);
-                    free(tam_leer);
-                    break;
-                }
+                
+                direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
+                tam_leer = sacar_de_buffer(buffer, sizeof(int));
+                datos_leidos = leer_de_memoria(*direccion_fisica, *tam_leer);
+                send(socket_cpu, datos_leidos, *tam_leer, 0);
+                free(direccion_fisica);
+                free(tam_leer);
+                break;
+                
             
             case ESCRIBIR:
-                {
-                    int *direccion_fisica,
-                        *tam_escribir;
-                    void* datos = NULL;
 
-                    direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
-                    tam_escribir = sacar_de_buffer(buffer, sizeof(int));
-                    datos = sacar_de_buffer(buffer,*tam_escribir);
+                direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
+                tam_escribir = sacar_de_buffer(buffer, sizeof(int));
+                datos = sacar_de_buffer(buffer,*tam_escribir);
 
-                    escribir_a_memoria(*direccion_fisica, *tam_escribir, datos);
-                    bool *confirmacion = malloc(sizeof(bool));
-                    *confirmacion = true;
+                escribir_a_memoria(*direccion_fisica, *tam_escribir, datos);
+                confirmacion = malloc(sizeof(bool));
+                *confirmacion = true;
 
-                    send(socket_cpu, confirmacion, sizeof(bool), 0);
+                send(socket_cpu, confirmacion, sizeof(bool), 0);
 
-                    free(direccion_fisica);
-                    free(tam_escribir);
-                    free(datos);
-                    free(confirmacion);
+                free(direccion_fisica);
+                free(tam_escribir);
+                free(datos);
+                free(confirmacion);
 
-                    break;
-                }
+                break;
 
             default:
                 loguear_protegido("ERROR - La instruccion recibida del CPU es invalida", LOG_LEVEL_ERROR);
@@ -153,54 +160,60 @@ void *conectar_con_kernel(int *socket_kernel){
 
         buffer->stream = recibir_buffer(&(buffer->size), socket_kernel);
 
+        int *id_proceso,
+            *tam_proceso;
+        
+        int* direccion_de_tabla = NULL;
+        bool *confirmacion = NULL;
+
         switch(instruccion_recibida){
             case CREAR_NUEVA_TABLA:
-                {
-                    int *id_proceso,
-                        *tam_proceso,
-                        direccion_tabla;
 
-                    id_proceso = sacar_de_buffer(buffer, sizeof(int));
-                    tam_proceso = sacar_de_buffer(buffer, sizeof(int));
+                id_proceso = sacar_de_buffer(buffer, sizeof(int));
+                tam_proceso = sacar_de_buffer(buffer, sizeof(int));
+                direccion_de_tabla = malloc(sizeof(int));
 
-                    direccion_tabla = agregar_proceso(*id_proceso, *tam_proceso, NULL);
-                    if(!direccion_tabla){
-                        loguear_protegido("ERROR - No se ha podido agregar el proceso", LOG_LEVEL_ERROR);    
-                    }
-                    
-                    send(socket_kernel, &direccion_tabla, sizeof(int), 0);
-
-                    free(id_proceso);
-                    free(tam_proceso);
-                    break;
+                *direccion_de_tabla = agregar_proceso(*id_proceso, *tam_proceso, NULL);
+                if(!(*direccion_de_tabla)){
+                    loguear_protegido("ERROR - No se ha podido agregar el proceso", LOG_LEVEL_ERROR);    
                 }
+                
+                send(socket_kernel, direccion_de_tabla, sizeof(int), 0);
+
+                free(direccion_de_tabla);
+                free(id_proceso);
+                free(tam_proceso);
+                break;
 
             case PROCESO_SUSPENDIDO:
-                {
-                    int* direccion_de_tabla;
-                    bool confirmacion = true;
-                    direccion_de_tabla = sacar_de_buffer(direccion_de_tabla, sizeof(int));
 
-                    suspender_proceso2(*direccion_de_tabla);
+                confirmacion = malloc(sizeof(bool));
+                *confirmacion = true;
 
-                    send(socket_kernel, &confirmacion, sizeof(bool), 0);
+                direccion_de_tabla = sacar_de_buffer(direccion_de_tabla, sizeof(int));
 
-                    free(direccion_de_tabla);
-                    break;
-                }
+                suspender_proceso2(*direccion_de_tabla);
+
+                send(socket_kernel, confirmacion, sizeof(bool), 0);
+
+                free(direccion_de_tabla);
+                break;
+
             case LIBERAR:
-                {
-                    int* direccion_de_tabla;
-                    bool confirmacion = true;
-                    direccion_de_tabla = sacar_de_buffer(direccion_de_tabla, sizeof(int));
 
-                    finalizar_proceso(*direccion_de_tabla);
+                confirmacion = malloc(sizeof(bool));
+                *confirmacion = true;
 
-                    send(socket_kernel, &confirmacion, sizeof(bool), 0);
+                direccion_de_tabla = sacar_de_buffer(direccion_de_tabla, sizeof(int));
 
-                    free(direccion_de_tabla);
-                    break;
-                }
+                finalizar_proceso(*direccion_de_tabla);
+
+                send(socket_kernel, confirmacion, sizeof(bool), 0);
+
+                free(confirmacion);
+                free(direccion_de_tabla);
+                break;
+
             default:
                 loguear_protegido("ERROR - La instruccion recibida del KERNEL es invalida", LOG_LEVEL_ERROR);
                 break;
