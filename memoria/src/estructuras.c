@@ -21,7 +21,7 @@ void cargar_configuraciones(char* path){
 
     memoria_log = log_create("memoria.log","MEMORIA",true,LOG_LEVEL_INFO);
 
-    if(!(config_memoria = config_create("config/memoria.config"))){
+    if(!(config_memoria = config_create(path))){
         log_error(memoria_log,"ERROR - No se encontro el archivo de configuracion de memoria");
         return;
     }

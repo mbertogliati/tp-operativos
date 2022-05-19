@@ -72,7 +72,7 @@ int clock_modificado(int id_proceso, int pagina){
             else
             	planificacion_ptr++;
         }//Si llega aca, estamos en el paso (2)
-
+    
         for(int i=0; i < size_tabla_planificacion ;i++){//Recorre toda la lista de marcos creada por vos
 
             pagina_actual = list_get(tabla_planificacion, planificacion_ptr);
