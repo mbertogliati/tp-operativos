@@ -11,6 +11,7 @@ void iniciar_estructuras(){
 		t_tabla2* tabla2 = NULL;
 		list_add(tabla_planificacion, tabla2);
 	}
+	planificacion_ptr = 0;
 }
 
 void cargar_configuraciones(char* path){
