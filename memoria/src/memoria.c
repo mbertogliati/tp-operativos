@@ -6,7 +6,6 @@ void imprimir_puntero_void(void* a_imprimir, int tamanio_a_imprimir){
 		printf("%x", ((unsigned char*) a_imprimir)[i]);
 	printf("\n");
 }
-
 void funcion_test1(){
 	void* proceso = malloc(16);
 	imprimir_puntero_void(proceso, 16);
@@ -103,7 +102,7 @@ int main() {
     
     //iniciar_conexion(configuracion_memoria);
 
-    funcion_test1();
+    //funcion_test1();
 
     //t_tabla tablas_de_paginas[entradas_por_tabla][entradas_por_tabla];
     //No se puede usar parametros para crear arrays o tablas de tamaño variable
