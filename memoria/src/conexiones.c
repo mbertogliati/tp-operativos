@@ -41,7 +41,7 @@ int iniciar_conexiones(){
         socket_kernel;
 
     sem_init(&mutex_tabla_planificacion, 0, 1);
-    
+
     log_info(memoria_log, "Iniciando servidor...");
     socket_servidor = iniciar_servidor(configuracion->puerto);
     if(socket_servidor == -1){
@@ -83,15 +83,16 @@ int iniciar_conexiones(){
 
 void *conectar_con_cpu(int* socket_cpu){
 
+    cpu_log = log_create("memoria_cpu.log", "CPU", true, LOG_LEVEL_INFO);
     printf("Aca se hace la conexion con CPU en el socket: %d\n", *socket_cpu);
-    loguear_protegido("Enviando paquete de configuraciones al CPU...", LOG_LEVEL_INFO);
+    log_info(cpu_log, "Enviando paquete de configuraciones al CPU...");
     t_paquete* paquete_configuraciones = crear_paquete(932);
     agregar_a_paquete(paquete_configuraciones, &(configuracion->entradas_por_tabla), sizeof(int));
     agregar_a_paquete(paquete_configuraciones, &(configuracion->tam_pagina), sizeof(int));
     enviar_paquete(paquete_configuraciones, *socket_cpu);
     eliminar_paquete(paquete_configuraciones);
     paquete_configuraciones=NULL;
-    loguear_protegido("Paquete enviado!!!", LOG_LEVEL_INFO);
+    log_info(cpu_log, "Paquete enviado!!!");
 
     int *instruccion_recibida = malloc(sizeof(int));
     t_buffer *buffer = malloc(sizeof(t_buffer));
@@ -114,20 +115,20 @@ void *conectar_con_cpu(int* socket_cpu){
     bool *confirmacion;
 
     while(true){
-        loguear_protegido("Esperando peticion de CPU...", LOG_LEVEL_INFO);
+        log_info(cpu_log, "Esperando peticion de CPU...");
         while(recv(*socket_cpu, instruccion_recibida, sizeof(int), MSG_WAITALL) <= 0){
-                loguear_protegido("ERROR - El cliente ha cerrado la conexion", LOG_LEVEL_ERROR);
+                log_error(cpu_log, "ERROR - El cliente ha cerrado la conexion");
                 return NULL;
         }
-        loguear_protegido("Instruccion de CPU leida!!!", LOG_LEVEL_INFO);
+        log_info(cpu_log, "Instruccion de CPU leida!!!");
 
         buffer->stream = recibir_buffer(&(buffer->size), *socket_cpu);
-        loguear_protegido("Buffer Recibido!!!", LOG_LEVEL_INFO);
+        log_info(cpu_log, "Buffer Recibido!!!");
         switch(*instruccion_recibida){
             
             case DEVOLVER_INDICE_TABLA_NVL2:
 
-                loguear_protegido("El CPU quiere Tabla NVL 2", LOG_LEVEL_INFO);
+                log_info(cpu_log, "El CPU quiere Tabla NVL 2");
                 direccion = sacar_de_buffer(buffer, sizeof(int));
                 indice = sacar_de_buffer(buffer, sizeof(int));
                 direccion_tabla2 = malloc(sizeof(int));
@@ -142,7 +143,7 @@ void *conectar_con_cpu(int* socket_cpu){
 
             case DEVOLVER_MARCO:
 
-                loguear_protegido("El CPU quiere Nro de Marco", LOG_LEVEL_INFO);
+                log_info(cpu_log, "El CPU quiere Nro de marco");
                 direccion = sacar_de_buffer(buffer, sizeof(int));
                 indice = sacar_de_buffer(buffer, sizeof(int));
                 marco = malloc(sizeof(int));
@@ -156,7 +157,7 @@ void *conectar_con_cpu(int* socket_cpu){
                 break;              
             case LEER:
                 
-                loguear_protegido("El CPU quiere LEER de memoria", LOG_LEVEL_INFO);
+                log_info(cpu_log, "El CPU quiere LEER de memoria");
                 direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
                 tam_leer = sacar_de_buffer(buffer, sizeof(int));
                 datos_leidos = leer_de_memoria(*direccion_fisica, *tam_leer);
@@ -168,7 +169,7 @@ void *conectar_con_cpu(int* socket_cpu){
             
             case ESCRIBIR:
 
-                loguear_protegido("El CPU quiere ESCRIBIR en memoria", LOG_LEVEL_INFO);
+                log_info(cpu_log, "El CPU quiere ESCRIBIR en memoria");
                 direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
                 tam_escribir = sacar_de_buffer(buffer, sizeof(int));
                 datos = sacar_de_buffer(buffer,*tam_escribir);
@@ -187,7 +188,7 @@ void *conectar_con_cpu(int* socket_cpu){
                 break;
 
             default:
-                loguear_protegido("ERROR - La instruccion recibida del CPU es invalida", LOG_LEVEL_ERROR);
+                log_error(cpu_log, "ERROR - La instruccion recibida del CPU es invalida");
                 break;
             
         }
@@ -200,9 +201,10 @@ void *conectar_con_cpu(int* socket_cpu){
 
 void *conectar_con_kernel(int *socket_kernel){
 
+    kernel_log = log_create("memoria_kernel.log", "KERNEL", true, LOG_LEVEL_INFO);
     printf("Aca se hace la conexion con KERNEL en el socket: %d\n", *socket_kernel);
     int *instruccion_recibida = malloc(sizeof(int));
-    loguear_protegido("Enviando mensaje de confirmacion...", LOG_LEVEL_INFO);
+    log_info(kernel_log, "Enviando mensaje de confirmacion...");
     bool *confirmacion = malloc(sizeof(bool));
     *confirmacion = true;
     t_buffer *buffer = malloc(sizeof(t_buffer));
@@ -211,7 +213,7 @@ void *conectar_con_kernel(int *socket_kernel){
 
     send(*socket_kernel, confirmacion, sizeof(bool), 0);
     free(confirmacion);
-    loguear_protegido("Mensaje enviado!!!", LOG_LEVEL_INFO);
+    log_info(kernel_log, "Mensaje enviado!!!");
 
     int *id_proceso,
         *tam_proceso;
@@ -220,15 +222,15 @@ void *conectar_con_kernel(int *socket_kernel){
     void *puntero_proceso = NULL;
 
     while(true){
-        loguear_protegido("Esperando Peticion de KERNEL...", LOG_LEVEL_INFO);
+        log_info(kernel_log, "Esperando Peticion de KERNEL...");
         while(recv(*socket_kernel, instruccion_recibida, sizeof(int), MSG_WAITALL) <= 0){
-                loguear_protegido("ERROR - El cliente ha cerrado la conexion", LOG_LEVEL_ERROR);
+                log_error(kernel_log, "ERROR - El cliente ha cerrado la conexion");
                 return NULL;
         }
 
-        loguear_protegido("Recibiendo buffer...", LOG_LEVEL_INFO);
+        log_info(kernel_log, "Recibiendo buffer...");
         buffer->stream = recibir_buffer(&(buffer -> size), *socket_kernel);
-        loguear_protegido("Buffer Recibido!!!", LOG_LEVEL_INFO);
+        log_info(kernel_log, "Buffer Recibido!!!");
 
         
         
@@ -237,21 +239,25 @@ void *conectar_con_kernel(int *socket_kernel){
         switch(*instruccion_recibida){
             case CREAR_NUEVA_TABLA:
 
+                log_info(kernel_log, "El kernel quiere agregar un proceso");
+                log_info(kernel_log, "Recibiendo Proceso...");
                 id_proceso = sacar_de_buffer(buffer, sizeof(int));
                 tam_proceso = sacar_de_buffer(buffer, sizeof(int));
                 direccion_de_tabla = malloc(sizeof(int));
                 puntero_proceso = malloc(*tam_proceso);
+                log_info(kernel_log, "Proceso recibido!!!");
 
+                log_info(kernel_log, "Agregando proceso...");
                 *direccion_de_tabla = agregar_proceso(*id_proceso, *tam_proceso, puntero_proceso);
                 free(puntero_proceso);
 
                 if(!(*direccion_de_tabla)){
-                    loguear_protegido("ERROR - No se ha podido agregar el proceso", LOG_LEVEL_ERROR);    
+                    log_error(kernel_log, "ERROR - No se ha podido agregar el proceso");    
                 }
-                loguear_protegido("Proceso creado exitosamente!!", LOG_LEVEL_INFO);
-                loguear_protegido("Respondiendo al kernel...", LOG_LEVEL_INFO);
+                log_info(kernel_log, "Proceso agregado exitosamente!!");
+                log_info(kernel_log, "Respondiendo al kernel...");
                 send(*socket_kernel, direccion_de_tabla, sizeof(int), 0);
-                loguear_protegido("Listo!", LOG_LEVEL_INFO);
+                log_info(kernel_log, "Listo!");
 
                 free(direccion_de_tabla);
                 free(id_proceso);
@@ -260,12 +266,16 @@ void *conectar_con_kernel(int *socket_kernel){
 
             case PROCESO_SUSPENDIDO:
 
+                log_info(kernel_log, "El kernel quiere suspender un proceso");
                 confirmacion = malloc(sizeof(bool));
                 *confirmacion = true;
 
+                log_info(kernel_log, "Recibiendo Proceso...");
                 direccion_de_tabla = sacar_de_buffer(direccion_de_tabla, sizeof(int));
-
+                log_info(kernel_log, "Proceso Recibido!!!");
+                log_info(kernel_log, "Suspendiendo Proceso...");
                 suspender_proceso2(*direccion_de_tabla);
+                log_info(kernel_log, "Proceso Suspendido!!!");
 
                 send(*socket_kernel, confirmacion, sizeof(bool), 0);
 
@@ -274,11 +284,13 @@ void *conectar_con_kernel(int *socket_kernel){
 
             case LIBERAR:
 
+                log_info(kernel_log, "El kernel quiere eliminar un Proceso");
                 confirmacion = malloc(sizeof(bool));
                 *confirmacion = true;
 
+                log_info(kernel_log, "Recibiendo proceso...");
                 direccion_de_tabla = sacar_de_buffer(direccion_de_tabla, sizeof(int));
-
+                log_info(kernel_log, "Proceso recibido!!!");
                 finalizar_proceso(*direccion_de_tabla);
 
                 send(*socket_kernel, confirmacion, sizeof(bool), 0);
@@ -288,7 +300,7 @@ void *conectar_con_kernel(int *socket_kernel){
                 break;
 
             default:
-                loguear_protegido("ERROR - La instruccion recibida del KERNEL es invalida", LOG_LEVEL_ERROR);
+                log_error(kernel_log, "ERROR - La instruccion recibida del KERNEL es invalida");
                 break;
         }
 
