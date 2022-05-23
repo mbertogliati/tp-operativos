@@ -1,5 +1,7 @@
-#include "../../memoria/include/conexiones.h"
-int *tabla_proceso;
+#include "../../../include/conexiones.h"
+#include <commons/collections/list.h>
+#define N 10
+int tablas_procesos[N];
 sem_t sincro_tabla_proceso;
 t_log *test_cpu;
 t_log *test_kernel;
@@ -76,13 +78,32 @@ int pedir_tabla_2(int socket_memoria, int tabla_del_proceso, int entrada_lvl_1){
     log_info(test_cpu, "Esperando respuesta...");
     recv(socket_memoria, nro_tabla_2, sizeof(int), MSG_WAITALL);
     log_info(test_cpu, "Respuesta recibida!!!");
-    log_info(test_cpu, "El numero de tabla 2 es: %d", *nro_tabla_2);
+    log_info(test_cpu, "El numero de tabla 2 es: %X", *nro_tabla_2);
 
     int retorno = *nro_tabla_2;
     free(nro_tabla_2);
     return retorno;
 }
+int obtener_direccion_fisica(int socket_memoria, int pid, int direccion_logica, int entradas_por_tabla, int tam_pagina){
+
+    int nro_de_pagina;
+    int entrada_lvl_1;
+    int entrada_lvl_2;
+    int desplazamiento;
+    int nro_tabla_2;
+    int marco;
+
+    nro_de_pagina = floor( ((double) direccion_logica) / ((double) tam_pagina));
+    entrada_lvl_1 = floor( ((double) nro_de_pagina) / ((double) entradas_por_tabla));
+    entrada_lvl_2 = nro_de_pagina % (entradas_por_tabla);
+    desplazamiento = direccion_logica - nro_de_pagina * (tam_pagina);
+
+    nro_tabla_2 = pedir_tabla_2(socket_memoria, tablas_procesos[pid], entrada_lvl_1);
+    marco = pedir_marco(socket_memoria, nro_tabla_2, entrada_lvl_2);
+    return (marco*tam_pagina) + desplazamiento;
+}
 void crear_proceso(int socket_memoria, int pid, int tam_proceso){
+    int *tabla_proceso = malloc(sizeof(int));
     log_info(test_kernel, "Creando Proceso...");
     log_info(test_kernel, "Enviando paquete a memoria, espero por nueva tabla");
     t_paquete *instrucciones_a_memoria = crear_paquete(CREAR_NUEVA_TABLA);
@@ -94,19 +115,20 @@ void crear_proceso(int socket_memoria, int pid, int tam_proceso){
     log_info(test_kernel, "Esperando respuesta...");
     recv(socket_memoria, tabla_proceso, sizeof(int), MSG_WAITALL);
     log_info(test_kernel, "Respuesta Recibida!!!");
-
-    log_info(test_kernel, "Mi nueva tabla para el proceso %d es: %d", pid, *tabla_proceso);
+    tablas_procesos[pid] = *tabla_proceso;
+    log_info(test_kernel, "Mi nueva tabla para el proceso %d es: %X", pid, tablas_procesos[pid]);
 
     log_info(test_kernel, "Señal al CPU para que lea la tabla");
     sem_post(&sincro_tabla_proceso);
+    free(tabla_proceso);
 
     return;
 }
-bool boletear_proceso(int socket_memoria){
+bool boletear_proceso(int socket_memoria, int pid){
     log_info(test_kernel, "Finalizando Proceso...");
     log_info(test_kernel, "Enviando paquete a memoria, espero confirmacion de boleteamiento");
     t_paquete *instrucciones_a_memoria = crear_paquete(LIBERAR);
-    agregar_a_paquete(instrucciones_a_memoria, tabla_proceso, sizeof(int));
+    agregar_a_paquete(instrucciones_a_memoria, &(tablas_procesos[pid]), sizeof(int));
     enviar_paquete(instrucciones_a_memoria, socket_memoria);
     eliminar_paquete(instrucciones_a_memoria);
 
@@ -122,11 +144,11 @@ bool boletear_proceso(int socket_memoria){
     return retorno;
 
 }
-bool suspension_proceso(int socket_memoria){
+bool suspension_proceso(int socket_memoria, int pid){
     log_info(test_kernel, "Finalizando Proceso...");
     log_info(test_kernel, "Enviando paquete a memoria, espero confirmacion de suspendimiento");
     t_paquete *instrucciones_a_memoria = crear_paquete(PROCESO_SUSPENDIDO);
-    agregar_a_paquete(instrucciones_a_memoria, tabla_proceso, sizeof(int));
+    agregar_a_paquete(instrucciones_a_memoria, &(tablas_procesos[pid]), sizeof(int));
     enviar_paquete(instrucciones_a_memoria, socket_memoria);
     eliminar_paquete(instrucciones_a_memoria);
 
@@ -179,11 +201,10 @@ void *simulacion_kernel(void* nada){
         log_error(test_kernel, "Ha habido un error en la comunicacion");
         return NULL;
     }
-    //PID=5 TAM=10
-    tabla_proceso = malloc(sizeof(int));
-    int pid = 5;
-    int tam_proceso = 10;
-    crear_proceso(socket_memoria, pid, tam_proceso);
+    //PID=0 TAM=10
+    int procesos[N] = {10,5,10,7,20,33,21,25,10.10};//pid es la posicion i y procesos[i] es el tamaño
+    int pid = 0;//0<pid<N
+    crear_proceso(socket_memoria, pid, procesos[pid]);
 
     free(confirmacion);
     free(buffer);
@@ -212,7 +233,7 @@ void *simulacion_cpu(void* nada){
         operacion,
         *entradas_por_tabla,
         *tam_pagina;
-    
+
     t_buffer *buffer = malloc(sizeof(t_buffer));
 
     log_info(test_cpu, "Enviando mensaje...");
@@ -247,53 +268,33 @@ void *simulacion_cpu(void* nada){
     log_info(test_cpu, "Esperando que el Kernel escriba en la variable compartida");
     sem_wait(&sincro_tabla_proceso);
     log_info(test_cpu, "Ya puedo leer la tabla");
-    log_info(test_cpu, "La tabla es: %d", *tabla_proceso);
+    log_info(test_cpu, "La tabla del pid 0 es: %X", tablas_procesos[0]);
 
+    int pid;
     int direccion_logica;
     int direccion_fisica;
     int tam_leer;
     int tam_escribir;
-    int nro_de_pagina;
-    int entrada_lvl_1;
-    int entrada_lvl_2;
-    int desplazamiento;
     uint32_t dato_a_escribir;
     
     uint32_t valor_leido;
-    int nro_tabla_2;
-    int marco;
     bool confirmacion;
 
-    //Simulo que recibo una instruccion WRITE 5 15
+    //Simulo que recibo una instruccion WRITE 5 15 del proceso 0
+    pid = 0;
     direccion_logica = 5;
     dato_a_escribir = 15;
     tam_escribir = sizeof(uint32_t);
 
-    nro_de_pagina = floor( ((double) direccion_logica) / ((double) *tam_pagina));
-    entrada_lvl_1 = floor( ((double) nro_de_pagina) / ((double) *entradas_por_tabla));
-    entrada_lvl_2 = nro_de_pagina % (*entradas_por_tabla);
-    desplazamiento = direccion_logica - nro_de_pagina * (*tam_pagina);
-
-    nro_tabla_2 = pedir_tabla_2(socket_memoria, *tabla_proceso, entrada_lvl_1);
-    marco = pedir_marco(socket_memoria, nro_tabla_2, entrada_lvl_2);
-    direccion_fisica = (marco)*(*tam_pagina) + desplazamiento;
-
+    direccion_fisica = obtener_direccion_fisica(socket_memoria, pid, direccion_logica, *entradas_por_tabla, *tam_pagina);
     confirmacion = pedir_escritura(socket_memoria, tam_escribir, dato_a_escribir, direccion_fisica);
 
-    //Simulo que recibo una instruccion READ 5
+    //Simulo que recibo una instruccion READ 5 del proceso 0
+    pid = 0;
     direccion_logica = 5;
     tam_leer = sizeof(uint32_t);
 
-    nro_de_pagina = floor( ((double) direccion_logica) / ((double) *tam_pagina));
-    entrada_lvl_1 = floor( ((double) nro_de_pagina) / ((double) *entradas_por_tabla));
-    entrada_lvl_2 = nro_de_pagina % (*entradas_por_tabla);
-    desplazamiento = direccion_logica - nro_de_pagina * (*tam_pagina);
-
-    nro_tabla_2 = pedir_tabla_2(socket_memoria, *tabla_proceso, entrada_lvl_1);
-    marco = pedir_marco(socket_memoria, nro_tabla_2, entrada_lvl_2);
-
-    direccion_fisica = (marco)*(*tam_pagina) + desplazamiento;
-
+    direccion_fisica = obtener_direccion_fisica(socket_memoria, pid, direccion_logica, *entradas_por_tabla, *tam_pagina);
     valor_leido = pedir_lectura(socket_memoria, tam_leer, direccion_fisica);
 
     free(entradas_por_tabla);
