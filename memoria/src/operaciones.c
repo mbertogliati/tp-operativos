@@ -49,7 +49,9 @@ void suspender_proceso2(int direccion){
 					}
 				}
 				//Saco la pagina de la tabla de planificacion
+				sem_wait(&mutex_tabla_planificacion);
 				list_replace(tabla_planificacion, pagina->marco, NULL);
+				sem_post(&mutex_tabla_planificacion);
 			}
 		}
 	}
@@ -66,7 +68,9 @@ void finalizar_proceso(int direccion){
 		for(int j = 0; j < tamanio_tabla2; j++){
 			t_tabla2* pagina = list_get(tabla2, 0);
 			if(!pagina->P){
+				sem_wait(&mutex_tabla_planificacion);
 				list_replace(tabla_planificacion, pagina->marco, NULL);
+				sem_post(&mutex_tabla_planificacion);
 			}
 			id_proceso = pagina->id;
 			free(pagina);
@@ -107,7 +111,9 @@ int obtener_marco(int direccion, int indice){
 
 		pagina->marco = 0;
 		pagina->P = 1;
+		sem_wait(&mutex_tabla_planificacion);
 		list_replace(tabla_planificacion, 0, pagina);
+		sem_post(&mutex_tabla_planificacion);
 		leer_pagina_SWAP(pagina->id, pagina->pagina, 0);
 	}
 

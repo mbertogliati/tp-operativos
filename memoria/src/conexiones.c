@@ -40,6 +40,8 @@ int iniciar_conexiones(){
         socket_cpu,
         socket_kernel;
 
+    sem_init(&mutex_tabla_planificacion, 0, 1);
+    
     log_info(memoria_log, "Iniciando servidor...");
     socket_servidor = iniciar_servidor(configuracion->puerto);
     if(socket_servidor == -1){

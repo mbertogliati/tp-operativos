@@ -2,9 +2,12 @@
 
 int clock_normal(int id_proceso, int pagina){
 
-    int size_tabla_planificacion = list_size(tabla_planificacion);
+    //int size_tabla_planificacion = list_size(tabla_planificacion);
+    //Tengo entendido que el tamaño de esta tabla es el que puse aca
+    int size_tabla_planificacion = (configuracion->tam_memoria / configuracion->tam_pagina);
     t_tabla2 *pagina_actual;
 
+    sem_wait(&mutex_tabla_planificacion);
     for(int j=0; j<2; j++){
         for(int i=0; i < size_tabla_planificacion ;i++){//Recorre toda la lista de marcos creada por vos
 
@@ -28,13 +31,17 @@ int clock_normal(int id_proceso, int pagina){
         }
     }//El for de "j" asegura que si no se puede elegir un marco para reemplazar a la primera vuelta, se haga una segunda.
     //Si a las 2da vuelta no se reemplaza nada, se rompe todo
+    sem_post(&mutex_tabla_planificacion);
     return -1;
 
 }
 int clock_modificado(int id_proceso, int pagina){
-    int size_tabla_planificacion = list_size(tabla_planificacion);
+    //int size_tabla_planificacion = list_size(tabla_planificacion);
+    //Tengo entendido que el tamaño de esta tabla es el que puse aca
+    int size_tabla_planificacion = (configuracion->tam_memoria / configuracion->tam_pagina);
     t_tabla2 *pagina_actual;
 
+    sem_wait(&mutex_tabla_planificacion);
     for (int j=0; j<2; j++){
         for(int i=0; i < size_tabla_planificacion ;i++){//Recorre toda la lista de marcos creada por vos
 
@@ -67,6 +74,7 @@ int clock_modificado(int id_proceso, int pagina){
                 pagina_actual -> U = false; //En este paso si se cambian los bits U
         }
     }//Si llega aca tiene que hacer otra vuelta, sino se rompe todo como antes
+    sem_post(&mutex_tabla_planificacion);
     return -1;
 }
 int ejecutar_algoritmo_de_reemplazo(int pagina, int id_proceso){
