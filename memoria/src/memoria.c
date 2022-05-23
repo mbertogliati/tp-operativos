@@ -6,6 +6,7 @@ void imprimir_puntero_void(void* a_imprimir, int tamanio_a_imprimir){
 		printf("%x", ((unsigned char*) a_imprimir)[i]);
 	printf("\n");
 }
+
 void funcion_test1(){
 	void* proceso = malloc(16);
 	imprimir_puntero_void(proceso, 16);
@@ -49,36 +50,36 @@ void funcion_test1(){
 
 
 	//Prueba lectura y escritura de memoria
-	int a = 55456;
-	void* numero = &a;
-	for(int i = 0; i < 4; i++){
-		escribir_a_memoria(direccion + i, 1, numero + i);
-		proceso = leer_de_memoria(direccion, configuracion->tam_pagina);
-		imprimir_puntero_void(proceso, configuracion->tam_pagina);
-		free(proceso);
-	}
-	proceso = leer_de_memoria(direccion, sizeof(int));
-	int b = *(int*) numero;
-	printf("%d\n", b);
+	// int a = 55456;
+	// void* numero = &a;
+	// for(int i = 0; i < 4; i++){
+	// 	escribir_a_memoria(direccion + i, 1, numero + i);
+	// 	proceso = leer_de_memoria(direccion, configuracion->tam_pagina);
+	// 	imprimir_puntero_void(proceso, configuracion->tam_pagina);
+	// 	free(proceso);
+	// }
+	// proceso = leer_de_memoria(direccion, sizeof(int));
+	// int b = *(int*) numero;
+	// printf("%d\n", b);
 
 
-	tabla2 = obtener_tabla2(proceso3, 1);
-	printf("%d\n", tabla2);
-	marco = obtener_marco(tabla2, 0);
-	printf("%d\n", marco);
-	direccion = (marco * configuracion->tam_pagina);
+	// tabla2 = obtener_tabla2(proceso3, 1);
+	// printf("%d\n", tabla2);
+	// marco = obtener_marco(tabla2, 0);
+	// printf("%d\n", marco);
+	// direccion = (marco * configuracion->tam_pagina);
 
-	int c = 99999;
-	numero = &c;
-	for(int i = 0; i < 4; i++){
-		escribir_a_memoria(direccion + i, 1, numero + i);
-		proceso = leer_de_memoria(direccion, configuracion->tam_pagina);
-		imprimir_puntero_void(proceso, configuracion->tam_pagina);
-		free(proceso);
-	}
-	proceso = leer_de_memoria(direccion, sizeof(int));
-	int d = *(int*) numero;
-	printf("%d\n", d);
+	// int c = 99999;
+	// numero = &c;
+	// for(int i = 0; i < 4; i++){
+	// 	escribir_a_memoria(direccion + i, 1, numero + i);
+	// 	proceso = leer_de_memoria(direccion, configuracion->tam_pagina);
+	// 	imprimir_puntero_void(proceso, configuracion->tam_pagina);
+	// 	free(proceso);
+	// }
+	// proceso = leer_de_memoria(direccion, sizeof(int));
+	// int d = *(int*) numero;
+	// printf("%d\n", d);
 
 
 
@@ -102,7 +103,7 @@ int main() {
     
     //iniciar_conexion(configuracion_memoria);
 
-    //funcion_test1();
+    funcion_test1();
 
     //t_tabla tablas_de_paginas[entradas_por_tabla][entradas_por_tabla];
     //No se puede usar parametros para crear arrays o tablas de tamaño variable

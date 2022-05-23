@@ -1,4 +1,5 @@
 #include  "../include/operaciones.h"
+
 //int escribir_en_memoria(uint8_t dato, int direccion){
 //    if(direccion > (configuracion -> tam_memoria) - 1)
 //        return -1;
@@ -41,7 +42,7 @@ void suspender_proceso2(int direccion){
 			t_tabla2* pagina = list_get(tabla2, j);
 			if(pagina->P){
 				pagina->P = false;
-				if(!strcmp(configuracion->algoritmo_reemplazo, "CLOCK-M")){
+				if(strcmp(configuracion->algoritmo_reemplazo, "CLOCK")){
 					escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
 				}else{
 					if(pagina->M){
@@ -100,23 +101,20 @@ int obtener_marco(int direccion, int indice){
 
 	//De no estar cargada en memoria la carga, devuelve el marco al final
 	if(!pagina->P){
-		//Todo Implementar algoritmos de reemplazo
-		//Esta version previa guardara siempre en el primer marco de memoria y guardara en SWAP la
-		//pagina anterior
+		int marco = ejecutar_algoritmo_de_reemplazo(pagina->pagina, pagina->id);
 
-//		if(!marco_ptr){
-//			marco_ptr->P = 0;
-//			escribir_pagina_SWAP(marco_ptr->id, marco_ptr->pagina, marco_ptr->marco);
-//		}
+		//En caso de error se retorna inmediatamente -1
+		if(marco == -1)
+			return marco;
 
-		pagina->marco = 0;
+		pagina->marco = marco;
 		pagina->P = 1;
 		sem_wait(&mutex_tabla_planificacion);
 		list_replace(tabla_planificacion, 0, pagina);
 		sem_post(&mutex_tabla_planificacion);
-		leer_pagina_SWAP(pagina->id, pagina->pagina, 0);
 	}
-
+	//De ser referenciada se pone el bit de uso en 1
+	pagina->U = 1;
 	return pagina->marco;
 }
 
@@ -126,6 +124,11 @@ void escribir_a_memoria(int direccion, int tamanio_a_escribir, void* a_escribir)
 	char* puntero = memoria_principal;
 	puntero += direccion;
 
+	//Se pone el bit de modificacion(M) en 1
+	sem_wait(&mutex_tabla_planificacion);
+	t_tabla2* pagina = list_get(tabla_planificacion, direccion / configuracion->tam_pagina);
+	pagina->M = true;
+	sem_post(&mutex_tabla_planificacion);
 	memcpy(puntero, a_escribir, tamanio_a_escribir);
 }
 

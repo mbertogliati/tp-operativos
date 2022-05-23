@@ -80,6 +80,7 @@ int iniciar_conexiones(){
 
     return EXIT_SUCCESS;
 }
+
 void *conectar_con_cpu(int* socket_cpu){
 
     printf("Aca se hace la conexion con CPU en el socket: %d\n", *socket_cpu);
@@ -196,6 +197,7 @@ void *conectar_con_cpu(int* socket_cpu){
     free(buffer);
     return NULL;
 }
+
 void *conectar_con_kernel(int *socket_kernel){
 
     printf("Aca se hace la conexion con KERNEL en el socket: %d\n", *socket_kernel);

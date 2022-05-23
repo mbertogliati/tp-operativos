@@ -38,6 +38,8 @@ typedef struct{
     bool M;
 } t_tabla2;
 
+int planificacion_ptr;
+
 void iniciar_estructuras();
 void cargar_configuraciones(char* path);
 bool es_configuracion_valida(t_config *config_memoria);
