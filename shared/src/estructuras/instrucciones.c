@@ -1,7 +1,8 @@
-#include "../include/instrucciones.h"
+#include "../../include/estructuras/instrucciones.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <commons/collections/list.h>
 
 t_instruccion *crear_instruccion(int identificador, int cant_parametros, uint32_t *parametros) {
 	t_instruccion *instruccion = (t_instruccion *) malloc(sizeof(t_instruccion));
@@ -49,4 +50,31 @@ void imprimir_instruccion(t_instruccion *instruccion) {
 void liberar_instruccion(t_instruccion *instruccion) {
 	free(instruccion->parametros);
 	free(instruccion);
+}
+
+t_instruccion *desempaquetar_instruccion(void *buffer, int *desplazamiento, int size) {
+	int identificador, cant_parametros, tam_parametros;
+	uint32_t *parametros;
+	t_list *instrucciones = list_create();
+
+	while (*desplazamiento < size) {
+		memcpy(&identificador, buffer + *desplazamiento, sizeof(int));
+		*desplazamiento += sizeof(int);
+
+		memcpy(&cant_parametros, buffer + *desplazamiento, sizeof(int));
+		*desplazamiento += sizeof(int);
+
+		if ((tam_parametros = cant_parametros * sizeof(uint32_t)))
+			parametros = (uint32_t *) malloc(tam_parametros);
+		else
+			parametros = NULL;
+
+		memcpy(parametros, buffer + *desplazamiento, tam_parametros);
+		*desplazamiento += tam_parametros;
+
+		list_add(instrucciones,
+				crear_instruccion(identificador, cant_parametros, parametros));
+	}
+
+	return instrucciones;
 }

@@ -2,7 +2,8 @@
 #define KERNEL_H_
 
 #include <commons/log.h>
-#include "recibir.h"
+#include <commons/config.h>
+#include "../../shared/include/estructuras/pcb.h"
 
 t_log *logger;
 

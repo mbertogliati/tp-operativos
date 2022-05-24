@@ -1,17 +1,32 @@
 #include "../include/crear_paquete.h"
 
-void procesar_linea(char **instruccion_leida, t_list *instrucciones) {
-	int identificador = get_identificador(instruccion_leida[0]);
+void empaquetar_instruccion(t_paquete *paquete, t_instruccion *instruccion) {
+	if (!instruccion)
+		return;
+
+	if (instruccion->identificador == NO_OP) {
+		if (instruccion->parametros[0] > 1) {
+			instruccion->parametros[0]--;
+			empaquetar_instruccion(paquete, instruccion);
+		}
+		instruccion = crear_instruccion(NO_OP, 0, NULL);
+	}
+
+	agregar_a_paquete(paquete, &(instruccion->identificador), sizeof(int));
+	agregar_a_paquete(paquete, &(instruccion->cant_parametros), sizeof(int));
+	agregar_a_paquete(paquete, instruccion->parametros, sizeof(uint32_t) * instruccion->cant_parametros);
+}
+
+t_instruccion *procesar_linea(char *id, char **param) {
+	int identificador = get_identificador(id);
 	int cant_parametros = 0;
 	uint32_t *parametros = NULL;
 
 	switch (identificador) {
-	case NO_OP:
-		for (int i = 0; i < atoi(instruccion_leida[1]); i++)
-			list_add(instrucciones, crear_instruccion(identificador, cant_parametros, parametros));
-		return;
+	case EXIT:
+		break;
 
-	case IO: case READ:
+	case NO_OP: case IO: case READ:
 		cant_parametros = 1;
 		break;
 
@@ -19,24 +34,21 @@ void procesar_linea(char **instruccion_leida, t_list *instrucciones) {
 		cant_parametros = 2;
 		break;
 
-	case EXIT:
-		break;
-
 	default:
-		// identificador no reconocido
-		return;
+		log_error(logger, "Identificador no reconocido");
+		return NULL;
 	}
 
 	if (cant_parametros) {
 		parametros = (uint32_t *) malloc(cant_parametros * sizeof(uint32_t));
 		for (int i = 0; i < cant_parametros; i++)
-			parametros[i] = atoi(instruccion_leida[i + 1]);
+			parametros[i] = atoi(param[i]);
 	}
 
-	list_add(instrucciones, crear_instruccion(identificador, cant_parametros, parametros));
+	return crear_instruccion(identificador, cant_parametros, parametros);
 }
 
-t_list *leer_archivo(char *path) {
+t_paquete *crear_paquete_instrucciones(char *path, int tamanio) {
 	FILE *f = fopen(path, "r");
 
 	if (!f) {
@@ -46,19 +58,29 @@ t_list *leer_archivo(char *path) {
 
 	char *linea = NULL;
 	size_t lon = 0;
-	t_list *instrucciones = list_create();
+	char **instruccion;
 
-	while (getline(&linea, &lon, f) != -1)
-		procesar_linea(string_split(linea, " "), instrucciones);
+	log_info(logger, "Creando paquete de instrucciones...");
+	t_paquete *paquete = crear_paquete(INSTRUCCIONES_CONSOLA);
+	agregar_a_paquete(paquete, &tamanio, sizeof(int));
+
+	while (getline(&linea, &lon, f) != -1) {
+		instruccion = string_split(linea, " ");
+		empaquetar_instruccion(
+				paquete,
+				procesar_linea(instruccion[0], instruccion + sizeof(char *))
+		);
+	}
 
 	fclose(f);
 	free(linea);
 
 	log_info(logger, "Archivo de instrucciones leído correctamente");
-	log_info(logger, "Lista de instrucciones creada");
-	return instrucciones;
+	log_info(logger, "Paquete creado exitosamente");
+	return paquete;
 }
 
+/*
 t_paquete *crear_paquete_instrucciones(char *path, int tamanio) {
 	log_info(logger, "Creando paquete de instrucciones...");
 
@@ -83,3 +105,4 @@ t_paquete *crear_paquete_instrucciones(char *path, int tamanio) {
 
 	return paquete;
 }
+*/
