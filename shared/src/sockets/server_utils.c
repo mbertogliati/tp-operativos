@@ -1,7 +1,6 @@
 #include "../../include/sockets/server_utils.h"
 
-/******* CONECTAR *******/
-int iniciar_servidor(char* puerto) {
+int iniciar_servidor(char *puerto) {
 	struct addrinfo *server_info = addrinfo_servidor(NULL, puerto);
 	int socket_servidor = crear_socket(server_info);
 
@@ -17,7 +16,6 @@ int esperar_cliente(int socket_servidor) {
 	return socket_cliente;
 }
 
-/******* RECIBIR *******/
 int recibir_operacion(int socket_cliente) {
 	int cod_op;
 	if (recv(socket_cliente, &cod_op, sizeof(int), MSG_WAITALL) > 0)

@@ -39,7 +39,5 @@ void enviar_paquete_instrucciones(t_paquete *paquete) {
 
 	enviar_paquete(paquete, socket_cliente);
 	log_info(logger, "Paquete enviado");
-
-	eliminar_paquete(paquete);
 	liberar_conexion(socket_cliente);
 }

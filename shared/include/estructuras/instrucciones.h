@@ -15,7 +15,9 @@ typedef struct {
 
 t_instruccion *crear_instruccion(int identificador, int cant_parametros, uint32_t *parametros);
 int get_identificador(char* identificador_leido);
+int get_cant_parametros(int identificador);
 void imprimir_instruccion(t_instruccion *instruccion);
+t_instruccion *desempaquetar_instruccion(void *buffer, int *desplazamiento);
 void liberar_instruccion(t_instruccion *instruccion);
 
 #endif /* INSTRUCCIONES_H_ */

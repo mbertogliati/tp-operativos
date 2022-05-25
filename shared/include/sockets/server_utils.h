@@ -3,7 +3,7 @@
 
 #include "socket.h"
 
-int iniciar_servidor(char* puerto);
+int iniciar_servidor(char *puerto);
 int esperar_cliente(int);
 void *recibir_buffer(int *, int);
 int recibir_operacion(int);

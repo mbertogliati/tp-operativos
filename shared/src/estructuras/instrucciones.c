@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <commons/collections/list.h>
 
 t_instruccion *crear_instruccion(int identificador, int cant_parametros, uint32_t *parametros) {
 	t_instruccion *instruccion = (t_instruccion *) malloc(sizeof(t_instruccion));
@@ -29,6 +28,23 @@ int get_identificador(char *identificador_leido) {
 	return identificador;
 }
 
+int get_cant_parametros(int identificador) {
+	int cant_parametros = 0;
+	switch (identificador) {
+	case EXIT:
+		break;
+
+	case NO_OP: case IO: case READ:
+		cant_parametros = 1;
+		break;
+
+	case WRITE: case COPY:
+		cant_parametros = 2;
+		break;
+	}
+	return cant_parametros;
+}
+
 void imprimir_instruccion(t_instruccion *instruccion) {
 	int identificador = instruccion->identificador;
 	int cant_parametros = instruccion->cant_parametros;
@@ -52,29 +68,23 @@ void liberar_instruccion(t_instruccion *instruccion) {
 	free(instruccion);
 }
 
-t_instruccion *desempaquetar_instruccion(void *buffer, int *desplazamiento, int size) {
+t_instruccion *desempaquetar_instruccion(void *buffer, int *desplazamiento) {
 	int identificador, cant_parametros, tam_parametros;
 	uint32_t *parametros;
-	t_list *instrucciones = list_create();
 
-	while (*desplazamiento < size) {
-		memcpy(&identificador, buffer + *desplazamiento, sizeof(int));
-		*desplazamiento += sizeof(int);
+	memcpy(&identificador, buffer + *desplazamiento, sizeof(int));
+	*desplazamiento += sizeof(int);
 
-		memcpy(&cant_parametros, buffer + *desplazamiento, sizeof(int));
-		*desplazamiento += sizeof(int);
+	memcpy(&cant_parametros, buffer + *desplazamiento, sizeof(int));
+	*desplazamiento += sizeof(int);
 
-		if ((tam_parametros = cant_parametros * sizeof(uint32_t)))
-			parametros = (uint32_t *) malloc(tam_parametros);
-		else
-			parametros = NULL;
+	if ((tam_parametros = cant_parametros * sizeof(uint32_t)))
+		parametros = (uint32_t *) malloc(tam_parametros);
+	else
+		parametros = NULL;
 
-		memcpy(parametros, buffer + *desplazamiento, tam_parametros);
-		*desplazamiento += tam_parametros;
+	memcpy(parametros, buffer + *desplazamiento, tam_parametros);
+	*desplazamiento += tam_parametros;
 
-		list_add(instrucciones,
-				crear_instruccion(identificador, cant_parametros, parametros));
-	}
-
-	return instrucciones;
+	return crear_instruccion(identificador, cant_parametros, parametros);
 }

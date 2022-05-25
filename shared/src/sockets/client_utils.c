@@ -1,4 +1,5 @@
 #include "../../include/sockets/client_utils.h"
+#include <string.h>
 
 void crear_buffer(t_paquete *paquete) {
 	paquete->buffer = malloc(sizeof(t_buffer));
@@ -52,11 +53,12 @@ void enviar_paquete(t_paquete* paquete, int socket_cliente) {
 	void *a_enviar = serializar_paquete(paquete, size_serializado);
 	send(socket_cliente, a_enviar, size_serializado, 0);
 	free(a_enviar);
+	eliminar_paquete(paquete);
 }
 
-void enviar_mensaje(char* mensaje, int socket_cliente) {
+void enviar_mensaje(void *mensaje, int bytes, int socket_cliente) {
 	t_paquete *paquete = crear_paquete(MENSAJE);
-	agregar_a_paquete(paquete, mensaje, strlen(mensaje) + 1);
+	agregar_a_paquete(paquete, mensaje, bytes);
 	enviar_paquete(paquete, socket_cliente);
 	eliminar_paquete(paquete);
 }
