@@ -27,13 +27,13 @@
 		<link>
 			<name>shared</name>
 			<type>2</type>
-			<locationURI>TP_LOC/shared</locationURI>
+			<locationURI>SHARED</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>
 		<variable>
-			<name>TP_LOC</name>
-			<value>file:/home/utnso/Documentos/tp-2022-1c-Los-Simuladores</value>
+			<name>SHARED</name>
+			<value>file:/home/utnso/Documentos/tp-2022-1c-Los-Simuladores/shared</value>
 		</variable>
 	</variableList>
 </projectDescription>
