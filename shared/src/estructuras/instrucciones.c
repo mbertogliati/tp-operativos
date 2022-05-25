@@ -3,16 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-t_instruccion *crear_instruccion(int identificador, int cant_parametros, uint32_t *parametros) {
-	t_instruccion *instruccion = (t_instruccion *) malloc(sizeof(t_instruccion));
-	instruccion->identificador = identificador;
-	instruccion->cant_parametros = cant_parametros;
-	instruccion->parametros = parametros;
-	return instruccion;
-}
-
-int get_identificador(char *identificador_leido) {
-	int identificador = -1;
+uint8_t get_identificador(char *identificador_leido) {
+	uint8_t identificador = NO_RECONOCIDO;
 	if (!strcmp("NO_OP", identificador_leido))
 		identificador = NO_OP;
 	if (!strcmp("I/O", identificador_leido))
@@ -28,13 +20,13 @@ int get_identificador(char *identificador_leido) {
 	return identificador;
 }
 
-int get_cant_parametros(int identificador) {
-	int cant_parametros = 0;
+uint8_t get_cant_parametros(uint8_t identificador) {
+	uint8_t cant_parametros = 0;
 	switch (identificador) {
-	case EXIT:
+	case EXIT: case NO_OP:
 		break;
 
-	case NO_OP: case IO: case READ:
+	case IO: case READ:
 		cant_parametros = 1;
 		break;
 
@@ -45,9 +37,17 @@ int get_cant_parametros(int identificador) {
 	return cant_parametros;
 }
 
+t_instruccion *crear_instruccion(uint8_t identificador, uint8_t cant_parametros, uint32_t *parametros) {
+	t_instruccion *instruccion = (t_instruccion *) malloc(sizeof(t_instruccion));
+	instruccion->identificador = identificador;
+	instruccion->cant_parametros = cant_parametros;
+	instruccion->parametros = parametros;
+	return instruccion;
+}
+
 void imprimir_instruccion(t_instruccion *instruccion) {
-	int identificador = instruccion->identificador;
-	int cant_parametros = instruccion->cant_parametros;
+	uint8_t identificador = instruccion->identificador;
+	uint8_t cant_parametros = instruccion->cant_parametros;
 	uint32_t *parametros = instruccion->parametros;
 
 	printf("\tidentificador: %d\n\tparametros: ", identificador);
@@ -69,22 +69,22 @@ void liberar_instruccion(t_instruccion *instruccion) {
 }
 
 t_instruccion *desempaquetar_instruccion(void *buffer, int *desplazamiento) {
-	int identificador, cant_parametros, tam_parametros;
+	uint8_t identificador, cant_parametros;
 	uint32_t *parametros;
 
-	memcpy(&identificador, buffer + *desplazamiento, sizeof(int));
-	*desplazamiento += sizeof(int);
+	memcpy(&identificador, buffer + *desplazamiento, sizeof(uint8_t));
+	*desplazamiento += sizeof(uint8_t);
 
-	memcpy(&cant_parametros, buffer + *desplazamiento, sizeof(int));
-	*desplazamiento += sizeof(int);
+	memcpy(&cant_parametros, buffer + *desplazamiento, sizeof(uint8_t));
+	*desplazamiento += sizeof(uint8_t);
 
-	if ((tam_parametros = cant_parametros * sizeof(uint32_t)))
-		parametros = (uint32_t *) malloc(tam_parametros);
-	else
-		parametros = NULL;
-
-	memcpy(parametros, buffer + *desplazamiento, tam_parametros);
-	*desplazamiento += tam_parametros;
+	if (cant_parametros) {
+		int bytes = cant_parametros * sizeof(uint32_t);
+		parametros = (uint32_t *) malloc(bytes);
+		memcpy(parametros, buffer + *desplazamiento, bytes);
+		*desplazamiento += bytes;
+	}
+	else parametros = NULL;
 
 	return crear_instruccion(identificador, cant_parametros, parametros);
 }

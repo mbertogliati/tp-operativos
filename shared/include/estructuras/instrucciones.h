@@ -1,23 +1,23 @@
 #ifndef INSTRUCCIONES_H_
 #define INSTRUCCIONES_H_
 
-typedef unsigned int uint32_t;
+#include <stdint.h>
 
 typedef enum {
-	NO_OP, IO, READ, WRITE, COPY, EXIT
+	NO_OP, IO, READ, WRITE, COPY, EXIT, NO_RECONOCIDO
 } id;
 
 typedef struct {
-	int identificador;
-	int cant_parametros;
+	uint8_t identificador;
+	uint8_t cant_parametros;
 	uint32_t *parametros;
 } t_instruccion;
 
-t_instruccion *crear_instruccion(int identificador, int cant_parametros, uint32_t *parametros);
-int get_identificador(char* identificador_leido);
-int get_cant_parametros(int identificador);
-void imprimir_instruccion(t_instruccion *instruccion);
-t_instruccion *desempaquetar_instruccion(void *buffer, int *desplazamiento);
-void liberar_instruccion(t_instruccion *instruccion);
+uint8_t get_identificador(char *);
+uint8_t get_cant_parametros(uint8_t);
+t_instruccion *crear_instruccion(uint8_t, uint8_t, uint32_t *);
+void imprimir_instruccion(t_instruccion *);
+void liberar_instruccion(t_instruccion *);
+t_instruccion *desempaquetar_instruccion(void *, int *);
 
 #endif /* INSTRUCCIONES_H_ */

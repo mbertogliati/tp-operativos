@@ -1,16 +1,17 @@
 #ifndef PCB_H_
 #define PCB_H_
 
+#include <stdint.h>
 #include <commons/collections/list.h>
 
 typedef struct {
-	int id;
-	int tamanio;
-	int cant_instrucciones;
+	uint16_t id;
+	uint32_t tamanio;
+	uint8_t cant_instrucciones;
 	t_list *instrucciones;
-	int program_counter;
+	uint32_t program_counter;
 	int tabla_paginas;
-	float est_rafaga;
+	double est_rafaga;
 } t_pcb;
 
 void imprimir_pcb(t_pcb *pcb);

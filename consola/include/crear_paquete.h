@@ -9,6 +9,6 @@
 
 extern t_log *logger;
 
-t_paquete *crear_paquete_instrucciones(char *path, int tamanio);
+t_paquete *crear_paquete_instrucciones(char *path, uint32_t tamanio);
 
 #endif

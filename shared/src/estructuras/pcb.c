@@ -15,8 +15,8 @@ void imprimir_pcb(t_pcb *pcb) {
 void recibir_paquete_consola(void *buffer, int size, t_pcb *pcb) {
 	int desplazamiento = 0;
 
-	memcpy(&(pcb->tamanio), buffer + desplazamiento, sizeof(int));
-	desplazamiento += sizeof(int);
+	memcpy(&(pcb->tamanio), buffer + desplazamiento, sizeof(uint32_t));
+	desplazamiento += sizeof(uint32_t);
 
 	pcb->instrucciones = list_create();
 
@@ -31,30 +31,29 @@ t_pcb *desempaquetar_pcb(void *buffer) {
 	t_pcb *pcb = (t_pcb *) malloc(sizeof(t_pcb));
 	pcb->instrucciones = list_create();
 
-	memcpy(&(pcb->id), buffer + desplazamiento, sizeof(int));
-	desplazamiento += sizeof(int);
+	memcpy(&(pcb->id), buffer + desplazamiento, sizeof(uint16_t));
+	desplazamiento += sizeof(uint16_t);
 
-	memcpy(&(pcb->tamanio), buffer + desplazamiento, sizeof(int));
-	desplazamiento += sizeof(int);
+	memcpy(&(pcb->tamanio), buffer + desplazamiento, sizeof(uint32_t));
+	desplazamiento += sizeof(uint32_t);
 
-	memcpy(&(pcb->cant_instrucciones), buffer + desplazamiento, sizeof(int));
-	desplazamiento += sizeof(int);
+	memcpy(&(pcb->cant_instrucciones), buffer + desplazamiento, sizeof(uint8_t));
+	desplazamiento += sizeof(uint8_t);
 
 	for (int i = 0; i < pcb->cant_instrucciones; i++)
 		list_add(pcb->instrucciones, desempaquetar_instruccion(buffer, &desplazamiento));
 
-	memcpy(&(pcb->program_counter), buffer + desplazamiento, sizeof(int));
-	desplazamiento += sizeof(int);
+	memcpy(&(pcb->program_counter), buffer + desplazamiento, sizeof(uint32_t));
+	desplazamiento += sizeof(uint32_t);
 
 	memcpy(&(pcb->tabla_paginas), buffer + desplazamiento, sizeof(int));
 	desplazamiento += sizeof(int);
 
-	memcpy(&(pcb->est_rafaga), buffer + desplazamiento, sizeof(float));
-	desplazamiento += sizeof(float);
+	memcpy(&(pcb->est_rafaga), buffer + desplazamiento, sizeof(double));
+	desplazamiento += sizeof(double);
 
 	return pcb;
 }
-
 
 void liberar_pcb(t_pcb *pcb) {
 	list_destroy_and_destroy_elements(pcb->instrucciones, (void*) liberar_instruccion);
