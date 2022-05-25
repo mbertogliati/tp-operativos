@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <commons/log.h>
 #include <commons/string.h>
-#include "../../shared/include/estructuras/instrucciones.h"
-#include "../../shared/include/sockets/client_utils.h"
+#include <estructuras/instrucciones.h>
+#include <sockets/client_utils.h>
 
 extern t_log *logger;
 
