@@ -52,10 +52,10 @@ Mkfile.old
 dkms.conf
 /Default/
 
-#VSCode
+# VSCode
 .vscode
 
-#Archivos innecesarios
+# Archivos innecesarios
 *.log
 *.github
 /.metadata/
