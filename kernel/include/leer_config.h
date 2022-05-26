@@ -3,18 +3,30 @@
 
 #include <commons/config.h>
 
-extern t_config *kernel_config;
+t_config *kernel_config;
 
+void crear_config();
+void destruir_config();
+
+// memoria
 char *ip_memoria();
 char *puerto_memoria();
+
+// cpu
 char *ip_cpu();
 char *puerto_cpu_dispatch();
 char *puerto_cpu_interrupt();
+
+// kernel
 char *puerto_escucha();
+
+// planificación
 char *algoritmo_planificacion();
-double estimacion_inicial();
-double alfa();
 int grado_multiprogramacion();
 double tiempo_max_bloqueado();
+
+// sjf
+double estimacion_inicial();
+double alfa();
 
 #endif /* LEER_CONFIG_H_ */
