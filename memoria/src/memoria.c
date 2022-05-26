@@ -28,6 +28,61 @@ void funcion_test1(){
 	imprimir_puntero_void(proceso, configuracion->tam_pagina);
 	free(proceso);
 
+
+
+	finalizar_proceso(proceso1);
+
+	//Prueba Suspender proceso
+//	t_list* tabla1_ptr = proceso1;
+//		for(int i = 0; i < 16/configuracion->tam_pagina; i++){
+//			t_list* tabla2_ptr = list_get(tabla1_ptr, i / configuracion->entradas_por_tabla);
+//			t_tabla2* pagina_ptr = list_get(tabla2_ptr, i % configuracion->entradas_por_tabla);
+//			printf("Proceso: %d, pagina: %d, bit de presencia: %d\n", pagina_ptr->id, pagina_ptr->pagina, pagina_ptr->P);
+//		}
+//	suspender_proceso2(proceso1);
+//	for(int i = 0; i < 16/configuracion->tam_pagina; i++){
+//		t_list* tabla2_ptr = list_get(tabla1_ptr, i / configuracion->entradas_por_tabla);
+//		t_tabla2* pagina_ptr = list_get(tabla2_ptr, i % configuracion->entradas_por_tabla);
+//		printf("Proceso: %d, pagina: %d, bit de presencia: %d\n", pagina_ptr->id, pagina_ptr->pagina, pagina_ptr->P);
+//	}
+
+
+
+
+	//Prueba lectura y escritura de memoria
+	// int a = 55456;
+	// void* numero = &a;
+	// for(int i = 0; i < 4; i++){
+	// 	escribir_a_memoria(direccion + i, 1, numero + i);
+	// 	proceso = leer_de_memoria(direccion, configuracion->tam_pagina);
+	// 	imprimir_puntero_void(proceso, configuracion->tam_pagina);
+	// 	free(proceso);
+	// }
+	// proceso = leer_de_memoria(direccion, sizeof(int));
+	// int b = *(int*) numero;
+	// printf("%d\n", b);
+
+
+	// tabla2 = obtener_tabla2(proceso3, 1);
+	// printf("%d\n", tabla2);
+	// marco = obtener_marco(tabla2, 0);
+	// printf("%d\n", marco);
+	// direccion = (marco * configuracion->tam_pagina);
+
+	// int c = 99999;
+	// numero = &c;
+	// for(int i = 0; i < 4; i++){
+	// 	escribir_a_memoria(direccion + i, 1, numero + i);
+	// 	proceso = leer_de_memoria(direccion, configuracion->tam_pagina);
+	// 	imprimir_puntero_void(proceso, configuracion->tam_pagina);
+	// 	free(proceso);
+	// }
+	// proceso = leer_de_memoria(direccion, sizeof(int));
+	// int d = *(int*) numero;
+	// printf("%d\n", d);
+
+
+
 //	printf("Direccion tabla1 proceso 1: %d\n", proceso1);
 //	printf("Direccion tabla1 proceso 2: %d\n", proceso2);
 //	printf("Direccion tabla1 proceso 3: %d\n", proceso3);
@@ -36,15 +91,16 @@ void funcion_test1(){
 
 int main() {
 
-    
+    configuracion = NULL;
+	
     iniciar_estructuras();
+	iniciar_conexiones(configuracion);
 
     if(!configuracion)
         return EXIT_FAILURE;
 
-    printf("El puerto es: %s\n", configuracion_memoria->puerto);
-
-    iniciar_conexiones(configuracion_memoria);
+    printf("El puerto es: %s\n", configuracion->puerto);
+    
     //iniciar_conexion(configuracion_memoria);
 
     funcion_test1();
