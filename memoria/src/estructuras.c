@@ -11,7 +11,11 @@ void iniciar_estructuras(){
 		t_tabla2* tabla2 = NULL;
 		list_add(tabla_planificacion, tabla2);
 	}
-	planificacion_ptr = 0;
+	int tamanio_vector_ptrs_marcos = list_size(tabla_planificacion)/configuracion->marcos_por_proceso;
+	planificacion_ptrs = malloc(tamanio_vector_ptrs_marcos * sizeof(int));
+	for(int i = 0; i < tamanio_vector_ptrs_marcos; i++){
+		planificacion_ptrs[i] = 0;
+	}
 }
 
 void cargar_configuraciones(char* path){
@@ -83,6 +87,14 @@ void crear_SWAP(int id_proceso, int tamanio_proceso, void* proceso){
 		return;
 	}
 	fwrite(proceso, tamanio_proceso, 1, SWAP_file);
+
+	//En caso de que el tamanio del archivo no sea divisible por el tamanio de una pagina, se lo redondea
+	if(tamanio_proceso % configuracion->tam_pagina != 0){
+		int resto = configuracion->tam_pagina * ((tamanio_proceso / configuracion->tam_pagina) + 1) - tamanio_proceso;
+		void *relleno = malloc(resto);
+		fwrite(relleno, resto, 1, SWAP_file);
+		free(relleno);
+	}
 
 	fclose(SWAP_file);
 

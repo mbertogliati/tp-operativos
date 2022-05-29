@@ -35,6 +35,7 @@ void suspender_proceso(int id_proceso){
 //Version con direccion de tabla1
 void suspender_proceso2(int direccion){
 	t_list* tabla1 = direccion;
+	int marco_inicial = list_size(tabla_planificacion);
 
 	for(int i = 0; i < list_size(tabla1); i++){
 		t_list* tabla2 = list_get(tabla1, i);
@@ -42,6 +43,11 @@ void suspender_proceso2(int direccion){
 			t_tabla2* pagina = list_get(tabla2, j);
 			if(pagina->P){
 				pagina->P = false;
+
+				//Busco el primer marco del grupo asignado
+				if(pagina->marco < marco_inicial)
+					marco_inicial = pagina->marco;
+
 				if(strcmp(configuracion->algoritmo_reemplazo, "CLOCK")){
 					escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
 				}else{
@@ -49,11 +55,14 @@ void suspender_proceso2(int direccion){
 						escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
 					}
 				}
-				//Saco la pagina de la tabla de planificacion
-				sem_wait(&mutex_tabla_planificacion);
-				list_replace(tabla_planificacion, pagina->marco, NULL);
-				sem_post(&mutex_tabla_planificacion);
 			}
+		}
+		//Actualizo todos los marcos a la vez para evitar errores con los semaforos
+		if(marco_inicial != list_size(tabla_planificacion)){
+			sem_wait(&mutex_tabla_planificacion);
+			for(int i=0; i < configuracion->marcos_por_proceso; i++)
+				list_replace(tabla_planificacion, marco_inicial + i, NULL);
+			sem_post(&mutex_tabla_planificacion);
 		}
 	}
 }
@@ -61,6 +70,7 @@ void suspender_proceso2(int direccion){
 void finalizar_proceso(int direccion){
 	t_list* tabla1 = direccion;
 	int tamanio_tabla1 = list_size(tabla1);
+	int marco_inicial = list_size(tabla_planificacion);
 	int id_proceso;
 
 	for(int i = 0; i < tamanio_tabla1; i++){
@@ -68,10 +78,8 @@ void finalizar_proceso(int direccion){
 		int tamanio_tabla2 = list_size(tabla2);
 		for(int j = 0; j < tamanio_tabla2; j++){
 			t_tabla2* pagina = list_get(tabla2, 0);
-			if(!pagina->P){
-				sem_wait(&mutex_tabla_planificacion);
-				list_replace(tabla_planificacion, pagina->marco, NULL);
-				sem_post(&mutex_tabla_planificacion);
+			if(!pagina->P && pagina->marco < marco_inicial){
+				marco_inicial = pagina->marco;
 			}
 			id_proceso = pagina->id;
 			free(pagina);
@@ -80,6 +88,15 @@ void finalizar_proceso(int direccion){
 		list_destroy(tabla2);
 		list_remove(tabla1, 0);
 	}
+
+	//Actualizo todos los marcos a la vez para evitar problemas con los semaforos
+	if(marco_inicial != list_size(tabla_planificacion)){
+		sem_wait(&mutex_tabla_planificacion);
+		for(int i = 0; i < configuracion->marcos_por_proceso; i++)
+			list_replace(tabla_planificacion, marco_inicial + i, NULL);
+		sem_post(&mutex_tabla_planificacion);
+	}
+
 	list_destroy(tabla1);
 
 	char* SWAP_path = string_from_format("%s/%d.swap",
@@ -110,7 +127,7 @@ int obtener_marco(int direccion, int indice){
 		pagina->marco = marco;
 		pagina->P = 1;
 		sem_wait(&mutex_tabla_planificacion);
-		list_replace(tabla_planificacion, 0, pagina);
+		list_replace(tabla_planificacion, marco, pagina);
 		sem_post(&mutex_tabla_planificacion);
 	}
 	//De ser referenciada se pone el bit de uso en 1
@@ -125,10 +142,8 @@ void escribir_a_memoria(int direccion, int tamanio_a_escribir, void* a_escribir)
 	puntero += direccion;
 
 	//Se pone el bit de modificacion(M) en 1
-	sem_wait(&mutex_tabla_planificacion);
 	t_tabla2* pagina = list_get(tabla_planificacion, direccion / configuracion->tam_pagina);
 	pagina->M = true;
-	sem_post(&mutex_tabla_planificacion);
 	memcpy(puntero, a_escribir, tamanio_a_escribir);
 }
 

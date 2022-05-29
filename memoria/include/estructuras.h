@@ -11,6 +11,7 @@
 #include <string.h>
 #include <unistd.h>
 
+
 typedef struct{
     char* puerto;
     int tam_memoria;
@@ -40,7 +41,7 @@ typedef struct{
     bool M;
 } t_tabla2;
 
-int planificacion_ptr;
+int *planificacion_ptrs;
 
 void iniciar_estructuras();
 void cargar_configuraciones(char* path);
