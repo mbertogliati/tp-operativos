@@ -129,6 +129,7 @@ int encontrar_grupo_de_marcos_de_proceso(int id_proceso){
 		pagina_actual = list_get(tabla_planificacion, inicio_grupo_marcos);
 		if(pagina_actual && pagina_actual->id == id_proceso){
 			sem_post(&mutex_tabla_planificacion);
+			log_info(cpu_log, "Grupo de marcos del proceso encontrado en marcos %d a %d", inicio_grupo_marcos, inicio_grupo_marcos + configuracion->marcos_por_proceso);
 			return inicio_grupo_marcos;
 		}
 		inicio_grupo_marcos += configuracion->marcos_por_proceso;
@@ -140,12 +141,14 @@ int encontrar_grupo_de_marcos_de_proceso(int id_proceso){
 		pagina_actual = list_get(tabla_planificacion, inicio_grupo_marcos);
 		if(!pagina_actual){
 			sem_post(&mutex_tabla_planificacion);
+			log_info(cpu_log, "Marcos %d a %d asignado al proceso", inicio_grupo_marcos, inicio_grupo_marcos + configuracion->marcos_por_proceso);
 			return inicio_grupo_marcos;
 		}
 		inicio_grupo_marcos += configuracion->marcos_por_proceso;
 	}
 	//Si llega aca ocurrio un error
 	sem_post(&mutex_tabla_planificacion);
+	log_error(cpu_log, "ERROR - No se encontro espacio disponible para el proceso");
 	return -1;
 }
 
@@ -164,6 +167,7 @@ int clock_normal(int id_proceso, int pagina, int marco_inicio){
 		if(!pagina_actual){
 			sem_post(&mutex_tabla_planificacion);
 			leer_pagina_SWAP(id_proceso, pagina, marco_inicio + planificacion_ptrs[posicion_ptr]);
+			log_info(cpu_log, "Marco vacio encontrado en marco %d", marco_inicio + planificacion_ptrs[posicion_ptr]);
 			planificacion_ptrs[posicion_ptr] +=  ++i;
 			return marco_inicio + planificacion_ptrs[posicion_ptr] - 1;
 		}
@@ -173,9 +177,11 @@ int clock_normal(int id_proceso, int pagina, int marco_inicio){
 		for(; planificacion_ptrs[posicion_ptr] < configuracion->marcos_por_proceso; planificacion_ptrs[posicion_ptr]++){
 			pagina_actual = list_get(tabla_planificacion, marco_inicio + planificacion_ptrs[posicion_ptr]);
 
-			if(pagina_actual->U)
+			if(pagina_actual->U){
 				pagina_actual->U = false;
-			else{
+				log_info(cpu_log, "Bit de uso modificado en marco %d", pagina_actual->marco);
+			}else{
+				log_info(cpu_log, "Marco a reemplazar encontrado en marco %d", pagina_actual->marco);
 				sem_post(&mutex_tabla_planificacion);
 				//Se escribe la pagina en swap por si hubo modificacion:
 			    escribir_pagina_SWAP(pagina_actual->id, pagina_actual->pagina, pagina_actual->marco);
@@ -195,6 +201,8 @@ int clock_normal(int id_proceso, int pagina, int marco_inicio){
 	//El for de "j" asegura que si no se puede elegir un marco para reemplazar a la primera vuelta, se haga una segunda.
 	//Si a las 2da vuelta no se reemplaza nada, se rompe todo
 	sem_post(&mutex_tabla_planificacion);
+	log_error(cpu_log, "ERROR - Marco valido no encontrado tras 2 iteraciones");
+
 	return -1;
 }
 
@@ -212,6 +220,7 @@ int clock_modificado(int id_proceso, int pagina, int marco_inicio){
 		pagina_actual = list_get(tabla_planificacion, marco_inicio + planificacion_ptrs[posicion_ptr] + i);
 		if(!pagina_actual){
 			sem_post(&mutex_tabla_planificacion);
+			log_info(cpu_log, "Marco vacio encontrado en marco %d", marco_inicio + planificacion_ptrs[posicion_ptr]);
 			leer_pagina_SWAP(id_proceso, pagina, marco_inicio + planificacion_ptrs[posicion_ptr]);
 			planificacion_ptrs[posicion_ptr] += ++i;
 			return marco_inicio + planificacion_ptrs[posicion_ptr] - 1;
@@ -219,11 +228,13 @@ int clock_modificado(int id_proceso, int pagina, int marco_inicio){
 	}
 
 	for(int i=0; i<2; i++){
+		log_info(cpu_log, "Ejecuto paso 1");
 		for(int j=0; j < configuracion->marcos_por_proceso; j++){//Recorre todo el grupo de marcos
 			pagina_actual = list_get(tabla_planificacion, marco_inicio + planificacion_ptrs[posicion_ptr]);
 
 			if(!pagina_actual->U && !pagina_actual->M){//Si los dos son 0 da falso y se reemplaza
 				sem_post(&mutex_tabla_planificacion);
+				log_info(cpu_log, "Marco a reemplazar encontrado en marco %d", pagina_actual->marco);
 				leer_pagina_SWAP(id_proceso, pagina, pagina_actual -> marco);//En este caso no escribimos porque M=0
 				pagina_actual -> P = false;
 				planificacion_ptrs[posicion_ptr]++;
@@ -236,19 +247,21 @@ int clock_modificado(int id_proceso, int pagina, int marco_inicio){
 				planificacion_ptrs[posicion_ptr]++;
 		}//Si llega aca estamos en el paso (2)
 
+		log_info(cpu_log, "Ejecuto paso 2");
 		for(int j=0; j<configuracion->marcos_por_proceso; j++){
 			pagina_actual = list_get(tabla_planificacion, marco_inicio + planificacion_ptrs[posicion_ptr]);
 
 			if(pagina_actual->M && !pagina_actual->U){//Solo se cumple si M=1 y U=0
 				sem_post(&mutex_tabla_planificacion);
+				log_info(cpu_log, "Marco a reemplazar encontrado en marco %d", pagina_actual->marco);
 				escribir_pagina_SWAP(id_proceso, pagina, pagina_actual -> marco);//Ahora si escribimos
 			    leer_pagina_SWAP(id_proceso, pagina, pagina_actual -> marco);
 			    pagina_actual -> P = false;
 			    planificacion_ptrs[posicion_ptr]++;
 			    return pagina_actual -> marco;
 			}
-			else
-			    pagina_actual -> U = false; //En este paso si se cambian los bits U
+			pagina_actual -> U = false; //En este paso si se cambian los bits U
+			log_info(cpu_log, "Bit de uso modificado en marco %d", pagina_actual->marco);
 
 			if(planificacion_ptrs[posicion_ptr] == configuracion->marcos_por_proceso - 1)
 				planificacion_ptrs[posicion_ptr] = 0;
@@ -257,6 +270,7 @@ int clock_modificado(int id_proceso, int pagina, int marco_inicio){
 		}
 	}//Si llega aca se rompe
 	sem_post(&mutex_tabla_planificacion);
+	log_error(cpu_log, "ERROR - Marco valido no encontrado tras 2 iteraciones");
 	return -1;
 
 }
@@ -267,6 +281,7 @@ int ejecutar_algoritmo_de_reemplazo(int pagina, int id_proceso){
 	if(marco_inicial == -1)
 		return -1;
 
+	log_info(cpu_log, "Ejecuto algoritmo de reemplazo");
     if (strcmp(configuracion -> algoritmo_reemplazo, "CLOCK") == 0)
         return clock_normal(id_proceso, pagina, marco_inicial);
 
