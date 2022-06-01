@@ -27,17 +27,22 @@ void iniciar_conexion_memoria (){
 
 };
 
-/*
+
 void iniciar_conexion_dispatch(){
     //socket servidor
-    int socket_dispatch; 
-    socket_dispatch = iniciar_servidor();
+    socket_dispatch; 
+    void* buffer;
 
+    socket_dispatch = iniciar_servidor(cpuconfig -> puerto_escucha_dispatch);
+
+    t_buffer* buffer = malloc(sizeof(t_buffer));
+    buffer -> stream = recibir_buffer(&(buffer -> size), socket_dispatch);
+    
 };
 
 void iniciar_conexion_interrupt(){
     //socket servidor 
     int socket_interrupt;
-    socket_interrupt = iniciar_servidor();
+    socket_interrupt = iniciar_servidor( cpuconfig -> puerto_ecucha_interrupt);
 
 };
