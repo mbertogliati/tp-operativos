@@ -1,4 +1,4 @@
-#include "../include/socket.h"
+#include "../../include/sockets/socket.h"
 #include <string.h>
 
 struct addrinfo *addrinfo_servidor(char *ip, char *puerto) {

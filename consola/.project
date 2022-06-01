@@ -3,6 +3,7 @@
 	<name>consola</name>
 	<comment></comment>
 	<projects>
+		<project>shared</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -23,17 +24,4 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>shared</name>
-			<type>2</type>
-			<locationURI>TP_LOC/shared</locationURI>
-		</link>
-	</linkedResources>
-	<variableList>
-		<variable>
-			<name>TP_LOC</name>
-			<value>file:/home/utnso/Documentos/tp-2022-1c-Los-Simuladores</value>
-		</variable>
-	</variableList>
 </projectDescription>

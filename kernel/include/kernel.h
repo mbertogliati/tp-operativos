@@ -1,9 +1,13 @@
 #ifndef KERNEL_H_
 #define KERNEL_H_
 
-#include <commons/log.h>
-#include "recibir.h"
+// librerías de c
+#include <stdlib.h>
 
+// includes locales
+#include "colas.h"
+
+// globales
 t_log *logger;
 
 #endif /* KERNEL_H_ */
