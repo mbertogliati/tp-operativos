@@ -2,9 +2,17 @@
 
 int main() {
 	logger = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
-	crear_config();
-	conectar_consola();
+	config = config_create("kernel.config");
+
+	inicializar_colas();
+
+	conectar_memoria(ip_memoria(), puerto_memoria());
+	conectar_consola(puerto_escucha());
+
+	desconectar_memoria();
+
 	log_destroy(logger);
-	destruir_config();
+	config_destroy(config);
+
 	return EXIT_SUCCESS;
 }
