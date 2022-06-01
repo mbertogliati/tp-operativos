@@ -3,10 +3,7 @@
 
 #include <commons/config.h>
 
-t_config *kernel_config;
-
-void crear_config();
-void destruir_config();
+extern t_config *config;
 
 // memoria
 char *ip_memoria();
