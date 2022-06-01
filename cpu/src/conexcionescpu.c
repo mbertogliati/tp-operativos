@@ -34,10 +34,10 @@ void iniciar_conexion_dispatch(){
     void* buffer;
 
     socket_dispatch = iniciar_servidor(cpuconfig -> puerto_escucha_dispatch);
-
+    
     t_buffer* buffer = malloc(sizeof(t_buffer));
     buffer -> stream = recibir_buffer(&(buffer -> size), socket_dispatch);
-    
+
 };
 
 void iniciar_conexion_interrupt(){
