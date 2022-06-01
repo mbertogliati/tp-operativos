@@ -1,71 +1,30 @@
 #include "../include/colas.h"
 
-void conectar_consola() {
-	int socket_servidor = iniciar_servidor(puerto_escucha());
-	log_info(logger, "Servidor listo para recibir al cliente");
-
-	// colas
+void inicializar_colas() {
 	new = queue_create();
+	ready = list_create();
 
-	// semáforos
 	sem_init(&grado_multip, 0, grado_multiprogramacion());
 	sem_init(&procesos, 0, 0);
-
-	// hilos
-	pthread_t thread;
-
-	while (1) {
-		int socket_cliente = esperar_cliente(socket_servidor);
-		log_info(logger, "Se conectó un cliente!");
-		pthread_create(&thread, NULL, (void *) proceso_new, &socket_cliente);
-		pthread_detach(thread);
-	}
-}
-
-t_pcb *generar_pcb(int socket_cliente) {
-	int size;
-	void *buffer = recibir_buffer(&size, socket_cliente);
-	t_pcb *pcb = (t_pcb *) malloc(sizeof(t_pcb));
-	recibir_paquete_consola(buffer, size, pcb);
-
-	pcb->id = 1;
-	pcb->program_counter = 0;
-	pcb->est_rafaga = grado_multiprogramacion();
-
-	return pcb;
 }
 
 // new
-void proceso_new(int *socket_cliente) {
-	while (1) {
-		t_pcb *pcb;
-		switch (recibir_operacion(*socket_cliente)) {
-		case INSTRUCCIONES_CONSOLA:
-			pcb = generar_pcb(*socket_cliente);
+void agregar_a_new(t_pcb *pcb) {
+	pcb->id = 1;
+	pcb->program_counter = 0;
+	pcb->est_rafaga = estimacion_inicial();
 
-			log_info(logger, "Recibí el proceso:\n");
-			imprimir_pcb(pcb);
+	pthread_mutex_lock(&mnew);
+	queue_push(new, pcb);
+	pthread_mutex_unlock(&mnew);
 
-			pthread_mutex_lock(&mnew);
-			queue_push(new, pcb);
-			pthread_mutex_unlock(&mnew);
-			sem_post(&procesos);
+	sem_post(&procesos);
 
-			break;
-
-		case -1:
-			log_info(logger, "El cliente se desconectó.");
-			return;
-
-		default:
-			log_error(logger, "Código de operación inválido.");
-			return;
-		}
-	}
+	agregar_a_ready(pcb);
 }
 
 // ready-fifo
-void agregar_a_ready_fifo(t_pcb *pcb, char *algoritmo) {
+void agregar_a_ready_fifo(t_pcb *pcb) {
 	sem_wait(&procesos);
 	sem_wait(&grado_multip);
 
@@ -74,10 +33,9 @@ void agregar_a_ready_fifo(t_pcb *pcb, char *algoritmo) {
 	pthread_mutex_unlock(&mready);
 }
 
-
 // ready-sjf
-double calcular_estimacion(double const_alfa, double real, t_pcb *pcb) {
-	pcb->est_rafaga = pcb->est_rafaga * const_alfa + real * (1 - const_alfa);
+double calcular_estimacion(double real, t_pcb *pcb) {
+	pcb->est_rafaga = pcb->est_rafaga * alfa() + real * (1 - alfa());
 	return pcb->est_rafaga;
 }
 
@@ -85,11 +43,21 @@ int menor_estimacion(t_pcb *pcb1, t_pcb * pcb2) {
 	return pcb1->est_rafaga < pcb2->est_rafaga;
 }
 
-void agregar_a_ready_sjf(t_pcb *pcb, char *algoritmo) {
+void agregar_a_ready_sjf(t_pcb *pcb) {
 	sem_wait(&procesos);
 	sem_wait(&grado_multip);
 
 	pthread_mutex_lock(&mready);
-	list_add_sorted(ready, queue_pop(new), (void *)menor_estimacion);
+	list_add_sorted(ready, queue_pop(new), (void *) menor_estimacion);
 	pthread_mutex_unlock(&mready);
+}
+
+// ready
+void agregar_a_ready(t_pcb *pcb) {
+	enviar_mensaje_memoria("init", 5);
+	pcb->tabla_paginas = (int) recibir_mensaje_memoria();
+	if(!strcmp("FIFO", algoritmo_planificacion()))
+		agregar_a_ready_fifo(pcb);
+	if(!strcmp("SJF", algoritmo_planificacion()))
+		agregar_a_ready_sjf(pcb);
 }

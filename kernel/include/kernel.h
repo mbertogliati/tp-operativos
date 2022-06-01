@@ -1,13 +1,14 @@
 #ifndef KERNEL_H_
 #define KERNEL_H_
 
-// librerías de c
 #include <stdlib.h>
 
-// includes locales
+#include "conexion_consola.h"
+#include "conexion_memoria.h"
+#include "leer_config.h"
 #include "colas.h"
 
-// globales
 t_log *logger;
+t_config *config;
 
 #endif /* KERNEL_H_ */

@@ -304,6 +304,7 @@ void *simulacion_cpu(void* nada){
     liberar_conexion(socket_memoria);
     return NULL;
 }
+/*
 int main(void){
     pthread_t hilo_cpu;
     pthread_t hilo_kernel;
@@ -316,4 +317,4 @@ int main(void){
     pthread_join(hilo_kernel, NULL);
 
     return EXIT_SUCCESS;
-}
+}*/
