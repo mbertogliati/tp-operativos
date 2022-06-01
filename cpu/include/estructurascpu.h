@@ -18,6 +18,8 @@ typedef struct{
 
 t_log *cpu_log;
 t_config_cpu* cpuconfig;
+int* entradas_por_tabla;
+int* tam_de_pagina;
 
 bool es_configuracion_valida(t_config *config_cpu);
 t_config_cpu *cargar_config (char** path);

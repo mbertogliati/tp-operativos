@@ -4,7 +4,6 @@
 void iniciar_conexion_memoria (){
 
     int socket_memoria;
-    void* buffer;
 
     socket_memoria = crear_conexion(cpuconfig -> ip_memoria, cpuconfig -> puerto_memoria);  
     
@@ -15,23 +14,22 @@ void iniciar_conexion_memoria (){
 
     //[932][Tamaño][Entradas por tabla][Tamaño de pagina] son int
     if (recibir_operacion(socket_memoria) != 932){
-        //error
+        log_error(cpu_log, "ERROR - No se ha podido establecer una cominacion confiable con la Memoria");
         return; 
     }
 
     t_buffer* buffer = malloc(sizeof(t_buffer));
-    buffer -> stream = recibir_buffer(&(buffer -> size), socket_memoria);
+    buffer-> stream = recibir_buffer(&(buffer -> size), socket_memoria);
 
-    int* entradas_por_tabla = sacar_de_buffer(buffer, sizeof(int)); // Hay que hacer un free cuando lo termine de usar
-    int* tam_de_pagina = sacar_de_buffer(buffer, sizeof(int)); // Hay que hacer un free cuando lo termine de usar
+    entradas_por_tabla = sacar_de_buffer(buffer, sizeof(int)); // Hay que hacer un free cuando lo termine de usar
+    tam_de_pagina = sacar_de_buffer(buffer, sizeof(int)); // Hay que hacer un free cuando lo termine de usar
 
 };
 
 
 void iniciar_conexion_dispatch(){
     //socket servidor
-    socket_dispatch; 
-    void* buffer;
+    int socket_dispatch; 
 
     socket_dispatch = iniciar_servidor(cpuconfig -> puerto_escucha_dispatch);
     //
@@ -43,6 +41,6 @@ void iniciar_conexion_dispatch(){
 void iniciar_conexion_interrupt(){
     //socket servidor 
     int socket_interrupt;
-    socket_interrupt = iniciar_servidor( cpuconfig -> puerto_ecucha_interrupt);
+    socket_interrupt = iniciar_servidor( cpuconfig -> puerto_escucha_interrupt);
 
 };
