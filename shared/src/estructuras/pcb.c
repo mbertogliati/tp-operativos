@@ -86,6 +86,7 @@ int enviar_pcb(t_pcb* pcb, int socket_a_enviar){
     agregar_a_paquete(paquete_pcb, &(pcb->est_rafaga),sizeof(double));
 
     enviar_paquete(paquete_pcb, socket_a_enviar);
+	eliminar_paquete(paquete_pcb);
 
     list_iterator_destroy(iterador_instrucciones);
 }
