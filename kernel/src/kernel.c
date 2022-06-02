@@ -8,6 +8,7 @@ int main() {
 
 	conectar_memoria(ip_memoria(), puerto_memoria());
 	conectar_consola(puerto_escucha());
+	conectar_cpu(ip_cpu(), puerto_cpu_dispatch(), puerto_cpu_interrupt);
 
 	desconectar_memoria();
 

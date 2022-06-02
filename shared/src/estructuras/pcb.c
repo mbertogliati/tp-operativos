@@ -1,5 +1,6 @@
 #include "../../include/estructuras/pcb.h"
 #include "../../include/estructuras/instrucciones.h"
+#include "../../include/sockets/client_utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -58,4 +59,33 @@ t_pcb *desempaquetar_pcb(void *buffer) {
 void liberar_pcb(t_pcb *pcb) {
 	list_destroy_and_destroy_elements(pcb->instrucciones, (void*) liberar_instruccion);
 	free(pcb);
+}
+
+int enviar_pcb(t_pcb* pcb, int socket_a_enviar){
+    t_paquete *paquete_pcb;
+    t_list_iterator *iterador_instrucciones;
+    t_instruccion *instruccion_actual;
+
+    iterador_instrucciones = list_iterator_create(pcb->instrucciones);
+    paquete_pcb = crear_paquete(112);
+
+    agregar_a_paquete(paquete_pcb, &(pcb->id),sizeof(uint16_t));
+    agregar_a_paquete(paquete_pcb, &(pcb->tamanio),sizeof(uint32_t));
+    agregar_a_paquete(paquete_pcb, &(pcb->cant_instrucciones),sizeof(uint8_t));
+
+    while(list_iterator_has_next(iterador_instrucciones)){
+        instruccion_actual = (t_instruccion *) list_iterator_next(iterador_instrucciones);
+        agregar_a_paquete(paquete_pcb, &(instruccion_actual->identificador), sizeof(uint8_t));
+        agregar_a_paquete(paquete_pcb, &(instruccion_actual->cant_parametros), sizeof(uint8_t));
+        agregar_a_paquete(paquete_pcb, instruccion_actual->parametros, (instruccion_actual->cant_parametros)*sizeof(uint32_t));
+    }
+
+    agregar_a_paquete(paquete_pcb, &(pcb->instrucciones),sizeof(t_list));
+    agregar_a_paquete(paquete_pcb, &(pcb->program_counter),sizeof(uint32_t));
+    agregar_a_paquete(paquete_pcb, &(pcb->tabla_paginas),sizeof(int));
+    agregar_a_paquete(paquete_pcb, &(pcb->est_rafaga),sizeof(double));
+
+    enviar_paquete(paquete_pcb, socket_a_enviar);
+
+    list_iterator_destroy(iterador_instrucciones);
 }

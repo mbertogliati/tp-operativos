@@ -16,6 +16,7 @@ typedef struct {
 
 void imprimir_pcb(t_pcb *pcb);
 void recibir_paquete_consola(void *buffer, int size, t_pcb *pcb);
+int enviar_pcb(t_pcb* pcb, int socket_a_enviar);
 t_pcb *desempaquetar_pcb(void *buffer);
 void liberar_pcb(t_pcb *pcb);
 

@@ -5,6 +5,7 @@
 
 #include "conexion_consola.h"
 #include "conexion_memoria.h"
+#include "conexion_cpu.h"
 #include "leer_config.h"
 #include "colas.h"
 

@@ -5,6 +5,8 @@
 #include "../../shared/include/sockets/client_utils.h"
 #include "../../shared/include/sockets/server_utils.h"
 #include "../../shared/include/estructuras/pcb.h"
+#include <pthread.h>
+#include <semaphore.h>
 
 
 #endif

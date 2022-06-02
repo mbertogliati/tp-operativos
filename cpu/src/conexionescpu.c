@@ -1,7 +1,7 @@
 #include "../include/conexionescpu.h"
 
 
-void iniciar_conexion_memoria (){
+void *iniciar_conexion_memoria (void *arg){
 
     int socket_memoria;
 
@@ -23,11 +23,11 @@ void iniciar_conexion_memoria (){
 
     entradas_por_tabla = sacar_de_buffer(buffer, sizeof(int)); // Hay que hacer un free cuando lo termine de usar
     tam_de_pagina = sacar_de_buffer(buffer, sizeof(int)); // Hay que hacer un free cuando lo termine de usar
-
+    return NULL;
 };
 
 
-void iniciar_conexion_dispatch(){
+void *iniciar_conexion_dispatch(void *arg){
     //socket servidor
     int socket_dispatch; 
 
@@ -35,12 +35,28 @@ void iniciar_conexion_dispatch(){
     //
     t_buffer* buffer = malloc(sizeof(t_buffer));
     buffer -> stream = recibir_buffer(&(buffer -> size), socket_dispatch);
-
+    return NULL;
 };
 
-void iniciar_conexion_interrupt(){
+void *iniciar_conexion_interrupt(void *arg){
     //socket servidor 
     int socket_interrupt;
     socket_interrupt = iniciar_servidor( cpuconfig -> puerto_escucha_interrupt);
+    return NULL;
 
 };
+void iniciar_conexiones(){
+
+    pthread_t memoria;
+    pthread_t dispatcher;
+    pthread_t interrupt;
+
+    pthread_create(&memoria, NULL, &iniciar_conexion_memoria, NULL);
+    pthread_create(&dispatcher, NULL, &iniciar_conexion_dispatch, NULL);
+    pthread_create(&interrupt, NULL, &iniciar_conexion_interrupt, NULL);
+
+    pthread_join(memoria, NULL);
+    pthread_join(dispatcher, NULL);
+    pthread_join(interrupt, NULL);
+
+}
