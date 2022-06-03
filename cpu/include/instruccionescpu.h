@@ -5,6 +5,6 @@
 #include "operaciones.h"
 #include "../../shared/include/estructuras/instrucciones.h"
 
-
+void ciclo_de_instruccion(t_pcb* pcb);
 
 #endif

@@ -2,8 +2,6 @@
 
 void *iniciar_conexion_memoria (void *arg){
 
-    int socket_memoria;
-
     socket_memoria = crear_conexion(cpuconfig -> ip_memoria, cpuconfig -> puerto_memoria);  
     
     int* identificador = malloc(sizeof(int));
@@ -34,9 +32,14 @@ void *iniciar_conexion_dispatch(void *arg){
 
     servidor_dispatch = iniciar_servidor(cpuconfig -> puerto_escucha_dispatch);
     //
-    int cliente_dispatch = esperar_cliente(servidor_dispatch);
-    buffer-> stream = recibir_buffer(&(buffer -> size), cliente_dispatch);
-    pcb = desempaquetar_pcb(buffer->stream);
+    int socket_dispatch = esperar_cliente(servidor_dispatch);
+    sem_wait(&mutex_interrupt);
+    sem_post(&mutex_interrupt);
+    while(true){
+        buffer-> stream = recibir_buffer(&(buffer -> size), socket_dispatch);
+        pcb = desempaquetar_pcb(buffer->stream);
+        ciclo_de_instruccion(pcb);
+    }
 
     free(buffer);
     return NULL;
@@ -44,22 +47,29 @@ void *iniciar_conexion_dispatch(void *arg){
 
 void *iniciar_conexion_interrupt(void *arg){
     //socket servidor 
-    int socket_interrupt;
-    socket_interrupt = iniciar_servidor( cpuconfig -> puerto_escucha_interrupt);
-    return NULL;
+    int server_interrupt = iniciar_servidor( cpuconfig -> puerto_escucha_interrupt); ;
+    socket_interrupt = esperar_cliente(server_interrupt);
+    sem_init(&mutex_interrupt, 0, 1);
+    bool *hay_interrupcion = malloc(sizeof(bool));
+    while(true){
+        recv(socket_interrupt, hay_interrupcion, siezof(hay_interrupcion), MSG_WAITALL);
+        sem_wait(&mutex_interrupt);
+        check_interrupt = *hay_interrupcion;
+        sem_post(&mutex_interrupt);
+    }
+
+    free(hay_interrupcion);
 
 };
 void iniciar_conexiones(){
 
-    pthread_t memoria;
+    iniciar_conexion_memoria(NULL);
     pthread_t dispatch;
     pthread_t interrupt;
 
-    pthread_create(&memoria, NULL, &iniciar_conexion_memoria, NULL);
     pthread_create(&dispatch, NULL, &iniciar_conexion_dispatch, NULL);
     pthread_create(&interrupt, NULL, &iniciar_conexion_interrupt, NULL);
 
-    pthread_join(memoria, NULL);
     pthread_join(dispatch, NULL);
     pthread_join(interrupt, NULL);
 
