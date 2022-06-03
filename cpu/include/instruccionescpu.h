@@ -1,7 +1,9 @@
 #ifndef INSTRUCCIONESCPU_H_
 #define INSTRUCCIONESCPU_H_
 
-#include "../include/conexionescpu.h"
+#include "conexionescpu.h"
+#include "operaciones.h"
+#include "../../shared/include/estructuras/instrucciones.h"
 
 
 
