@@ -4,6 +4,7 @@
 void iniciar_estructuras(){
 	cargar_configuraciones("config/memoria.config");
 	memoria_principal = calloc(1, configuracion->tam_memoria);
+	log_info(memoria_log, "Memoria principal creada");
 	tablas = list_create();
 
 	tabla_planificacion = list_create();
@@ -11,7 +12,13 @@ void iniciar_estructuras(){
 		t_tabla2* tabla2 = NULL;
 		list_add(tabla_planificacion, tabla2);
 	}
-	planificacion_ptr = 0;
+	log_info(memoria_log, "Tabla de planificacion de %d marcos creada", list_size(tabla_planificacion));
+	int tamanio_vector_ptrs_marcos = list_size(tabla_planificacion)/configuracion->marcos_por_proceso;
+	planificacion_ptrs = malloc(tamanio_vector_ptrs_marcos * sizeof(int));
+	for(int i = 0; i < tamanio_vector_ptrs_marcos; i++){
+		planificacion_ptrs[i] = 0;
+	}
+	log_info(memoria_log, "Vector de punteros de planificacion para %d grupos de marcos creado", tamanio_vector_ptrs_marcos);
 }
 
 void cargar_configuraciones(char* path){
@@ -29,21 +36,28 @@ void cargar_configuraciones(char* path){
     if(!es_configuracion_valida(config_memoria)) 
         return;
 
+    log_info(memoria_log,"Leyendo archivo de configuracion:");
     configuracion->tam_memoria = config_get_int_value(config_memoria,"TAM_MEMORIA");
+    log_info(memoria_log,"TAM_MEMORIA: %d", configuracion->tam_memoria);
     configuracion->tam_pagina = config_get_int_value(config_memoria,"TAM_PAGINA");
+    log_info(memoria_log,"TAM_PAGINA: %d", configuracion->tam_pagina);
     configuracion->entradas_por_tabla = config_get_int_value(config_memoria,"ENTRADAS_POR_TABLA");
+    log_info(memoria_log,"ENTRADAS_POR_TABLA: %d", configuracion->entradas_por_tabla);
     configuracion->retardo_memoria = config_get_int_value(config_memoria,"RETARDO_MEMORIA");
+    log_info(memoria_log,"RETARDO_MEMORIA: %d", configuracion->retardo_memoria);
     configuracion->retardo_swap = config_get_int_value(config_memoria,"RETARDO_SWAP");
+    log_info(memoria_log,"RETARDO_SWAP: %d", configuracion->retardo_swap);
     configuracion->marcos_por_proceso = config_get_int_value(config_memoria,"MARCOS_POR_PROCESO");
-
+    log_info(memoria_log, "MARCOS_POR_PROCESO: %d", configuracion->marcos_por_proceso);
 	configuracion->puerto = string_new();//Lo cambie por string new para poder destruir el config tranquilo, sin destruir la estructura
-    string_append(&(configuracion->puerto), config_get_string_value(config_memoria,"PUERTO_ESCUCHA"));
-
+	string_append(&(configuracion->puerto), config_get_string_value(config_memoria,"PUERTO_ESCUCHA"));
+	log_info(memoria_log,"PUERTO_ESCUCHA: %s", configuracion->puerto);
 	configuracion->algoritmo_reemplazo = string_new();
 	string_append(&(configuracion->algoritmo_reemplazo), config_get_string_value(config_memoria,"ALGORITMO_REEMPLAZO"));
-
+	log_info(memoria_log,"ALGORITMO_REEMPLAZO: %s", configuracion->algoritmo_reemplazo);
 	configuracion->path_swap = string_new();
 	string_append(&(configuracion->path_swap), config_get_string_value(config_memoria,"PATH_SWAP"));
+	log_info(memoria_log,"PATH_SWAP: %s", configuracion->path_swap);
 	config_destroy(config_memoria);
     
     log_info(memoria_log, "Listo!\n");
@@ -79,10 +93,19 @@ void crear_SWAP(int id_proceso, int tamanio_proceso, void* proceso){
 	//Crear directorios si no existen?
 	FILE* SWAP_file = encontrar_SWAP(id_proceso);
 	if(!SWAP_file){
-		printf("No se pudo crear el archivo\n");
+		log_error(kernel_log, "ERROR - No se pudo crear el archivo");
 		return;
 	}
+	log_info(kernel_log, "Archivo .swap creado");
 	fwrite(proceso, tamanio_proceso, 1, SWAP_file);
+	//En caso de que el tamanio del archivo no sea divisible por el tamanio de una pagina, se lo redondea
+	if(tamanio_proceso % configuracion->tam_pagina != 0){
+		int resto = configuracion->tam_pagina * ((tamanio_proceso / configuracion->tam_pagina) + 1) - tamanio_proceso;
+		void *relleno = malloc(resto);
+		fwrite(relleno, resto, 1, SWAP_file);
+		free(relleno);
+	}
+	log_info(kernel_log, "Archivo .swap llenado");
 
 	fclose(SWAP_file);
 
@@ -97,23 +120,26 @@ t_tabla2* inicializar_tabla2(int id_proceso, int numero_pagina){
 	tabla->U = 0;
 	tabla->id = id_proceso;
 	tabla->pagina = numero_pagina;
+	log_info(kernel_log, "Metadata pagina nro %d creada", numero_pagina);
 	return tabla;
 }
 
 int crear_metadata(int tamanio_proceso, int id_proceso){
-	t_list* tabla1 = list_create();
-
 	int cant_paginas = ceil((double) tamanio_proceso / (double) configuracion->tam_pagina);
 	int cant_tablas2 = ceil((double) cant_paginas / (double) configuracion->entradas_por_tabla);
 	int pagina_counter = 0;
 
 	//Verifico que el tamaño del proceso no sea mayor al maximo
 	if(cant_tablas2 > configuracion->entradas_por_tabla){
+		log_error(kernel_log, "ERROR - Tamanio de proceso mayor al permitido");
 		return 0;
 	}
 
+	t_list* tabla1 = list_create();
+
 	for(int i = 0; i < cant_tablas2; i++){
 		t_list* tabla2 = list_create();
+		log_info(kernel_log, "Tabla NVL 2 nro %d creada", i);
 		for(int j = 0; j < configuracion->entradas_por_tabla; j++){
 			if(pagina_counter < cant_paginas){
 				list_add(tabla2, inicializar_tabla2(id_proceso, pagina_counter));
@@ -129,9 +155,12 @@ int crear_metadata(int tamanio_proceso, int id_proceso){
 }
 
 int agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso){
+	log_info(kernel_log, "Id del proceso: %d, Tamanio proceso: %d", id_proceso, tamanio_proceso);
 	int direccion_tabla = crear_metadata(tamanio_proceso, id_proceso);
-	if(!direccion_tabla)
+	if(!direccion_tabla){
 		return(direccion_tabla);
+	}
+	log_info(kernel_log, "Tabla NVL 1 creada en %d", direccion_tabla);
 
 	crear_SWAP(id_proceso, tamanio_proceso, proceso);
 

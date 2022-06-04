@@ -61,13 +61,13 @@ void liberar_pcb(t_pcb *pcb) {
 	free(pcb);
 }
 
-int enviar_pcb(t_pcb* pcb, int socket_a_enviar){
+int enviar_pcb(t_pcb* pcb, int socket_a_enviar, int IO){
     t_paquete *paquete_pcb;
     t_list_iterator *iterador_instrucciones;
     t_instruccion *instruccion_actual;
 
     iterador_instrucciones = list_iterator_create(pcb->instrucciones);
-    paquete_pcb = crear_paquete(112);
+    paquete_pcb = crear_paquete(IO);
 
     agregar_a_paquete(paquete_pcb, &(pcb->id),sizeof(uint16_t));
     agregar_a_paquete(paquete_pcb, &(pcb->tamanio),sizeof(uint32_t));
@@ -84,9 +84,9 @@ int enviar_pcb(t_pcb* pcb, int socket_a_enviar){
     agregar_a_paquete(paquete_pcb, &(pcb->program_counter),sizeof(uint32_t));
     agregar_a_paquete(paquete_pcb, &(pcb->tabla_paginas),sizeof(int));
     agregar_a_paquete(paquete_pcb, &(pcb->est_rafaga),sizeof(double));
-
     enviar_paquete(paquete_pcb, socket_a_enviar);
 	eliminar_paquete(paquete_pcb);
 
     list_iterator_destroy(iterador_instrucciones);
+	return EXIT_SUCCESS;
 }
