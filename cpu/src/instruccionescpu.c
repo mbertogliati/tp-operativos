@@ -54,7 +54,7 @@ void ciclo_de_instruccion(t_pcb* pcb){
 t_instruccion fetch(t_pcb* pcb){
     t_instruccion instruccion_nueva;
     instruccion_nueva = *( (t_instruccion*) list_get(pcb->instrucciones, pcb->program_counter));
-    log_info(cpu_log, "Program Counter: &d + 1", pcb->program_counter);
+    log_info(cpu_log, "Program Counter: %d + 1", pcb->program_counter);
     pcb->program_counter++;
     return instruccion_nueva;
 }

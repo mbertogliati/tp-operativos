@@ -15,7 +15,7 @@ void *iniciar_conexion_memoria (void *arg){
     //[932][Tamaño][Entradas por tabla][Tamaño de pagina] son int
     if (recibir_operacion(socket_memoria) != 932){
         log_error(cpu_log, "ERROR - No se ha podido establecer una comunicacion confiable con la Memoria");
-        return; 
+        return NULL; 
     }
     log_info(cpu_log, "Conexion con memoria exitosa!!!");
     memoria_log = log_create("logs/cpu_memoria.log","MEMORIA", true, LOG_LEVEL_INFO);
