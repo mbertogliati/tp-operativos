@@ -1,8 +1,27 @@
 #include "../include/conexion_memoria.h"
 
 void conectar_memoria(char *ip, char *puerto) {
-	log_info(logger, "Conectando a memoria");
-	socket_memoria = crear_conexion(ip, puerto);
+	memoria_log = log_create("kernel_memoria.log", "MEMORIA", true, LOG_LEVEL_INFO);
+	log_info(memoria_log, "Conectando a memoria...");
+
+	while((socket_memoria = crear_conexion(ip, puerto)) <= 0){
+		log_warning(memoria_log, "No se ha podido establecer la conexion con Memoria");
+		sleep(5);
+	}
+
+	int distinto_de_cero = 1;
+	bool* confirmacion = malloc(sizeof(bool));
+	enviar_mensaje_memoria(&distinto_de_cero, sizeof(int));
+
+	recv(socket_memoria, confirmacion, sizeof(bool), MSG_WAITALL);
+
+	if((*confirmacion) == false){
+		log_error(memoria_log, "ERROR - Handshake fallido");
+		return;
+	}
+	log_info(memoria_log, "Conexion con memoria exitosa");
+
+	free(confirmacion);
 }
 
 void enviar_mensaje_memoria(void *mensaje, int tam) {

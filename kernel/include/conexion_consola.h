@@ -10,8 +10,8 @@
 #include <commons/log.h>
 #include <commons/collections/queue.h>
 
-#include <sockets/server_utils.h>
-#include <estructuras/pcb.h>
+#include "../../shared/include/sockets/server_utils.h"
+#include "../../shared/include/estructuras/pcb.h"
 #include "conexion_memoria.h"
 #include "colas.h"
 

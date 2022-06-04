@@ -8,8 +8,8 @@
 #include <commons/collections/list.h>
 #include <commons/collections/queue.h>
 
-#include <sockets/client_utils.h>
-#include <estructuras/pcb.h>
+#include "../../shared/include/sockets/client_utils.h"
+#include "../../shared/include/estructuras/pcb.h"
 #include "conexion_memoria.h"
 #include "leer_config.h"
 

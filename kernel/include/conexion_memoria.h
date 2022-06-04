@@ -1,13 +1,14 @@
-#ifndef CONEXION_MEMORIA_H_
-#define CONEXION_MEMORIA_H_
+#ifndef CONEXION_CON_MEMORIA_H_
+#define CONEXION_CON_MEMORIA_H_
 
 #include <commons/log.h>
 
-#include <sockets/client_utils.h>
-#include <sockets/server_utils.h>
+#include "../../shared/include/sockets/client_utils.h"
+#include "../../shared/include/sockets/server_utils.h"
 
 int socket_memoria;
 extern t_log *logger;
+t_log* memoria_log;
 
 
 void conectar_memoria(char *ip, char *puerto);

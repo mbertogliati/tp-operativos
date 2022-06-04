@@ -11,6 +11,10 @@
 
 t_log *logger;
 t_config *config;
+typedef struct{
+    int milisegundos;
+    t_pcb* pcb;
+} t_pcb_con_milisegundos;
 
 extern t_queue *queue_new;
 extern t_queue *exec;
@@ -27,5 +31,8 @@ void *thread_de_new();
 void *thread_de_exec();
 void *thread_de_suspendido();
 void *thread_de_exit();
+
+t_pcb_con_milisegundos recibir_proceso();
+void ejecutar_proceso(t_pcb* pcb);
 
 #endif /* KERNEL_H_ */

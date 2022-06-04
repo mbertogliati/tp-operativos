@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <commons/log.h>
 #include <commons/config.h>
-#include <sockets/client_utils.h>
+#include "../../shared/include/sockets/client_utils.h"
 
 extern t_log *logger;
 

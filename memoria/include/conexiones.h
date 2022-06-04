@@ -3,9 +3,9 @@
 //#include "../shared/include/server_utils.h"
 //#include "../shared/include/client_utils.h"
 //#include "../shared/include/conexion_memoria.h"
-#include <sockets/server_utils.h>
-#include <sockets/client_utils.h>
-#include <conexion_memoria.h>
+#include "../../shared/include/sockets/server_utils.h"
+#include "../../shared/include/sockets/client_utils.h"
+#include "../../shared/include/conexion_memoria.h"
 #include "reemplazo.h"
 #include "estructuras.h"
 #include <semaphore.h>

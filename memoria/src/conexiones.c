@@ -92,7 +92,7 @@ void *conectar_con_cpu(int* socket_cpu){
     enviar_paquete(paquete_configuraciones, *socket_cpu);
     eliminar_paquete(paquete_configuraciones);
     paquete_configuraciones=NULL;
-    log_info(cpu_log, "Paquete enviado!!!");
+    log_info(cpu_log, "Paquete enviado");
 
     int *instruccion_recibida = malloc(sizeof(int));
     t_buffer *buffer = malloc(sizeof(t_buffer));
