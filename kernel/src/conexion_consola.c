@@ -7,6 +7,8 @@ void conectar_consola(char *puerto) {
 	// hilos
 	pthread_t thread;
 
+	pid_counter = 0;
+
 	while (1) {
 		int socket_cliente = esperar_cliente(socket_servidor);
 		log_info(logger, "Se conectó un cliente!");
@@ -33,7 +35,23 @@ void proceso_new(int *socket_cliente) {
 
 			log_info(logger, "Recibí el proceso:\n");
 			imprimir_pcb(pcb);
-			agregar_a_new(pcb);
+
+			//Checkpoint
+			//Le digo a memoria que me cree el proceso
+			sem_wait(&mutex_memoria);
+			pcb->id = pid_counter;
+			pid_counter++;
+			pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
+			sem_post(&mutex_memoria);
+
+			//Agrego a la cola de new
+			sem_wait(&mutex_new);
+			pcb->program_counter = 0;
+			queue_push(queue_new, pcb);
+			sem_post(&mutex_new);
+			//agregar_a_new(pcb);
+
+			sem_post(&procesos_en_new);
 
 			break;
 
