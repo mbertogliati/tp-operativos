@@ -1,35 +1,50 @@
 #include "../include/instruccionescpu.h"
 
 bool proceso_terminado;
+t_instruccion fetch(t_pcb* pcb);
+bool decode(t_instruccion instruccion);
+uint32_t fetch_operand(int socket_memoria, int tabla_paginas, uint32_t direccion_logica);
+uint32_t leer_desde_memoria(int socket_memoria, int tabla_paginas, uint32_t direccion_logica);
+uint32_t execute(t_instruccion instruccion);
 
 void ciclo_de_instruccion(t_pcb* pcb){
 
+    log_info(cpu_log, "Comenzando ciclo con nuevo PCB...");
+    log_info(cpu_log, "Proceso: %d", pcb->id);
     t_instruccion instruccion_actual;
     uint32_t hayIO;
     t_buffer* buffer = malloc(sizeof(t_buffer));
 
     while(pcb){
         instruccion_actual = fetch(pcb);
+        log_info(cpu_log, "Instruccion: %d", instruccion_actual.identificador);
         if(decode(instruccion_actual));
             //fetch_operand();
         hayIO = execute(instruccion_actual);
         if(proceso_terminado){
+            proceso_terminado = false;
+            log_info(cpu_log, "Proceso %d TERMINADO", pcb->id);
+            log_info(cpu_log, "Devolviendo PCB actualizado del PID %d...", pcb->id);
             enviar_pcb(pcb, socket_dispatch, 0);
             liberar_pcb(pcb);
             continue;
         }
         if(hayIO){
+            log_info(cpu_log, "Operacion de IO por %dms solicitada", hayIO);
+            log_info(cpu_log, "Devolviendo PCB actualizado del PID %d...", pcb->id);
             enviar_pcb(pcb, socket_dispatch, hayIO);
+            liberar_pcb(pcb);
             continue;
         }
         sem_wait(&mutex_interrupt);
         if(check_interrupt){
+            log_warning(interrupt_log, "Se detecto una interrupcion!!!");
+            log_info(interrupt_log, "Enviando PCB...");
             check_interrupt = false;
             sem_post(&mutex_interrupt);
 
+            enviar_pcb(pcb,socket_dispatch, 0);
             liberar_pcb(pcb);
-            buffer->stream = recibir_buffer(buffer->size, socket_dispatch);
-            pcb = desempaquetar_pcb(buffer->stream);
         }        
     }
     free(buffer);
@@ -38,7 +53,8 @@ void ciclo_de_instruccion(t_pcb* pcb){
 }
 t_instruccion fetch(t_pcb* pcb){
     t_instruccion instruccion_nueva;
-    instruccion_nueva = *( (t_instruccion*) list_get(&(pcb->instrucciones), pcb->program_counter));
+    instruccion_nueva = *( (t_instruccion*) list_get(pcb->instrucciones, pcb->program_counter));
+    log_info(cpu_log, "Program Counter: &d + 1", pcb->program_counter);
     pcb->program_counter++;
     return instruccion_nueva;
 }

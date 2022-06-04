@@ -1,10 +1,10 @@
 #include "../include/estructurascpu.h" 
 
-t_config_cpu *cargar_config (char** path){
+t_config_cpu *cargar_config (char* path){
     t_config *config_cpu = NULL;
     
-
     cpu_log = log_create("logs/cpu.log","CPU",true,LOG_LEVEL_INFO);
+    log_info(cpu_log,"Leyendo archivo de configuracion...");
 
     if(!(config_cpu = config_create("config/cpu.config"))){
         log_error(cpu_log,"ERROR - No se encontro el archivo de configuracion de CPU");
@@ -13,6 +13,8 @@ t_config_cpu *cargar_config (char** path){
 
    if (! es_configuracion_valida(config_cpu))
     return NULL;
+
+    log_info(cpu_log,"Configuracion leida exitosamente!!!");
 
     cpuconfig = malloc(sizeof(t_config_cpu));
 
@@ -29,7 +31,7 @@ t_config_cpu *cargar_config (char** path){
 }
 
 bool es_configuracion_valida(t_config *config_cpu){
-    char claves_validas[7][20+1] = {"ENTRADAS_TLB", "REEMPLAZO_TLB", "RETARDO NOOP", "IP_MEMORIA", 
+    char claves_validas[7][40+1] = {"ENTRADAS_TLB", "REEMPLAZO_TLB", "RETARDO NOOP", "IP_MEMORIA", 
                                         "PUERTO_MEMORIA", "PUERTO_ESCUCHA_DISPATCH", "PUERTO_ESCUCHA_INTERRUPT"};
                                         
     for(int i = 0; i < 0; i++){
