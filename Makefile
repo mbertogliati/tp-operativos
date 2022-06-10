@@ -39,15 +39,15 @@ compile_consola:
 			cd consola/obj;gcc $(CFLAGS) $(INCLUDE) -c $(SRC)
 
 #Genera objetos memoria:
-compile_memoria:
+compile_memoria: compile_shared
 			cd memoria/obj;gcc $(CFLAGS) $(INCLUDE) -c $(SRC)
 
 #Genera objetos kernel:
-compile_kernel:
+compile_kernel:compile_shared
 			cd kernel/obj;gcc $(CFLAGS) $(INCLUDE) -c $(SRC)	
 
 #Genera objetos cpu:
-compile_cpu: 
+compile_cpu: compile_shared
 			cd cpu/obj;gcc $(CFLAGS) $(INCLUDE) -c $(SRC)
 
 #Genera objetos shared:
