@@ -5,6 +5,7 @@
 #include "operaciones.h"
 #include <math.h>
 #include "../../shared/include/estructuras/instrucciones.h"
+#include "tlb.h"
 
 void ciclo_de_instruccion(t_pcb* pcb);
 

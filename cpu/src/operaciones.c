@@ -88,7 +88,11 @@ int obtener_direccion_fisica(int socket_memoria, int tabla_paginas, uint32_t dir
     entrada_lvl_2 = nro_de_pagina % (entradas_por_tabla);
     desplazamiento = direccion_logica - nro_de_pagina * (tam_pagina);
 
-    nro_tabla_2 = pedir_tabla_2(socket_memoria, tabla_paginas, entrada_lvl_1);
-    marco = pedir_marco(socket_memoria, nro_tabla_2, entrada_lvl_2);
+    marco = chequear_tlb(nro_de_pagina);
+    if(marco < 0){
+        nro_tabla_2 = pedir_tabla_2(socket_memoria, tabla_paginas, entrada_lvl_1);
+        marco = pedir_marco(socket_memoria, nro_tabla_2, entrada_lvl_2);
+        actualizar_tlb(nro_de_pagina, marco);
+    }
     return (marco*tam_pagina) + desplazamiento;
 }

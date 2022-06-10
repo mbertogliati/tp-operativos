@@ -5,7 +5,7 @@ t_instruccion fetch(t_pcb* pcb);
 bool decode(t_instruccion instruccion);
 uint32_t fetch_operand(int socket_memoria, int tabla_paginas, uint32_t direccion_logica);
 uint32_t leer_desde_memoria(int socket_memoria, int tabla_paginas, uint32_t direccion_logica);
-uint32_t execute(t_instruccion instruccion);
+uint32_t execute(t_instruccion instruccion, int tabla_paginas);
 
 void ciclo_de_instruccion(t_pcb* pcb){
 
@@ -13,6 +13,7 @@ void ciclo_de_instruccion(t_pcb* pcb){
     log_info(cpu_log, "Proceso: %d", pcb->id);
     t_instruccion instruccion_actual;
     uint32_t hayIO;
+    list_clean_and_destroy_elements(TLB, free);
     t_buffer* buffer = malloc(sizeof(t_buffer));
 
     while(pcb){
@@ -20,7 +21,7 @@ void ciclo_de_instruccion(t_pcb* pcb){
         log_info(cpu_log, "Instruccion: %d", instruccion_actual.identificador);
         if(decode(instruccion_actual));
             //fetch_operand();
-        hayIO = execute(instruccion_actual);
+        hayIO = execute(instruccion_actual, pcb->tabla_paginas);
         if(proceso_terminado){
             proceso_terminado = false;
             log_info(cpu_log, "Proceso %d TERMINADO", pcb->id);
@@ -67,6 +68,32 @@ uint32_t fetch_operand(int socket_memoria, int tabla_paginas, uint32_t direccion
     int direccion_fisica = obtener_direccion_fisica(socket_memoria, tabla_paginas, direccion_logica, *entradas_por_tabla, *tam_de_pagina);
     
 }
+bool escribir_a_memoria(int socket_memoria, int tabla_paginas, uint32_t direccion_logica, void* dato_a_escribir){
+int nro_de_pagina = floor( ((double) direccion_logica) / ((double) *tam_de_pagina));
+    int desplazamiento = direccion_logica - nro_de_pagina * (*tam_de_pagina);
+    int direccion_fisica = obtener_direccion_fisica(socket_memoria, tabla_paginas, direccion_logica, *entradas_por_tabla, *tam_de_pagina);
+    
+
+    int diferencia = desplazamiento+4 - *tam_de_pagina;
+    bool *confirmacion;
+    bool retorno;
+    if(diferencia <= 0)
+        confirmacion = pedir_escritura(socket_memoria, 4, dato_a_escribir, direccion_fisica);
+    
+    else{
+        confirmacion = pedir_escritura(socket_memoria, 4-diferencia , dato_a_escribir, direccion_fisica);
+        if(*confirmacion == false){
+            retorno = *confirmacion;
+            free(confirmacion);
+            return retorno;
+        }
+        nro_de_pagina += 1;
+        int nueva_direccion_logica = nro_de_pagina * (*tam_de_pagina);
+        direccion_fisica = obtener_direccion_fisica(socket_memoria, tabla_paginas, nueva_direccion_logica, *entradas_por_tabla, *tam_de_pagina);
+        confirmacion = pedir_escritura(socket_memoria, diferencia, dato_a_escribir+4-diferencia, direccion_fisica);
+        return confirmacion;
+    }   
+}
 uint32_t leer_desde_memoria(int socket_memoria, int tabla_paginas, uint32_t direccion_logica){
 
     int nro_de_pagina = floor( ((double) direccion_logica) / ((double) *tam_de_pagina));
@@ -92,9 +119,22 @@ uint32_t leer_desde_memoria(int socket_memoria, int tabla_paginas, uint32_t dire
     return retorno;
 
 }
-uint32_t execute(t_instruccion instruccion){
+uint32_t execute(t_instruccion instruccion, int tabla_paginas){
     switch (instruccion.identificador)
     {
+    uint32_t valor_leido;
+    case READ:
+        valor_leido = leer_desde_memoria(socket_memoria, tabla_paginas, instruccion.parametros[0]);
+        log_info(cpu_log, "El valor leido desde %s es: %d", instruccion.parametros[0], valor_leido);
+        break;
+    case WRITE:
+        escribir_a_memoria(socket_memoria, tabla_paginas, instruccion.parametros[0], &(instruccion.parametros[1]));
+        break;
+    case COPY:
+        valor_leido = leer_desde_memoria(socket_memoria, tabla_paginas, instruccion.parametros[1]);
+        log_info(cpu_log, "El valor leido desde %s es: %d", instruccion.parametros[1], valor_leido);
+        escribir_a_memoria(socket_memoria, tabla_paginas, instruccion.parametros[0], &valor_leido);
+        break;
     case NO_OP:
         sleep(0.001 * cpuconfig->retardo_noop);
         break;
