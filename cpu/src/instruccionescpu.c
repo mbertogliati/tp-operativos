@@ -78,10 +78,10 @@ int nro_de_pagina = floor( ((double) direccion_logica) / ((double) *tam_de_pagin
     bool *confirmacion;
     bool retorno;
     if(diferencia <= 0)
-        confirmacion = pedir_escritura(socket_memoria, 4, dato_a_escribir, direccion_fisica);
+        *confirmacion = pedir_escritura(socket_memoria, 4, dato_a_escribir, direccion_fisica);
     
     else{
-        confirmacion = pedir_escritura(socket_memoria, 4-diferencia , dato_a_escribir, direccion_fisica);
+        *confirmacion = pedir_escritura(socket_memoria, 4-diferencia , dato_a_escribir, direccion_fisica);
         if(*confirmacion == false){
             retorno = *confirmacion;
             free(confirmacion);
@@ -90,7 +90,7 @@ int nro_de_pagina = floor( ((double) direccion_logica) / ((double) *tam_de_pagin
         nro_de_pagina += 1;
         int nueva_direccion_logica = nro_de_pagina * (*tam_de_pagina);
         direccion_fisica = obtener_direccion_fisica(socket_memoria, tabla_paginas, nueva_direccion_logica, *entradas_por_tabla, *tam_de_pagina);
-        confirmacion = pedir_escritura(socket_memoria, diferencia, dato_a_escribir+4-diferencia, direccion_fisica);
+        *confirmacion = pedir_escritura(socket_memoria, diferencia, dato_a_escribir+4-diferencia, direccion_fisica);
         return confirmacion;
     }   
 }

@@ -3,6 +3,7 @@
 #include "../../shared/include/sockets/client_utils.h"
 #include "../../shared/include/sockets/server_utils.h"
 #include "../../shared/include/conexion_memoria.h"
+#include <math.h>
 #include "estructurascpu.h"
 #include "tlb.h"
 
