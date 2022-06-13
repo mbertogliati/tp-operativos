@@ -66,31 +66,31 @@ consola.out: $(CONSOLA_OBJS)
 			#mv consola.out consola
 
 #Genera objetos consola:
-$(CONSOLA_OBJPATH)/%.o: $(CONSOLA_SRCPATH)/%.c $(CONSOLA_INCLPATH)/%.h $(SHARED_OBJS) $(SHARED_INCPATH)/conexion_memoria.h
+$(CONSOLA_OBJPATH)/%.o: $(CONSOLA_SRCPATH)/%.c $(CONSOLA_INCLPATH)/*.h $(SHARED_OBJS) $(SHARED_INCPATH)/conexion_memoria.h
 			gcc $(CFLAGS) $(INCLUDE) -c $<
 			mv *.o $(CONSOLA_OBJPATH)
 
 #Genera objetos memoria:
-$(MEMORIA_OBJPATH)/%.o: $(MEMORIA_SRCPATH)/%.c $(MEMORIA_INCLPATH)/%.h $(SHARED_OBJS) $(SHARED_INCPATH)/conexion_memoria.h
+$(MEMORIA_OBJPATH)/%.o: $(MEMORIA_SRCPATH)/%.c $(MEMORIA_INCLPATH)/*.h $(SHARED_OBJS) $(SHARED_INCPATH)/conexion_memoria.h
 			gcc $(CFLAGS) $(INCLUDE) -c $<
 			mv *.o $(MEMORIA_OBJPATH)
 
 #Genera objetos kernel:
-$(KERNEL_OBJPATH)/%.o:  $(KERNEL_SRCPATH)/%.c $(KERNEL_INCLPATH)/%.h $(SHARED_OBJS) $(SHARED_INCPATH)/conexion_memoria.h
+$(KERNEL_OBJPATH)/%.o:  $(KERNEL_SRCPATH)/%.c $(KERNEL_INCLPATH)/*.h $(SHARED_OBJS) $(SHARED_INCPATH)/conexion_memoria.h
 			gcc $(CFLAGS) $(INCLUDE) -c $<
-			mv *.o $(KERNEL_OBJPATH)	
+			mv *.o $(KERNEL_OBJPATH)
 
 #Genera objetos cpu:
-$(CPU_OBJPATH)/%.o: $(CPU_SRCPATH)/%.c $(CPU_INCLPATH)/%.h $(SHARED_OBJS) $(SHARED_INCPATH)/conexion_memoria.h
+$(CPU_OBJPATH)/%.o: $(CPU_SRCPATH)/%.c $(CPU_INCLPATH)/*.h $(SHARED_OBJS) $(SHARED_INCPATH)/conexion_memoria.h
 			gcc $(CFLAGS) $(INCLUDE) -c $<
 			mv *.o $(CPU_OBJPATH)
 
 #Genera objetos shared: 
-$(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/estructuras/%.c $(SHARED_INCPATH)/estructuras/%.h
+$(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/estructuras/%.c $(SHARED_INCPATH)/estructuras/*.h
 			gcc $(CFLAGS) $(SHARED_INCLUDE) -c $<
 			mv *.o $(SHARED_OBJPATH)
 
-$(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/sockets/%.c $(SHARED_INCPATH)/sockets/%.h
+$(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/sockets/%.c $(SHARED_INCPATH)/sockets/*.h
 			gcc $(CFLAGS) $(SHARED_INCLUDE) -c $<
 			mv *.o $(SHARED_OBJPATH)
 
