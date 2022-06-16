@@ -7,7 +7,7 @@
 #include "estructurascpu.h"
 #include "tlb.h"
 
-int obtener_direccion_fisica(int socket_memoria, int tabla_paginas, uint32_t direccion_logica, int entradas_por_tabla, int tam_pagina);
-bool pedir_escritura(int socket_memoria, int tam_escribir, void* dato_a_escribir, int direccion_fisica);
-void* pedir_lectura(int socket_memoria, int tam_leer, int direccion_fisica);
+int obtener_direccion_fisica(int tabla_paginas, uint32_t direccion_logica, int entradas_por_tabla, int tam_pagina);
+bool pedir_escritura(int tam_escribir, void* dato_a_escribir, int direccion_fisica);
+void* pedir_lectura(int tam_leer, int direccion_fisica);
 #endif

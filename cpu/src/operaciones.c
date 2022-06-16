@@ -1,5 +1,5 @@
 #include "../include/operaciones.h"
-bool pedir_escritura(int socket_memoria, int tam_escribir, void* dato_a_escribir, int direccion_fisica){
+bool pedir_escritura(int tam_escribir, void* dato_a_escribir, int direccion_fisica){
     
     bool* confirmacion = malloc(sizeof(bool));
     t_paquete *paq_instr_memoria = crear_paquete(ESCRIBIR);
@@ -19,7 +19,7 @@ bool pedir_escritura(int socket_memoria, int tam_escribir, void* dato_a_escribir
     free(confirmacion);
     return retorno;
 }
-void* pedir_lectura(int socket_memoria, int tam_leer, int direccion_fisica){
+void* pedir_lectura(int tam_leer, int direccion_fisica){
     void *valor_leido = malloc(tam_leer);
 
     t_paquete *paq_instr_memoria = crear_paquete(LEER);
@@ -36,7 +36,7 @@ void* pedir_lectura(int socket_memoria, int tam_leer, int direccion_fisica){
     return valor_leido;
 
 }
-int pedir_marco(int socket_memoria, int direccion_tabla_2, int entrada_lvl_2){
+int pedir_marco(int direccion_tabla_2, int entrada_lvl_2){
     int *marco = malloc(sizeof(int));
 
     t_paquete *paq_instr_memoria = crear_paquete(DEVOLVER_MARCO);
@@ -55,7 +55,7 @@ int pedir_marco(int socket_memoria, int direccion_tabla_2, int entrada_lvl_2){
     free(marco);
     return retorno;
 }
-int pedir_tabla_2(int socket_memoria, int tabla_del_proceso, int entrada_lvl_1){
+int pedir_tabla_2(int tabla_del_proceso, int entrada_lvl_1){
     int *nro_tabla_2 = malloc(sizeof(int));
     t_paquete *paq_instr_memoria = crear_paquete(DEVOLVER_INDICE_TABLA_NVL2);
     log_info(cpu_log, "Preparando paquete para memoria");
@@ -74,7 +74,7 @@ int pedir_tabla_2(int socket_memoria, int tabla_del_proceso, int entrada_lvl_1){
     free(nro_tabla_2);
     return retorno;
 }
-int obtener_direccion_fisica(int socket_memoria, int tabla_paginas, uint32_t direccion_logica, int entradas_por_tabla, int tam_pagina){
+int obtener_direccion_fisica(int tabla_paginas, uint32_t direccion_logica, int entradas_por_tabla, int tam_pagina){
 
     int nro_de_pagina;
     int entrada_lvl_1;
@@ -90,8 +90,8 @@ int obtener_direccion_fisica(int socket_memoria, int tabla_paginas, uint32_t dir
 
     marco = chequear_tlb(nro_de_pagina);
     if(marco < 0){
-        nro_tabla_2 = pedir_tabla_2(socket_memoria, tabla_paginas, entrada_lvl_1);
-        marco = pedir_marco(socket_memoria, nro_tabla_2, entrada_lvl_2);
+        nro_tabla_2 = pedir_tabla_2(tabla_paginas, entrada_lvl_1);
+        marco = pedir_marco(nro_tabla_2, entrada_lvl_2);
         actualizar_tlb(nro_de_pagina, marco);
     }
     return (marco*tam_pagina) + desplazamiento;

@@ -48,22 +48,22 @@ all: cpu.out memoria.out kernel.out consola.out
 #Genera ejecutable cpu:
 cpu.out: $(CPU_OBJS)
 			gcc $(CFLAGS) -o cpu.out $(CPU_OBJS) $(SHARED_OBJS) $(LINK_FLAGS)
-			#mv cpu.out cpu
+			mv cpu.out cpu
 
 #Genera ejecutable kernel:
 kernel.out: $(KERNEL_OBJS)
 			gcc $(CFLAGS) -o kernel.out $^ $(SHARED_OBJS) $(LINK_FLAGS)
-			#mv kernel.out kernel
+			mv kernel.out kernel
 
 #Genera ejecutable memoria:
 memoria.out: $(MEMORIA_OBJS)
 			gcc $(CFLAGS) -o memoria.out $^ $(SHARED_OBJS) $(LINK_FLAGS)
-			#mv memoria.out memoria
+			mv memoria.out memoria
 
 #Genera ejecutable consola:
 consola.out: $(CONSOLA_OBJS)
 			gcc $(CFLAGS) -o consola.out $^ $(SHARED_OBJS) $(LINK_FLAGS)
-			#mv consola.out consola
+			mv consola.out consola
 
 #Genera objetos consola:
 $(CONSOLA_OBJPATH)/%.o: $(CONSOLA_SRCPATH)/%.c $(CONSOLA_INCLPATH)/*.h $(SHARED_OBJS) $(SHARED_INCPATH)/conexion_memoria.h

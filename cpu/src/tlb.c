@@ -5,16 +5,19 @@ int chequear_tlb(int pagina){
 
     entrada_tlb = NULL;
     int indice = 0;
+    bool no_se_encontro=true;
     t_list_iterator* iterador_tlb = list_iterator_create(TLB);
 
     while(list_iterator_has_next(iterador_tlb)){
         entrada_tlb = list_iterator_next(iterador_tlb);
         indice = iterador_tlb->index;
-        if(entrada_tlb->pagina == pagina)
+        if(entrada_tlb->pagina == pagina){
+            no_se_encontro=false;
             break;
+        }
     }
 
-    if(entrada_tlb ==  NULL)
+    if(no_se_encontro)
         return -1;
     
     if(strcmp((cpuconfig->reemplazo_tlb),"LRU")==0){
