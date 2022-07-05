@@ -9,5 +9,6 @@
 t_log *logger;
 
 bool son_argumentos_validos(int cantidad_argumentos, char **argv);
+bool terminar();
 
 #endif /* CONSOLA_H_ */ 

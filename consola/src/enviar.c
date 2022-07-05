@@ -25,19 +25,19 @@ int conectar_a_kernel() {
 	return conexion;
 }
 
-void enviar_paquete_instrucciones(t_paquete *paquete) {
+int enviar_paquete_instrucciones(t_paquete *paquete) {
 	log_info(logger, "Iniciando conexión con Kernel...");
 	int socket_cliente = conectar_a_kernel();
 
 	if (socket_cliente == -1) {
 		log_error(logger, "No se ha podido establecer comunicación con el Kernel");
 		eliminar_paquete(paquete);
-		return;
+		return -1;
 	}
 
 	log_info(logger, "Conexión exitosa");
 
 	enviar_paquete(paquete, socket_cliente);
 	log_info(logger, "Paquete enviado");
-	liberar_conexion(socket_cliente);
+	return socket_cliente;
 }
