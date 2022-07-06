@@ -8,6 +8,6 @@
 
 extern t_log *logger;
 
-void enviar_paquete_instrucciones(t_paquete *paquete);
+int enviar_paquete_instrucciones(t_paquete *paquete);
 
 #endif
