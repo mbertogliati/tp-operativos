@@ -38,20 +38,22 @@ void proceso_new(int *socket_cliente) {
 
 			//Checkpoint
 			//Le digo a memoria que me cree el proceso
-			sem_wait(&mutex_memoria);
-			pcb->id = pid_counter;
-			pid_counter++;
-			pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
-			sem_post(&mutex_memoria);
+//			sem_wait(&mutex_memoria);
+//			pcb->id = pid_counter;
+//			pid_counter++;
+//			pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
+//			sem_post(&mutex_memoria);
 
 			//Agrego a la cola de new
-			sem_wait(&mutex_new);
-			pcb->program_counter = 0;
-			queue_push(queue_new, pcb);
-			sem_post(&mutex_new);
+//			sem_wait(&mutex_new);
+//			pcb->program_counter = 0;
+//			queue_push(queue_new, pcb);
+//			sem_post(&mutex_new);
 			//agregar_a_new(pcb);
 
-			sem_post(&procesos_en_new);
+//			sem_post(&procesos_en_new);
+
+			agregar_a_new(pcb);
 
 			break;
 

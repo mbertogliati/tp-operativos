@@ -1,10 +1,12 @@
-#ifndef COLAS_H_
-#define COLAS_H_
+#ifndef INCLUDE_COLAS_H_
+#define INCLUDE_COLAS_H_
 
 #include <pthread.h>
 #include <semaphore.h>
 #include <string.h>
+#include <time.h>
 
+#include <commons/log.h>
 #include <commons/collections/list.h>
 #include <commons/collections/queue.h>
 
@@ -12,30 +14,37 @@
 #include "../../shared/include/estructuras/pcb.h"
 #include "conexion_memoria.h"
 #include "leer_config.h"
+#include "kernel.h"
 
-//t_queue *new;
+
+int new_counter, suspendido_counter, id_counter;
+
+//Colas
 t_list *ready;
+t_queue *new_queue, *exit_queue, *bloqueado_queue, *bloqueado_tiempo,
+*suspendido_bloqueado, *suspendido_tiempo, *suspendido_ready;
 
-pthread_mutex_t mnew;
-pthread_mutex_t mready;
+t_pcb* pcb_en_execute;
 
-sem_t grado_multip;
-sem_t procesos;
+//Semaforos Mutex
+sem_t mnew, mnew_counter, mid_counter, mready, mexit, msuspendido_counter, mbloqueado,
+mbloqueado_tiempo, msuspendido_bloqueado, msuspendido_tiempo,
+msuspendido_ready;
 
+//Semaforos
+sem_t nivel_multiprogramacion; //Inicializa en el que sea el nivel de multiprogramacion
+sem_t procesos_en_ready; //Inicializa en 0
+sem_t ready_disponible; //Inicializa en 0
+sem_t procesos_en_exit; //Inicializa en 0
+sem_t bloqueado; //Inicializa en 0
+sem_t suspendido;
 
-//Checkpoint
-t_queue *queue_new;
-t_queue *exec;
-t_queue *suspendido;
-t_queue *queue_exit;
-
-sem_t mutex_new, mutex_suspendido, mutex_exit, mutex_memoria;;
-sem_t procesos_en_new, procesos_en_exec, procesos_en_suspendido, procesos_en_exit;
-sem_t disponible_para_exec;
-
-
-void inicializar_colas();
+void inicializar_estructuras();
 void agregar_a_new(t_pcb *pcb);
-void agregar_a_ready(t_pcb *pcb);
+void thread_ready();
+void thread_execute();
+void thread_blocked();
+void thread_suspendido_blocked();
+void thread_exit();
 
-#endif /* COLAS_H_ */
+#endif /* INCLUDE_COLAS_H_ */

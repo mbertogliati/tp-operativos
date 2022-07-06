@@ -12,8 +12,8 @@
 
 #include "../../shared/include/sockets/server_utils.h"
 #include "../../shared/include/estructuras/pcb.h"
-#include "conexion_memoria.h"
 #include "colas.h"
+#include "conexion_memoria.h"
 
 
 extern t_log *logger;
