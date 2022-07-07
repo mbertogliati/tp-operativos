@@ -111,7 +111,8 @@ void agregar_a_ready_sjf(t_pcb *pcb) {
 	sem_wait(&mready);
 	//pthread_mutex_unlock(&mready);
 
-	//TODO Avisar por interrupt
+	bool interrupcion = true;
+	send(socket_interrupt, &interrupcion, sizeof(bool), 0);
 	log_info(log_kernel, "Se da aviso de interrupt a CPU.");
 
 }
@@ -175,7 +176,7 @@ void thread_ready(){
 		}else{
 			log_info(log_kernel, "Hay un proceso disponible en new.");
 			//New
-			t_pcb *pcb = sacar_de_cola(queue_new, mnew);
+			t_pcb *pcb = sacar_de_cola(new_queue, mnew);
 			pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
 			agregar_a_ready(pcb);
 			log_info(log_kernel, "Se agrego el proceso %d a ready.", pcb->id);

@@ -44,7 +44,6 @@ void *iniciar_conexion_dispatch(void *arg){
     log_info(cpu_log,"Conexion establecida!!!");
     log_info(cpu_log,"Esperando la conexion de interrupcion...");
     sem_wait(&mutex_interrupt);
-    sem_post(&mutex_interrupt);
     log_info(cpu_log,"Todo listo, inicializando...");
     while(true){
         log_info(cpu_log,"No hay PCB, esperando...");
@@ -66,8 +65,8 @@ void *iniciar_conexion_interrupt(void *arg){
     int server_interrupt = iniciar_servidor( cpuconfig -> puerto_escucha_interrupt);
     socket_interrupt = esperar_cliente(server_interrupt);
     log_info(interrupt_log, "Conexion Establecida!!!");
-    sem_init(&mutex_interrupt, 0, 1);
     bool *hay_interrupcion = malloc(sizeof(bool));
+    sem_post(&mutex_interrupt);
     while(true){
         recv(socket_interrupt, hay_interrupcion, sizeof(hay_interrupcion), MSG_WAITALL);
         sem_wait(&mutex_interrupt);
@@ -87,6 +86,7 @@ void iniciar_conexiones(){
     pthread_t dispatch;
     pthread_t interrupt;
 
+    sem_init(&mutex_interrupt, 0, 0);
     pthread_create(&dispatch, NULL, &iniciar_conexion_dispatch, NULL);
     pthread_create(&interrupt, NULL, &iniciar_conexion_interrupt, NULL);
 

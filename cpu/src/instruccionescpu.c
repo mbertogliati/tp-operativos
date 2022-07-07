@@ -58,7 +58,6 @@ t_instruccion fetch(t_pcb* pcb){
     instruccion_nueva = *( (t_instruccion*) list_get(pcb->instrucciones, pcb->program_counter));
     log_info(cpu_log, "Program Counter: %d + 1", pcb->program_counter);
     pcb->program_counter++;
-    pcb->est_rafaga--;
     return instruccion_nueva;
 }
 bool decode(t_instruccion instruccion){
