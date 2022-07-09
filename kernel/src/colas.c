@@ -339,18 +339,17 @@ void thread_suspendido_blocked(){
 
 
 //exit
-void thread_exit(){
-	while(1){
+void thread_exit(int socket_consola) {
+	while(1) {
 		wait(&procesos_en_exit);
 
 		t_pcb* pcb = sacar_de_cola(exit_queue, mexit);
 		log_info(log_kernel, "Finalizando proceso %d.", pcb->id);
 		finalizar_proceso_memoria(pcb->tabla_paginas);
 
-		//TODO Avisar a consola
+		terminar_consola(socket_consola);
 
 		liberar_pcb(pcb);
 		log_info(log_kernel, "Proceso finalizado.");
 	}
-
 }

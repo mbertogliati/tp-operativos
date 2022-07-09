@@ -45,6 +45,6 @@ void thread_ready();
 void thread_execute();
 void thread_blocked();
 void thread_suspendido_blocked();
-void thread_exit();
+void thread_exit(int);
 
 #endif /* INCLUDE_COLAS_H_ */

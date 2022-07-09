@@ -1,4 +1,5 @@
-#include "../include/enviar.h"
+#include "../include/conexion_kernel.h"
+#define TERMINAR 0
 
 int conectar_a_kernel() {
 	t_config *config = config_create("consola.config");
@@ -40,4 +41,15 @@ int enviar_paquete_instrucciones(t_paquete *paquete) {
 	enviar_paquete(paquete, socket_cliente);
 	log_info(logger, "Paquete enviado");
 	return socket_cliente;
+}
+
+void terminar(int socket_kernel) {
+	int cod_op;
+	if (recv(socket_kernel, &cod_op, sizeof(int), MSG_WAITALL) > 0)
+		if(cod_op == TERMINAR) {
+			liberar_conexion(socket_kernel);
+			log_destroy(logger);
+			return;
+		}
+	return terminar(socket_kernel);
 }

@@ -1,7 +1,9 @@
 #include "../include/conexion_consola.h"
 
+int kernel;
+
 void conectar_consola(char *puerto) {
-	int socket_servidor = iniciar_servidor(puerto);
+	int kernel = iniciar_servidor(puerto);
 	log_info(memoria_log, "Servidor listo para recibir al cliente");
 
 	// hilos
@@ -10,9 +12,9 @@ void conectar_consola(char *puerto) {
 	pid_counter = 0;
 
 	while (1) {
-		int socket_cliente = esperar_cliente(socket_servidor);
+		int consola = esperar_cliente(kernel);
 		log_info(memoria_log, "Se conectó un cliente!");
-		pthread_create(&thread, NULL, (void *) proceso_new, &socket_cliente);
+		pthread_create(&thread, NULL, (void *) proceso_new, &consola);
 		pthread_detach(thread);
 	}
 }
@@ -66,4 +68,9 @@ void proceso_new(int *socket_cliente) {
 			return;
 		}
 	}
+}
+
+void terminar_consola(int socket_consola) {
+	const int TERMINAR = 0;
+	send(socket_consola, (void *) TERMINAR, sizeof(int), 0);
 }

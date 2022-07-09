@@ -9,5 +9,6 @@
 extern t_log *logger;
 
 int enviar_paquete_instrucciones(t_paquete *paquete);
+void terminar(int);
 
 #endif

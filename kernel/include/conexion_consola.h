@@ -24,5 +24,6 @@ int pid_counter;
 
 void conectar_consola(char *puerto);
 void proceso_new(int *socket_cliente);
+void terminar_consola(int);
 
 #endif /* COLAS_H_ */
