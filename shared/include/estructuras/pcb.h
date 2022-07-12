@@ -5,6 +5,7 @@
 #include <commons/collections/list.h>
 
 typedef struct {
+	int fd;
 	uint16_t id;
 	uint32_t tamanio;
 	uint8_t cant_instrucciones;

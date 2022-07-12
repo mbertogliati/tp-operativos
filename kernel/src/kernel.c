@@ -6,17 +6,19 @@ int main() {
 
 	int kernel = iniciar_servidor(puerto_escucha());
 	int consola = esperar_cliente(kernel);
+	t_pcb *pcb;
 
 	log_info(logger, "Consola conectada!");
 
 	if (recibir_operacion(consola) == INSTRUCCIONES_CONSOLA) {
 		log_info(logger, "Se recibió el proceso:\n");
-		t_pcb *pcb = generar_pcb(consola);
+		pcb = generar_pcb(consola);
 		imprimir_pcb(pcb);
 	}
 
 	log_info(logger, "Terminando consola");
-	terminar_consola(consola);
+	terminar_consola(pcb->fd);
+	liberar_pcb(pcb);
 	log_info(logger, "Consola terminada");
 	destruir_config();
 	log_destroy(logger);

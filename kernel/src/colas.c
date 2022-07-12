@@ -347,7 +347,7 @@ void thread_exit(int socket_consola) {
 		log_info(log_kernel, "Finalizando proceso %d.", pcb->id);
 		finalizar_proceso_memoria(pcb->tabla_paginas);
 
-		terminar_consola(socket_consola);
+		terminar_consola(pcb->fd);
 
 		liberar_pcb(pcb);
 		log_info(log_kernel, "Proceso finalizado.");

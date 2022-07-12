@@ -33,6 +33,7 @@ t_pcb *generar_pcb(int socket_cliente) {
 	void *buffer = recibir_buffer(&size, socket_cliente);
 
 	t_pcb *pcb = (t_pcb *) malloc(sizeof(t_pcb));
+	pcb->fd = socket_cliente;
 	pcb->id = pid_counter;
 	pcb->program_counter = 0;
 

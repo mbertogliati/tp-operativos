@@ -68,6 +68,13 @@ void liberar_instruccion(t_instruccion *instruccion) {
 	free(instruccion);
 }
 
+void empaquetar_instruccion(t_paquete *paquete, t_instruccion *i) {
+	agregar_a_paquete(paquete, &(i->identificador), sizeof(uint8_t));
+	agregar_a_paquete(paquete, &(i->cant_parametros), sizeof(uint8_t));
+	if (i->parametros)
+		agregar_a_paquete(paquete, i->parametros, sizeof(uint32_t) * i->cant_parametros);
+}
+
 t_instruccion *desempaquetar_instruccion(void *buffer, int *desplazamiento) {
 	uint8_t identificador, cant_parametros;
 	uint32_t *parametros;
