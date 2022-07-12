@@ -1,5 +1,27 @@
 #include "../include/kernel.h"
 
+int main() {
+	crear_config();
+	logger = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
+
+	int kernel = iniciar_servidor(puerto_escucha());
+	int consola = esperar_cliente(kernel);
+
+	log_info(logger, "Consola conectada!");
+
+	if (recibir_operacion(consola) == INSTRUCCIONES_CONSOLA) {
+		log_info(logger, "Se recibió el proceso:\n");
+		t_pcb *pcb = generar_pcb(consola);
+		imprimir_pcb(pcb);
+	}
+
+	log_info(logger, "Terminando consola");
+	terminar_consola(consola);
+	log_info(logger, "Consola terminada");
+	destruir_config();
+	log_destroy(logger);
+}
+
 //void funcion_prueba_checkpoint(){
 //	memoria_log = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
 //	config = config_create("kernel.config");
@@ -45,10 +67,8 @@
 //
 //}
 
-
-
-int main() {
-	//funcion_prueba_checkpoint();
+//int main() {
+//	funcion_prueba_checkpoint();
 //	memoria_log = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
 //	config = config_create("kernel.config");
 //
@@ -63,5 +83,5 @@ int main() {
 //	log_destroy(memoria_log);
 //	config_destroy(config);
 //
-	return EXIT_SUCCESS;
-}
+//	return EXIT_SUCCESS;
+//}

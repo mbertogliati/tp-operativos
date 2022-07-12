@@ -5,6 +5,9 @@
 
 extern t_config *config;
 
+void crear_config();
+void destruir_config();
+
 // memoria
 char *ip_memoria();
 char *puerto_memoria();

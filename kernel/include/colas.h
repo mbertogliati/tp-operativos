@@ -10,7 +10,7 @@
 #include <commons/collections/list.h>
 #include <commons/collections/queue.h>
 
-#include "../../shared/include/sockets/client_utils.h"
+#include <sockets.h>
 #include "../../shared/include/estructuras/pcb.h"
 #include "conexion_memoria.h"
 #include "leer_config.h"

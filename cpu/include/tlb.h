@@ -12,5 +12,4 @@ t_list* TLB;
 int chequear_tlb(int pagina);
 void actualizar_tlb(int pagina, int marco);
 
-
 #endif

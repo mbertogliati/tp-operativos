@@ -28,14 +28,7 @@ void empaquetar_instruccion(t_paquete *paquete, char **instruccion) {
 	}
 }
 
-t_paquete *crear_paquete_instrucciones(char *path, uint32_t tamanio) {
-	FILE *f = fopen(path, "r");
-
-	if (!f) {
-		log_error(logger, "No se encontró el archivo de instrucciones");
-		return NULL;
-	}
-
+t_paquete *crear_paquete_instrucciones(FILE *f, uint32_t tamanio) {
 	log_info(logger, "Creando paquete de instrucciones...");
 	t_paquete *paquete = crear_paquete(INSTRUCCIONES_CONSOLA);
 
@@ -44,8 +37,9 @@ t_paquete *crear_paquete_instrucciones(char *path, uint32_t tamanio) {
 	char *linea = NULL;
 	size_t lon = 0;
 
-	while (getline(&linea, &lon, f) != -1)
+	while (getline(&linea, &lon, f) != -1) {
 		empaquetar_instruccion(paquete, string_split(linea, " "));
+	}
 
 	fclose(f);
 	free(linea);

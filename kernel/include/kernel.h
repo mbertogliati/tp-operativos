@@ -12,12 +12,12 @@
 
 t_log *logger;
 t_config *config;
+
 typedef struct{
     int milisegundos;
     t_pcb* pcb;
 } t_pcb_con_milisegundos;
 
 t_log *log_kernel;
-
 
 #endif /* KERNEL_H_ */

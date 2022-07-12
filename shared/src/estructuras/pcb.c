@@ -1,6 +1,6 @@
 #include "../../include/estructuras/pcb.h"
 #include "../../include/estructuras/instrucciones.h"
-#include "../../include/sockets/client_utils.h"
+#include "../../include/sockets.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,20 +11,6 @@ void imprimir_pcb(t_pcb *pcb) {
 			pcb->tamanio,
 			pcb->cant_instrucciones);
 	list_iterate(pcb->instrucciones, (void *) imprimir_instruccion);
-}
-
-void recibir_paquete_consola(void *buffer, int size, t_pcb *pcb) {
-	int desplazamiento = 0;
-
-	memcpy(&(pcb->tamanio), buffer + desplazamiento, sizeof(uint32_t));
-	desplazamiento += sizeof(uint32_t);
-
-	pcb->instrucciones = list_create();
-
-	while(desplazamiento < size)
-		list_add(pcb->instrucciones, desempaquetar_instruccion(buffer, &desplazamiento));
-
-	pcb->cant_instrucciones = list_size(pcb->instrucciones);
 }
 
 t_pcb *desempaquetar_pcb(void *buffer) {
