@@ -10,14 +10,24 @@
 #include <commons/log.h>
 #include <commons/collections/queue.h>
 
-#include "../../shared/include/sockets/server_utils.h"
-#include "../../shared/include/estructuras/pcb.h"
+#include <sockets.h>
+#include <estructuras/pcb.h>
 #include "colas.h"
 #include "conexion_memoria.h"
 
+<<<<<<< HEAD
 
+=======
+extern t_log *logger;
+extern sem_t mutex_memoria, mutex_new, procesos_en_new;
+extern t_queue *queue_new;
 
-void conectar_consola(char *puerto);
+int pid_counter;
+>>>>>>> dd166f1e0986c28471020070dc293139ed3b3c6e
+
+void conectar_consola(int socket_kernel);
+t_pcb *generar_pcb(int socket_cliente);
 void proceso_new(int *socket_cliente);
+void terminar_consola(int);
 
 #endif /* COLAS_H_ */

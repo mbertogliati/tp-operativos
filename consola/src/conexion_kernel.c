@@ -1,4 +1,4 @@
-#include "../include/enviar.h"
+#include "../include/conexion_kernel.h"
 
 int conectar_a_kernel() {
 	t_config *config = config_create("consola.config");
@@ -19,25 +19,37 @@ int conectar_a_kernel() {
 		return -1;
 	}
 
+	log_info(logger, "Iniciando conexión con Kernel");
 	int conexion = crear_conexion(ip, puerto);
 	config_destroy(config);
-
 	return conexion;
 }
 
-void enviar_paquete_instrucciones(t_paquete *paquete) {
-	log_info(logger, "Iniciando conexión con Kernel...");
-	int socket_cliente = conectar_a_kernel();
-
-	if (socket_cliente == -1) {
+bool conexion_exitosa(int socket) {
+	if (socket == -1) {
 		log_error(logger, "No se ha podido establecer comunicación con el Kernel");
-		eliminar_paquete(paquete);
+		return false;
+	}
+	else {
+		log_info(logger, "Conexión exitosa!");
+		return true;
+	}
+}
+
+void enviar_paquete_instrucciones(t_paquete *paquete, int socket_kernel) {
+	log_info(logger, "Enviando paquete");
+	enviar_paquete(paquete, socket_kernel);
+	log_info(logger, "Paquete enviado");
+}
+
+void terminar(int socket_kernel) {
+	int mensaje;
+	recv(socket_kernel, &mensaje, sizeof(int), MSG_WAITALL);
+	if (mensaje == TERMINAR_CONSOLA) {
+		log_info(logger, "Terminando consola");
+		liberar_conexion(socket_kernel);
+		log_destroy(logger);
 		return;
 	}
-
-	log_info(logger, "Conexión exitosa");
-
-	enviar_paquete(paquete, socket_cliente);
-	log_info(logger, "Paquete enviado");
-	liberar_conexion(socket_cliente);
+	log_error(logger, "Operación desconocida");
 }

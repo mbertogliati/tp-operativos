@@ -1,6 +1,6 @@
 #include "../include/crear_paquete.h"
 
-void empaquetar_instruccion(t_paquete *paquete, char **instruccion) {
+void empaquetar_linea(t_paquete *paquete, char **instruccion) {
 	uint8_t identificador = get_identificador(instruccion[0]);
 
 	if (identificador == NO_RECONOCIDO) {
@@ -9,33 +9,26 @@ void empaquetar_instruccion(t_paquete *paquete, char **instruccion) {
 	}
 
 	uint8_t cant_parametros = get_cant_parametros(identificador);
+	uint32_t *parametros;
+
+	if (!cant_parametros) parametros = NULL;
+	else {
+		parametros = (uint32_t *) malloc(sizeof(uint32_t) * cant_parametros);
+		for (int j = 0; j < cant_parametros; j++)
+			parametros[j] = atoi(instruccion[j + 1]);
+	}
+
+	t_instruccion *i = crear_instruccion(identificador, cant_parametros, parametros);
 
 	if (identificador == NO_OP)
-		for (int i = 0; i < atoi(instruccion[1]); i++) {
-			agregar_a_paquete(paquete, &(identificador), sizeof(uint8_t));
-			agregar_a_paquete(paquete, &(cant_parametros), sizeof(uint8_t));
-		}
+		for (int j = 0; j < atoi(instruccion[1]); j++)
+			empaquetar_instruccion(paquete, i);
+	else empaquetar_instruccion(paquete, i);
 
-	else {
-		agregar_a_paquete(paquete, &(identificador), sizeof(uint8_t));
-		agregar_a_paquete(paquete, &(cant_parametros), sizeof(uint8_t));
-
-		if (cant_parametros)
-			for (int i = 1, parametro; i < cant_parametros + 1; i++) {
-				parametro = atoi(instruccion[i]);
-				agregar_a_paquete(paquete, &(parametro), sizeof(uint32_t));
-			}
-	}
+	liberar_instruccion(i);
 }
 
-t_paquete *crear_paquete_instrucciones(char *path, uint32_t tamanio) {
-	FILE *f = fopen(path, "r");
-
-	if (!f) {
-		log_error(logger, "No se encontró el archivo de instrucciones");
-		return NULL;
-	}
-
+t_paquete *crear_paquete_instrucciones(FILE *f, uint32_t tamanio) {
 	log_info(logger, "Creando paquete de instrucciones...");
 	t_paquete *paquete = crear_paquete(INSTRUCCIONES_CONSOLA);
 
@@ -44,8 +37,9 @@ t_paquete *crear_paquete_instrucciones(char *path, uint32_t tamanio) {
 	char *linea = NULL;
 	size_t lon = 0;
 
-	while (getline(&linea, &lon, f) != -1)
-		empaquetar_instruccion(paquete, string_split(linea, " "));
+	while (getline(&linea, &lon, f) != -1) {
+		empaquetar_linea(paquete, string_split(linea, " "));
+	}
 
 	fclose(f);
 	free(linea);

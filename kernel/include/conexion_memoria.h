@@ -3,8 +3,7 @@
 
 #include <commons/log.h>
 
-#include "../../shared/include/sockets/client_utils.h"
-#include "../../shared/include/sockets/server_utils.h"
+#include <sockets.h>
 
 int socket_memoria;
 extern t_log *logger;

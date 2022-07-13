@@ -141,8 +141,14 @@ void agregar_a_ready_sjf(t_pcb *pcb) {
 	sem_wait(&mready);
 	//pthread_mutex_unlock(&mready);
 
+<<<<<<< HEAD
 	//TODO Avisar por interrupt
 	log_protegido("Se da aviso de interrupt a CPU.");
+=======
+	bool interrupcion = true;
+	send(socket_interrupt, &interrupcion, sizeof(bool), 0);
+	log_info(log_kernel, "Se da aviso de interrupt a CPU.");
+>>>>>>> dd166f1e0986c28471020070dc293139ed3b3c6e
 
 }
 
@@ -203,11 +209,15 @@ void *thread_ready(){
 			log_protegido("READY:Se agrego el proceso %d a ready.", pcb->id);
 		}else{
 			//New
+<<<<<<< HEAD
 			log_protegido("READY:Hay un proceso disponible en new.");
 			sem_wait(&mnew_counter);
 			new_counter--;
 			sem_post(&mnew_counter);
 			t_pcb *pcb = sacar_de_cola(queue_new, mnew);
+=======
+			t_pcb *pcb = sacar_de_cola(new_queue, mnew);
+>>>>>>> dd166f1e0986c28471020070dc293139ed3b3c6e
 			pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
 			agregar_a_ready(pcb);
 			log_protegido("READY:Se agrego el proceso %d a ready.", pcb->id);
@@ -370,18 +380,22 @@ void *thread_suspendido_blocked(){
 
 
 //exit
+<<<<<<< HEAD
 void *thread_exit(){
 	while(1){
+=======
+void thread_exit(int socket_consola) {
+	while(1) {
+>>>>>>> dd166f1e0986c28471020070dc293139ed3b3c6e
 		wait(&procesos_en_exit);
 
 		t_pcb* pcb = sacar_de_cola(exit_queue, mexit);
 		log_protegido("EXIT:Finalizando proceso %d.", pcb->id);
 		finalizar_proceso_memoria(pcb->tabla_paginas);
 
-		//TODO Avisar a consola
+		terminar_consola(pcb->fd);
 
 		liberar_pcb(pcb);
 		log_protegido("EXIT:Proceso finalizado.");
 	}
-
 }

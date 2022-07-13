@@ -1,26 +1,44 @@
 #include "../include/conexion_consola.h"
 
-void conectar_consola(char *puerto) {
-	int socket_servidor = iniciar_servidor(puerto);
+
+void conectar_consola(int kernel) {
 	log_protegido("CONSOLA:Servidor listo para recibir al cliente");
-
-	// hilos
 	pthread_t thread;
+	pid_counter = 0;
 
+	// recibir muchas consolas
 	while (1) {
-		int socket_cliente = esperar_cliente(socket_servidor);
+		int consola = esperar_cliente(kernel);
 		log_protegido("CONSOLA:Se conectó un cliente!");
-		pthread_create(&thread, NULL, (void *) proceso_new, &socket_cliente);
+		pthread_create(&thread, NULL, (void *) proceso_new, &consola);
 		pthread_detach(thread);
 	}
+}
+
+void recibir_paquete_consola(void *buffer, int size, t_pcb *pcb) {
+	int desplazamiento = 0;
+
+	memcpy(&(pcb->tamanio), buffer + desplazamiento, sizeof(uint32_t));
+	desplazamiento += sizeof(uint32_t);
+
+	pcb->instrucciones = list_create();
+
+	while(desplazamiento < size)
+		list_add(pcb->instrucciones, desempaquetar_instruccion(buffer, &desplazamiento));
+
+	pcb->cant_instrucciones = list_size(pcb->instrucciones);
 }
 
 t_pcb *generar_pcb(int socket_cliente) {
 	int size;
 	void *buffer = recibir_buffer(&size, socket_cliente);
-	t_pcb *pcb = (t_pcb *) malloc(sizeof(t_pcb));
-	recibir_paquete_consola(buffer, size, pcb);
 
+	t_pcb *pcb = (t_pcb *) malloc(sizeof(t_pcb));
+	pcb->fd = socket_cliente;
+	pcb->id = pid_counter;
+	pcb->program_counter = 0;
+
+	recibir_paquete_consola(buffer, size, pcb);
 	return pcb;
 }
 
@@ -56,7 +74,7 @@ void proceso_new(int *socket_cliente) {
 			break;
 
 		case -1:
-			log_protegido("CONSOLAEl cliente se desconectó.");
+			log_protegido("CONSOLA:El cliente se desconectó.");
 			return;
 
 		default:
@@ -64,4 +82,9 @@ void proceso_new(int *socket_cliente) {
 			return;
 		}
 	}
+}
+
+void terminar_consola(int socket_consola) {
+	int mensaje = TERMINAR_CONSOLA;
+	send(socket_consola, &mensaje, sizeof(int), 0);
 }

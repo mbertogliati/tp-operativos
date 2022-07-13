@@ -5,6 +5,7 @@
 #include <commons/collections/list.h>
 
 typedef struct {
+	int fd;
 	uint16_t id;
 	uint32_t tamanio;
 	uint8_t cant_instrucciones;
@@ -16,7 +17,6 @@ typedef struct {
 } t_pcb;
 
 void imprimir_pcb(t_pcb *pcb);
-void recibir_paquete_consola(void *buffer, int size, t_pcb *pcb);
 int enviar_pcb(t_pcb* pcb, int socket_a_enviar, int IO);
 t_pcb *desempaquetar_pcb(void *buffer);
 void liberar_pcb(t_pcb *pcb);

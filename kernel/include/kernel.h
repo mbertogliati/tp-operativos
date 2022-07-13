@@ -12,6 +12,7 @@
 
 t_log *logger;
 t_config *config;
+
 typedef struct{
     int milisegundos;
     t_pcb* pcb;

@@ -2,8 +2,7 @@
 #define CONEXIONESCPU_H_
 
 #include "../include/estructurascpu.h"
-#include "../../shared/include/sockets/client_utils.h"
-#include "../../shared/include/sockets/server_utils.h"
+#include "../../shared/include/sockets.h"
 #include "../../shared/include/estructuras/pcb.h"
 #include "instruccionescpu.h"
 #include <pthread.h>

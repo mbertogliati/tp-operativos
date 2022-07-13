@@ -11,7 +11,7 @@
 #include <commons/collections/list.h>
 #include <commons/collections/queue.h>
 
-#include "../../shared/include/sockets/client_utils.h"
+#include <sockets.h>
 #include "../../shared/include/estructuras/pcb.h"
 #include "conexion_memoria.h"
 #include "leer_config.h"
@@ -44,10 +44,18 @@ sem_t suspendido;
 void inicializar_estructuras();
 int inicializar_threads();
 void agregar_a_new(t_pcb *pcb);
+<<<<<<< HEAD
 void *thread_ready();
 void *thread_execute();
 void *thread_blocked();
 void *thread_suspendido_blocked();
 void *thread_exit();
+=======
+void thread_ready();
+void thread_execute();
+void thread_blocked();
+void thread_suspendido_blocked();
+void thread_exit(int);
+>>>>>>> dd166f1e0986c28471020070dc293139ed3b3c6e
 
 #endif /* INCLUDE_COLAS_H_ */
