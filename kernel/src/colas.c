@@ -1,7 +1,7 @@
 #include "../include/colas.h"
 
 void inicializar_estructuras() {
-	log_info(log_kernel, "Inicializando estructuras.");
+	log_protegido("Inicializando estructuras.");
 
 	//Colas
 	new_queue = queue_create();
@@ -12,13 +12,13 @@ void inicializar_estructuras() {
 	suspendido_ready = queue_create();
 	suspendido_tiempo = queue_create();
 	exit_queue = queue_create();
-	log_info(log_kernel, "Colas creadas.");
+	log_protegido("Colas creadas.");
 
 	//Counters
 	new_counter = 0;
 	suspendido_counter = 0;
 	id_counter = 1;
-	log_info(log_kernel, "Contadores inicializados.");
+	log_protegido("Contadores inicializados.");
 
 	//Semaforos
 	sem_init(&nivel_multiprogramacion, 0, grado_multiprogramacion());
@@ -27,7 +27,7 @@ void inicializar_estructuras() {
 	sem_init(&ready_disponible, 0, 0);
 	sem_init(&suspendido, 0, 0);
 	sem_init(&bloqueado, 0, 0);
-	log_info(log_kernel, "Semaforos inicializados.");
+	log_protegido("Semaforos inicializados.");
 
 	//Semaforos Mutex
 	sem_init(&mnew, 0, 1);
@@ -41,7 +41,25 @@ void inicializar_estructuras() {
 	sem_init(&msuspendido_bloqueado, 0, 1);
 	sem_init(&msuspendido_tiempo, 0, 1);
 	sem_init(&msuspendido_ready, 0, 1);
-	log_info(log_kernel, "Semaforos Mutex inicializados.");
+	log_protegido("Semaforos Mutex inicializados.");
+}
+
+int inicializar_threads(){
+	pthread_t hilo_ready, hilo_execute, hilo_blocked, hilo_suspendido_blocked, hilo_exit;
+
+	pthread_create(&hilo_ready, NULL, &thread_ready);
+	pthread_create(&hilo_execute, NULL, &thread_execute);
+	pthread_create(&hilo_blocked, NULL, &thread_blocked);
+	pthread_create(&hilo_suspendido_blocked, NULL, &thread_suspendido_blocked);
+	pthread_create(&hilo_exit, NULL, &thread_exit);
+
+	pthread_join(hilo_ready, NULL);
+	pthread_join(hilo_execute, NULL);
+	pthread_join(hilo_blocked, NULL);
+	pthread_join(hilo_suspendido_blocked, NULL);
+	pthread_join(hilo_exit, NULL);
+
+	return EXIT_SUCCESS;
 }
 
 void agregar_a_cola(t_queue *cola, t_pcb *pcb, sem_t semaforo_mutex){
@@ -57,6 +75,17 @@ t_pcb* sacar_de_cola(t_queue *cola, sem_t semaforo_mutex){
 	return pcb;
 }
 
+void log_protegido(char* mensaje, ...){
+	va_list arguments;
+	va_start(arguments, mensaje);
+
+	sem_wait(&mlog);
+	log_info(log_kernel, mensaje, arguments);
+	sem_post(&mlog);
+
+	va_end(arguments);
+}
+
 // new
 void agregar_a_new(t_pcb *pcb) {
 	sem_wait(&mid_counter);
@@ -65,6 +94,7 @@ void agregar_a_new(t_pcb *pcb) {
 	sem_post(&mid_counter);
 	pcb->program_counter = 0;
 	pcb->est_rafaga = estimacion_inicial();
+	pcb->rafaga_inicial = 0;
 
 	sem_wait(&mnew);
 	queue_push(new_queue, pcb);
@@ -72,7 +102,7 @@ void agregar_a_new(t_pcb *pcb) {
 	sem_wait(&mnew_counter);
 	new_counter++;
 	sem_post(&mnew_counter);
-	log_info(log_kernel, "Se agrego el pcb %d a new", pcb->id);
+	log_protegido("CONSOLA:Se agrego el pcb %d a new", pcb->id);
 
 	sem_post(&ready_disponible);
 }
@@ -93,7 +123,7 @@ void agregar_a_ready_fifo(t_pcb *pcb) {
 // ready-sjf
 double calcular_estimacion(double real, t_pcb *pcb) {
 	pcb->est_rafaga = pcb->est_rafaga * alfa() + real * (1 - alfa());
-	log_info(log_kernel, "Se estima rafaga de %lf para el proceso %d.", pcb->est_rafaga, pcb->id);
+	log_protegido("Se estima rafaga de %lf para el proceso %d.", pcb->est_rafaga, pcb->id);
 	return pcb->est_rafaga;
 }
 
@@ -112,7 +142,7 @@ void agregar_a_ready_sjf(t_pcb *pcb) {
 	//pthread_mutex_unlock(&mready);
 
 	//TODO Avisar por interrupt
-	log_info(log_kernel, "Se da aviso de interrupt a CPU.");
+	log_protegido("Se da aviso de interrupt a CPU.");
 
 }
 
@@ -141,8 +171,6 @@ bool disponible_para_ready(){
 	//Chequea si hay un proceso en new
 	sem_wait(&mnew_counter);
 	if(new_counter > 0){
-		new_counter--;
-		sem_post(&mnew_counter);
 		respuesta = false;
 	}
 	sem_post(&mnew_counter);
@@ -150,8 +178,6 @@ bool disponible_para_ready(){
 	//Chequea si hay un proceso en suspendido_ready
 	sem_wait(&msuspendido_counter);
 	if(suspendido_counter > 0){
-		suspendido_counter--;
-		sem_post(&msuspendido_counter);
 		respuesta = true;
 	}
 	sem_post(&msuspendido_counter);
@@ -159,26 +185,32 @@ bool disponible_para_ready(){
 	return respuesta;
 }
 
-void thread_ready(){
+void *thread_ready(){
 	while(1){
 		//Revisar semaforo de nivel multiprogramacion
 		sem_wait(&nivel_multiprogramacion);
-		log_info(log_kernel, "El nivel de multiprogramacion permite agregar un proceso a ready.");
+		log_protegido("READY:El nivel de multiprogramacion permite agregar un proceso a ready.");
 
 		if(disponible_para_ready()){
-			log_info(log_kernel, "Hay un proceso disponible en suspendido-ready.");
 			//Suspendido-ready
+			log_protegido("READY:Hay un proceso disponible en suspendido-ready.");
+			sem_wait(&msuspendido_counter);
+			suspendido_counter--;
+			sem_post(&msuspendido_counter);
 			t_pcb *pcb = sacar_de_cola(suspendido_ready, msuspendido_ready);
 			pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
 			agregar_a_ready(pcb);
-			log_info(log_kernel, "Se agrego el proceso %d a ready.", pcb->id);
+			log_protegido("READY:Se agrego el proceso %d a ready.", pcb->id);
 		}else{
-			log_info(log_kernel, "Hay un proceso disponible en new.");
 			//New
+			log_protegido("READY:Hay un proceso disponible en new.");
+			sem_wait(&mnew_counter);
+			new_counter--;
+			sem_post(&mnew_counter);
 			t_pcb *pcb = sacar_de_cola(queue_new, mnew);
 			pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
 			agregar_a_ready(pcb);
-			log_info(log_kernel, "Se agrego el proceso %d a ready.", pcb->id);
+			log_protegido("READY:Se agrego el proceso %d a ready.", pcb->id);
 		}
 		//Avisa que hay procesos en ready
 		sem_post(&procesos_en_ready);
@@ -205,69 +237,69 @@ t_pcb_con_milisegundos recibir_proceso(){
 }
 
 
-void thread_execute(){
+void *thread_execute(){
 	while(1){
 		t_pcb_con_milisegundos proceso_recibido;
 		time_t tiempo_envio, tiempo_retorno;
 		sem_wait(&procesos_en_ready);
-		log_info(log_kernel, "Hay procesos en ready para ejecutar.");
+		log_info(log_kernel, "EXECUTE:Hay procesos en ready para ejecutar.");
 
 		t_pcb* pcb = quitar_de_ready();
-		log_info(log_kernel, "Se mueve a ejecutar el proceso %d.", pcb->id);
+		log_protegido("EXECUTE:Se mueve a ejecutar el proceso %d.", pcb->id);
 
 		//Enviar a cpu;
 		enviar_pcb(pcb, socket_dispatch, 0);
 		time(&tiempo_envio);
-		log_info(log_kernel, "Proceso enviado a CPU para su ejecucion.");
+		log_protegido("EXECUTE:Proceso enviado a CPU para su ejecucion.");
 		//Eliminar pcb
 		liberar_pcb(pcb);
 		//Recibir nuevo pcb con milisegundos
 		proceso_recibido = recibir_proceso();
 		time(&tiempo_retorno);
-		log_info(log_kernel, "Proceso recibido de CPU.");
+		log_protegido("EXECUTE:Proceso recibido de CPU.");
 
 
 		if(proceso_recibido.pcb->program_counter < proceso_recibido.pcb->cant_instrucciones){
 			//Interrupcion
 			if(proceso_recibido.milisegundos == 0){
-				log_info(log_kernel, "Proceso recibido por interrupcion.");
-				if(1 /*pcb->rafaga_inicial == 0*/){
-					//pcb->rafaga_inicial = pcb->est_rafaga;
-					//pcb->est_rafaga = pcb->est_rafaga - (tiempo_retorno - tiempo_envio);
+				log_protegido("EXECUTE:Proceso recibido por interrupcion.");
+				if(pcb->rafaga_inicial == 0){
+					pcb->rafaga_inicial = pcb->est_rafaga;
+					pcb->est_rafaga = pcb->est_rafaga - (tiempo_retorno - tiempo_envio);
 				}else{
 					pcb->est_rafaga = pcb->est_rafaga - (tiempo_retorno - tiempo_envio);
 				}
 
 				agregar_a_ready(proceso_recibido.pcb);
-				log_info(log_kernel, "Se agrego el proceso a ready.");
+				log_protegido("EXECUTE:Se agrego el proceso a ready.");
 				sem_post(&procesos_en_ready);
 			}else{
 				//Espera
-				log_info(log_kernel, "Proceso recibido por I/O.");
+				log_protegido("EXECUTE:Proceso recibido por I/O.");
 
 				//Hago la estimacion de la proxima rafaga
-				if(1 /*pcb->rafaga_inicial == 0*/){
+				if(pcb->rafaga_inicial == 0){
 					calcular_estimacion(tiempo_retorno - tiempo_envio, pcb);
 				}else{
 					int real = pcb->est_rafaga;
-					//pcb->est_rafaga = pcb->rafaga_inicial;
+					pcb->est_rafaga = pcb->rafaga_inicial;
 					real = pcb->est_rafaga - real + (tiempo_retorno - tiempo_envio);
 					calcular_estimacion(real, pcb);
 				}
-				//pcb->rafaga_inicial = 0;
+				pcb->rafaga_inicial = 0;
 
 				agregar_a_cola(bloqueado_queue, proceso_recibido.pcb, mbloqueado);
 				sem_wait(&mbloqueado_tiempo);
 				queue_push(bloqueado_tiempo, proceso_recibido.milisegundos);
 				sem_post(&mbloqueado_tiempo);
-				log_info(log_kernel, "Se agrego el proceso a bloqueado.");
+				log_protegido("EXECUTE:Se agrego el proceso a bloqueado.");
 				sem_post(&bloqueado);
 			}
 		}else{
 			//Exit
-			log_info(log_kernel, "Proceso finalizo sus instrucciones.");
+			log_protegido("EXECUTE:Proceso finalizo sus instrucciones.");
 			agregar_a_cola(exit_queue, proceso_recibido.pcb, mexit);
-			log_info(log_kernel, "Se agrego el proceso a exit.");
+			log_protegido("EXECUTE:Se agrego el proceso a exit.");
 			sem_post(&procesos_en_exit);
 			sem_post(&nivel_multiprogramacion);
 		}
@@ -285,18 +317,18 @@ int esperar_bloqueado(int tiempo_espera){
 	return (tiempo_espera - tiempo_max_bloqueado());
 }
 
-void thread_blocked(){
+void *thread_blocked(){
 	while(1){
 		sem_wait(&bloqueado);
 		t_pcb* pcb = sacar_de_cola(bloqueado_queue, mbloqueado);
 		sem_wait(&mbloqueado_tiempo);
 		int espera_restante = queue_pop(bloqueado_tiempo);
 		sem_post(&mbloqueado_tiempo);
-		log_info(log_kernel, "Realizando espera de %d milisegundos para el proceso %d en bloqueado.", espera_restante, pcb->id);
+		log_protegido("BLOCKED:Realizando espera de %d milisegundos para el proceso %d en bloqueado.", espera_restante, pcb->id);
 		espera_restante = esperar_bloqueado(espera_restante);
 
 		if(espera_restante > 0){
-			log_info(log_kernel, "Espera mayor a la permitida en bloqueado, suspendiendo el proceso.");
+			log_protegido("BLOCKED:Espera mayor a la permitida en bloqueado, suspendiendo el proceso.");
 			suspender_proceso_memoria(pcb->tabla_paginas);
 			agregar_a_cola(suspendido_bloqueado, pcb, msuspendido_bloqueado);
 			sem_wait(&msuspendido_tiempo);
@@ -305,14 +337,14 @@ void thread_blocked(){
 			sem_post(&suspendido);
 			sem_post(&nivel_multiprogramacion);
 		}else{
-			log_info(log_kernel, "Espera en bloqueado completada, agregando a ready.");
+			log_protegido("BLOCKED:Espera en bloqueado completada, agregando a ready.");
 			agregar_a_ready(pcb);
 		}
 	}
 }
 
 //suspendido-blocked
-void thread_suspendido_blocked(){
+void *thread_suspendido_blocked(){
 	while(1){
 		sem_wait(&suspendido);
 		t_pcb* pcb = sacar_de_cola(suspendido_bloqueado, msuspendido_bloqueado);
@@ -320,10 +352,10 @@ void thread_suspendido_blocked(){
 		int tiempo_espera = queue_pop(suspendido_tiempo);
 		sem_post(&msuspendido_tiempo);
 
-		log_info(log_kernel, "Realizando espera de %d milisegundos para el proceso %d en suspendido.", tiempo_espera, pcb->id);
+		log_protegido("SUSPENDIDO_BLOCKED:Realizando espera de %d milisegundos para el proceso %d en suspendido.", tiempo_espera, pcb->id);
 		sleep(0.001 * tiempo_espera);
 
-		log_info(log_kernel, "Espera en suspendido completada, agregando a suspendido-ready.");
+		log_protegido("SUSPENDIDO_BLOCKED:Espera en suspendido completada, agregando a suspendido-ready.");
 		sem_wait(&msuspendido_ready);
 		agregar_a_cola(suspendido_ready, pcb, msuspendido_ready);
 		sem_post(&msuspendido_ready);
@@ -338,18 +370,18 @@ void thread_suspendido_blocked(){
 
 
 //exit
-void thread_exit(){
+void *thread_exit(){
 	while(1){
 		wait(&procesos_en_exit);
 
 		t_pcb* pcb = sacar_de_cola(exit_queue, mexit);
-		log_info(log_kernel, "Finalizando proceso %d.", pcb->id);
+		log_protegido("EXIT:Finalizando proceso %d.", pcb->id);
 		finalizar_proceso_memoria(pcb->tabla_paginas);
 
 		//TODO Avisar a consola
 
 		liberar_pcb(pcb);
-		log_info(log_kernel, "Proceso finalizado.");
+		log_protegido("EXIT:Proceso finalizado.");
 	}
 
 }

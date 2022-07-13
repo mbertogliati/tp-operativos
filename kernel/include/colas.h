@@ -5,6 +5,7 @@
 #include <semaphore.h>
 #include <string.h>
 #include <time.h>
+#include <stdarg.h>
 
 #include <commons/log.h>
 #include <commons/collections/list.h>
@@ -30,6 +31,7 @@ t_pcb* pcb_en_execute;
 sem_t mnew, mnew_counter, mid_counter, mready, mexit, msuspendido_counter, mbloqueado,
 mbloqueado_tiempo, msuspendido_bloqueado, msuspendido_tiempo,
 msuspendido_ready;
+sem_t mlog;
 
 //Semaforos
 sem_t nivel_multiprogramacion; //Inicializa en el que sea el nivel de multiprogramacion
@@ -40,11 +42,12 @@ sem_t bloqueado; //Inicializa en 0
 sem_t suspendido;
 
 void inicializar_estructuras();
+int inicializar_threads();
 void agregar_a_new(t_pcb *pcb);
-void thread_ready();
-void thread_execute();
-void thread_blocked();
-void thread_suspendido_blocked();
-void thread_exit();
+void *thread_ready();
+void *thread_execute();
+void *thread_blocked();
+void *thread_suspendido_blocked();
+void *thread_exit();
 
 #endif /* INCLUDE_COLAS_H_ */

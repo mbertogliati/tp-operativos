@@ -53,6 +53,9 @@ t_pcb *desempaquetar_pcb(void *buffer) {
 	memcpy(&(pcb->est_rafaga), buffer + desplazamiento, sizeof(double));
 	desplazamiento += sizeof(double);
 
+	memcpy(&(pcb->rafaga_inicial), buffer + desplazamiento, sizeof(double));
+	desplazamiento += sizeof(double);
+
 	return pcb;
 }
 
@@ -84,6 +87,7 @@ int enviar_pcb(t_pcb* pcb, int socket_a_enviar, int IO){
     agregar_a_paquete(paquete_pcb, &(pcb->program_counter),sizeof(uint32_t));
     agregar_a_paquete(paquete_pcb, &(pcb->tabla_paginas),sizeof(int));
     agregar_a_paquete(paquete_pcb, &(pcb->est_rafaga),sizeof(double));
+    agregar_a_paquete(paquete_pcb, &(pcb->rafaga_inicial), sizeof(double));
     enviar_paquete(paquete_pcb, socket_a_enviar);
 	eliminar_paquete(paquete_pcb);
 

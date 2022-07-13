@@ -12,6 +12,7 @@ typedef struct {
 	uint32_t program_counter;
 	int tabla_paginas;
 	double est_rafaga;
+	double rafaga_inicial;
 } t_pcb;
 
 void imprimir_pcb(t_pcb *pcb);

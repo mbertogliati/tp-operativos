@@ -46,22 +46,24 @@
 //}
 
 
-
 int main() {
 	//funcion_prueba_checkpoint();
-//	memoria_log = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
-//	config = config_create("kernel.config");
-//
-//	inicializar_colas();
-//
-//	conectar_memoria(ip_memoria(), puerto_memoria());
-//	conectar_consola(puerto_escucha());
-//	conectar_cpu(ip_cpu(), puerto_cpu_dispatch(), puerto_cpu_interrupt);
-//
-//	desconectar_memoria();
-//
-//	log_destroy(memoria_log);
-//	config_destroy(config);
-//
+	memoria_log = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
+	config = config_create("kernel.config");
+
+	inicializar_estructuras();
+
+	conectar_memoria(ip_memoria(), puerto_memoria());
+	conectar_cpu(ip_cpu(), puerto_cpu_dispatch(), puerto_cpu_interrupt);
+	inicializar_threads();
+	conectar_consola(puerto_escucha());
+
+
+
+	desconectar_memoria();
+
+	log_destroy(memoria_log);
+	config_destroy(config);
+
 	return EXIT_SUCCESS;
 }

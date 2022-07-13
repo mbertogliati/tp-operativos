@@ -2,16 +2,14 @@
 
 void conectar_consola(char *puerto) {
 	int socket_servidor = iniciar_servidor(puerto);
-	log_info(memoria_log, "Servidor listo para recibir al cliente");
+	log_protegido("CONSOLA:Servidor listo para recibir al cliente");
 
 	// hilos
 	pthread_t thread;
 
-	pid_counter = 0;
-
 	while (1) {
 		int socket_cliente = esperar_cliente(socket_servidor);
-		log_info(memoria_log, "Se conectó un cliente!");
+		log_protegido("CONSOLA:Se conectó un cliente!");
 		pthread_create(&thread, NULL, (void *) proceso_new, &socket_cliente);
 		pthread_detach(thread);
 	}
@@ -33,8 +31,8 @@ void proceso_new(int *socket_cliente) {
 		case INSTRUCCIONES_CONSOLA:
 			pcb = generar_pcb(*socket_cliente);
 
-			log_info(memoria_log, "Recibí el proceso:\n");
-			imprimir_pcb(pcb);
+			log_protegido("CONSOLA:Recibí el proceso:");
+			//imprimir_pcb(pcb);
 
 			//Checkpoint
 			//Le digo a memoria que me cree el proceso
@@ -58,11 +56,11 @@ void proceso_new(int *socket_cliente) {
 			break;
 
 		case -1:
-			log_info(memoria_log, "El cliente se desconectó.");
+			log_protegido("CONSOLAEl cliente se desconectó.");
 			return;
 
 		default:
-			log_error(memoria_log, "Código de operación inválido.");
+			log_protegido("CONSOLA_ERROR:Código de operación inválido.");
 			return;
 		}
 	}

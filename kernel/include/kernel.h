@@ -19,5 +19,4 @@ typedef struct{
 
 t_log *log_kernel;
 
-
 #endif /* KERNEL_H_ */
