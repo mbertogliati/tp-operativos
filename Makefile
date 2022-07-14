@@ -46,16 +46,16 @@ LINK_FLAGS = -Xlinker -lcommons -lpthread -lreadline -lm
 all: cpu.out memoria.out kernel.out consola.out
 
 #Ejecutar
-run_memoria: memoria.out
+runMemoria: memoria.out
 	cd memoria
 	./memoria.out
-run_kernel: kernel.out
+runKernel: kernel.out
 	cd kernel
 	./kernel.out
-run_cpu: cpu.out
+runCpu: cpu.out
 	cd cpu
 	./cpu.out
-run_consola: consola.out
+runConsola: consola.out
 	cd consola
 	./consola.out
 
