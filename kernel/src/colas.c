@@ -1,10 +1,8 @@
 #include "../include/colas.h"
 
 void inicializar_estructuras() {
-	puts("ACA");
 	sem_init(&mlog, 0, 1);
-	log_protegido("Inicializando estructuras.");
-	puts("ACA2");
+	log_protegido(string_from_vformat("Inicializando estructuras   %d.", 99));
 
 	//Colas
 	new_queue = queue_create();
@@ -78,15 +76,10 @@ t_pcb* sacar_de_cola(t_queue *cola, sem_t semaforo_mutex){
 	return pcb;
 }
 
-void log_protegido(char* mensaje, ...){
-	va_list arguments;
-	va_start(arguments, mensaje);
-
+void log_protegido(char* mensaje){
 	sem_wait(&mlog);
 	log_info(log_kernel, mensaje, arguments);
 	sem_post(&mlog);
-
-	va_end(arguments);
 }
 
 // new
@@ -105,7 +98,7 @@ void agregar_a_new(t_pcb *pcb) {
 	sem_wait(&mnew_counter);
 	new_counter++;
 	sem_post(&mnew_counter);
-	log_protegido("CONSOLA:Se agrego el pcb %d a new", pcb->id);
+	log_protegido(string_from_vformat("CONSOLA:Se agrego el pcb %d a new", pcb->id));
 
 	sem_post(&ready_disponible);
 }
@@ -126,7 +119,7 @@ void agregar_a_ready_fifo(t_pcb *pcb) {
 // ready-sjf
 double calcular_estimacion(double real, t_pcb *pcb) {
 	pcb->est_rafaga = pcb->est_rafaga * alfa() + real * (1 - alfa());
-	log_protegido("Se estima rafaga de %lf para el proceso %d.", pcb->est_rafaga, pcb->id);
+	log_protegido(string_from_vformat("Se estima rafaga de %lf para el proceso %d.", pcb->est_rafaga, pcb->id));
 	return pcb->est_rafaga;
 }
 

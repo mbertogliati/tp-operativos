@@ -10,6 +10,7 @@
 #include <commons/log.h>
 #include <commons/collections/list.h>
 #include <commons/collections/queue.h>
+#include <commons/string.h>
 
 #include "../../shared/include/estructuras/pcb.h"
 #include "conexion_memoria.h"
