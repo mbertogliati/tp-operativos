@@ -31,9 +31,9 @@ SHARED_INCLUDE = -Ishared/include/ -I../include/estructuras/ -I../include/socket
 SHARED_OBJPATH = shared/obj
 SHARED_SRCPATH = shared/src
 SHARED_INCPATH = shared/include
-SHARED_SRC1 = $(wildcard  $(SHARED_SRCPATH)/sockets/*.c)
+SHARED_SRC1 = $(wildcard  $(SHARED_SRCPATH)/*.c)
 SHARED_SRC2 = $(wildcard  $(SHARED_SRCPATH)/estructuras/*.c)
-SHARED_OBJS =  $(patsubst $(SHARED_SRCPATH)/sockets/%.c,$(SHARED_OBJPATH)/%.o,$(SHARED_SRC1)) $(patsubst $(SHARED_SRCPATH)/estructuras/%.c,shared/obj/%.o,$(SHARED_SRC2))
+SHARED_OBJS =  $(patsubst $(SHARED_SRCPATH)/%.c,$(SHARED_OBJPATH)/%.o,$(SHARED_SRC1)) $(patsubst $(SHARED_SRCPATH)/estructuras/%.c,shared/obj/%.o,$(SHARED_SRC2))
 
 LINK_INCLUDE = -L../include/ -L../../shared/include
 EJECUTABLES = cpu/cpu.out kernel/kernel.out memoria/memoria.out consola/consola.out *.out
@@ -90,7 +90,7 @@ $(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/estructuras/%.c $(SHARED_INCPATH)/estru
 			gcc $(CFLAGS) $(SHARED_INCLUDE) -c $<
 			mv *.o $(SHARED_OBJPATH)
 
-$(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/sockets/%.c $(SHARED_INCPATH)/sockets/*.h
+$(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/%.c $(SHARED_INCPATH)/*.h
 			gcc $(CFLAGS) $(SHARED_INCLUDE) -c $<
 			mv *.o $(SHARED_OBJPATH)
 
