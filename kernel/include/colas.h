@@ -19,6 +19,7 @@
 
 
 int new_counter, suspendido_counter, id_counter;
+extern t_log* log_kernel;
 
 //Colas
 t_list *ready;

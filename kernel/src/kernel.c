@@ -72,7 +72,7 @@
 
 int main() {
 	//funcion_prueba_checkpoint();
-	memoria_log = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
+	log_kernel = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
 	crear_config();
 	//config = config_create("kernel.config");
 
