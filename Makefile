@@ -45,20 +45,6 @@ LINK_FLAGS = -Xlinker -lcommons -lpthread -lreadline -lm
 #Compila y linkea todos los modulos y genera todos los ejecutables:
 all: cpu.out memoria.out kernel.out consola.out
 
-#Ejecutar
-runMemoria: memoria.out
-	cd memoria
-	./memoria.out
-runKernel: kernel.out
-	cd kernel
-	./kernel.out
-runCpu: cpu.out
-	cd cpu
-	./cpu.out
-runConsola: consola.out
-	cd consola
-	./consola.out
-
 #Genera ejecutable cpu:
 cpu.out: $(CPU_OBJS)
 			gcc $(CFLAGS) -o cpu.out $(CPU_OBJS) $(SHARED_OBJS) $(LINK_FLAGS)
