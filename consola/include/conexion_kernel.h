@@ -7,7 +7,7 @@
 #include <commons/log.h>
 #include <commons/config.h>
 
-#include <sockets.h>
+#include "../../shared/include/sockets.h"
 
 extern t_log *logger;
 
