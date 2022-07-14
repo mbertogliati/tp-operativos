@@ -2,6 +2,7 @@
 #define CONEXION_CPU_H_
 
 #include <sys/socket.h>
+#include "../../shared/include/sockets.h"
 #include "../../shared/include/estructuras/pcb.h"
 #include "../../shared/include/estructuras/instrucciones.h"
 #include <commons/log.h>

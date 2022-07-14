@@ -210,7 +210,7 @@ void *thread_ready(){
 			sem_wait(&mnew_counter);
 			new_counter--;
 			sem_post(&mnew_counter);
-			t_pcb *pcb = sacar_de_cola(queue_new, mnew);
+			t_pcb *pcb = sacar_de_cola(new_queue, mnew);
 			pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
 			agregar_a_ready(pcb);
 			log_protegido("READY:Se agrego el proceso %d a ready.", pcb->id);
