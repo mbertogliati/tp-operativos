@@ -90,7 +90,7 @@ $(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/estructuras/%.c $(SHARED_INCPATH)/estru
 			gcc $(CFLAGS) $(SHARED_INCLUDE) -c $<
 			mv *.o $(SHARED_OBJPATH)
 
-$(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/sockets/%.c $(SHARED_INCPATH)/sockets/*.h
+$(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/%.c $(SHARED_INCPATH)/*.h
 			gcc $(CFLAGS) $(SHARED_INCLUDE) -c $<
 			mv *.o $(SHARED_OBJPATH)
 
