@@ -2,6 +2,8 @@
 #define CONEXION_CON_MEMORIA_H_
 
 #include <commons/log.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include <sys/socket.h>
 #include "../../shared/include/sockets.h"

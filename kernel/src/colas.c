@@ -1,7 +1,10 @@
 #include "../include/colas.h"
 
 void inicializar_estructuras() {
+	puts("ACA");
+	sem_init(&mlog, 0, 1);
 	log_protegido("Inicializando estructuras.");
+	puts("ACA2");
 
 	//Colas
 	new_queue = queue_create();
