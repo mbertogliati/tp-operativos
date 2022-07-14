@@ -80,7 +80,8 @@ int main() {
 	conectar_memoria(ip_memoria(), puerto_memoria());
 	conectar_cpu(ip_cpu(), puerto_cpu_dispatch(), puerto_cpu_interrupt);
 	inicializar_threads();
-	conectar_consola(puerto_escucha());
+	int servidor = iniciar_servidor(puerto_escucha());
+	conectar_consola(servidor);
 
 
 

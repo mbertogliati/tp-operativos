@@ -11,7 +11,6 @@
 #include <commons/collections/list.h>
 #include <commons/collections/queue.h>
 
-#include <sockets.h>
 #include "../../shared/include/estructuras/pcb.h"
 #include "conexion_memoria.h"
 #include "leer_config.h"
@@ -43,6 +42,7 @@ sem_t suspendido;
 
 void inicializar_estructuras();
 int inicializar_threads();
+void log_protegido(char* mensaje, ...);
 void agregar_a_new(t_pcb *pcb);
 void *thread_ready();
 void *thread_execute();

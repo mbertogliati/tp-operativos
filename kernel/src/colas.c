@@ -47,11 +47,11 @@ void inicializar_estructuras() {
 int inicializar_threads(){
 	pthread_t hilo_ready, hilo_execute, hilo_blocked, hilo_suspendido_blocked, hilo_exit;
 
-	pthread_create(&hilo_ready, NULL, &thread_ready);
-	pthread_create(&hilo_execute, NULL, &thread_execute);
-	pthread_create(&hilo_blocked, NULL, &thread_blocked);
-	pthread_create(&hilo_suspendido_blocked, NULL, &thread_suspendido_blocked);
-	pthread_create(&hilo_exit, NULL, &thread_exit);
+	pthread_create(&hilo_ready, NULL, &thread_ready, NULL);
+	pthread_create(&hilo_execute, NULL, &thread_execute, NULL);
+	pthread_create(&hilo_blocked, NULL, &thread_blocked, NULL);
+	pthread_create(&hilo_suspendido_blocked, NULL, &thread_suspendido_blocked, NULL);
+	pthread_create(&hilo_exit, NULL, &thread_exit, NULL);
 
 	pthread_join(hilo_ready, NULL);
 	pthread_join(hilo_execute, NULL);
@@ -375,7 +375,7 @@ void *thread_suspendido_blocked(){
 //exit
 void *thread_exit(){
 	while(1){
-		wait(&procesos_en_exit);
+		sem_wait(&procesos_en_exit);
 
 		t_pcb* pcb = sacar_de_cola(exit_queue, mexit);
 		log_protegido("EXIT:Finalizando proceso %d.", pcb->id);

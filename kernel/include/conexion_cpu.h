@@ -1,7 +1,7 @@
 #ifndef CONEXION_CPU_H_
 #define CONEXION_CPU_H_
 
-#include <sockets.h>
+#include <sys/socket.h>
 #include "../../shared/include/estructuras/pcb.h"
 #include "../../shared/include/estructuras/instrucciones.h"
 #include <commons/log.h>
