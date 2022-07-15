@@ -24,7 +24,7 @@ int chequear_tlb(int pagina){
     }
     
     list_iterator_destroy(iterador_tlb);
-    return (int) entrada_tlb;
+    return entrada_tlb->marco;
 }
 
 void actualizar_tlb(int pagina, int marco){

@@ -151,8 +151,9 @@ void agregar_a_ready(t_pcb *pcb) {
 	//pcb->tabla_paginas = (int) recibir_mensaje_memoria();
 	if(!strcmp("FIFO", algoritmo_planificacion()))
 		agregar_a_ready_fifo(pcb);
-	if(!strcmp("SJF", algoritmo_planificacion()))
+	if(!strcmp("SJF", algoritmo_planificacion()) || !strcmp("SRT", algoritmo_planificacion()))
 		agregar_a_ready_sjf(pcb);
+	sem_post(&procesos_en_ready);
 }
 
 t_pcb* quitar_de_ready(){
@@ -212,7 +213,6 @@ void *thread_ready(){
 			log_protegido(string_from_format("READY:Se agrego el proceso %d a ready.", pcb->id));
 		}
 		//Avisa que hay procesos en ready
-		sem_post(&procesos_en_ready);
 	}
 }
 
@@ -220,15 +220,17 @@ void *thread_ready(){
 t_pcb_con_milisegundos recibir_proceso(){
 	t_pcb_con_milisegundos proceso_para_devolver;
 	t_pcb* pcb;
-	t_buffer* buffer = crear_buffer();
+	
+	//Saco el tiempo de IO que se lo pase como "codigo de operacion"
+	int IO = recibir_operacion(socket_dispatch); 
+
+	t_buffer* buffer = crear_buffer(); 
 	buffer->stream = recibir_buffer(&(buffer->size), socket_dispatch);
 
-	int *IO = sacar_de_buffer(buffer, sizeof(int)); //Saco el tiempo de IO que se lo pase como "codigo de operacion" APROVECHA EL BUG XD
-	sacar_de_buffer(buffer, sizeof(int));//Saco el tamaño porque no lo necesito
-
 	pcb = desempaquetar_pcb(buffer->stream);
-	proceso_para_devolver.milisegundos = *IO;
+	proceso_para_devolver.milisegundos = IO;
 	proceso_para_devolver.pcb = pcb;
+	free(buffer->stream);
 	free(buffer);
 
 	return proceso_para_devolver;
@@ -270,7 +272,6 @@ void *thread_execute(){
 
 				agregar_a_ready(proceso_recibido.pcb);
 				log_protegido("EXECUTE:Se agrego el proceso a ready.");
-				sem_post(&procesos_en_ready);
 			}else{
 				//Espera
 				log_protegido("EXECUTE:Proceso recibido por I/O.");

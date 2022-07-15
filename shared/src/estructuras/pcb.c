@@ -19,7 +19,7 @@ t_pcb *desempaquetar_pcb(void *buffer) {
 
 	memcpy(&(pcb->fd), buffer + desplazamiento, sizeof(int));
 	desplazamiento += sizeof(int);
-
+          
 	memcpy(&(pcb->id), buffer + desplazamiento, sizeof(uint16_t));
 	desplazamiento += sizeof(uint16_t);
 

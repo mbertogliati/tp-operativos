@@ -30,7 +30,7 @@ void* pedir_lectura(int tam_leer, int direccion_fisica){
     enviar_paquete(paq_instr_memoria, socket_memoria);
 
     log_info(cpu_log, "Esperando respuesta...");
-    void *valor_leido = NULL;
+    void *valor_leido = malloc(tam_leer);
     recv(socket_memoria, valor_leido, tam_leer, MSG_WAITALL);
     log_info(cpu_log, "Respuesta recibida!!!");
 
@@ -53,7 +53,7 @@ int pedir_marco(int direccion_tabla_2, int entrada_lvl_2) {
     return marco;
 }
 int pedir_tabla_2(int tabla_del_proceso, int entrada_lvl_1){
-    void *nro_tabla_2 = NULL;
+    int nro_tabla_2;
     t_paquete *paq_instr_memoria = crear_paquete(DEVOLVER_INDICE_TABLA_NVL2);
     log_info(cpu_log, "Preparando paquete para memoria");
     agregar_a_paquete(paq_instr_memoria, &tabla_del_proceso, sizeof(int));
@@ -62,11 +62,11 @@ int pedir_tabla_2(int tabla_del_proceso, int entrada_lvl_1){
     enviar_paquete(paq_instr_memoria, socket_memoria);
 
     log_info(cpu_log, "Esperando respuesta...");
-    recv(socket_memoria, nro_tabla_2, sizeof(int), MSG_WAITALL);
+    recv(socket_memoria, &nro_tabla_2, sizeof(int), MSG_WAITALL);
     log_info(cpu_log, "Respuesta recibida!!!");
-    log_info(cpu_log, "El numero de tabla 2 es: %p", nro_tabla_2);
+    log_info(cpu_log, "El numero de tabla 2 es: %d", nro_tabla_2);
 
-    return (int) nro_tabla_2;
+    return nro_tabla_2;
 }
 int obtener_direccion_fisica(int tabla_paginas, uint32_t direccion_logica, int entradas_por_tabla, int tam_pagina){
 

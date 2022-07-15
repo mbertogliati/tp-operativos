@@ -149,9 +149,9 @@ void devolver_indice(t_buffer *buffer, int socket_cpu) {
 	int *indice = sacar_de_buffer(buffer, sizeof(int));
 	t_list *direccion_tabla2 = obtener_tabla2(direccion, *indice);
 	send(socket_cpu, direccion_tabla2, sizeof(int), 0);
-	free(direccion_tabla2);
+	//free(direccion_tabla2);
 	free(indice);
-	free(direccion);
+	//free(direccion);
 }
 
 void devolver_marco(t_buffer *buffer, int socket_cpu) {
@@ -161,7 +161,7 @@ void devolver_marco(t_buffer *buffer, int socket_cpu) {
 	int marco = obtener_marco(direccion, *indice);
 	send(socket_cpu, &marco, sizeof(int), 0);
 	free(indice);
-	free(direccion);
+	//free(direccion);
 }
 
 void leer(t_buffer *buffer, int socket_cpu) {
@@ -170,7 +170,6 @@ void leer(t_buffer *buffer, int socket_cpu) {
 	int *tam_leer = sacar_de_buffer(buffer, sizeof(int));
 	void *datos_leidos = leer_de_memoria(*direccion_fisica, *tam_leer);
 	send(socket_cpu, datos_leidos, *tam_leer, 0);
-	free(direccion_fisica);
 	free(tam_leer);
 }
 
@@ -182,7 +181,6 @@ void escribir(t_buffer *buffer, int socket_cpu) {
 	escribir_a_memoria(*direccion_fisica, *tam_escribir, datos);
 	bool confirmacion = true;
 	send(socket_cpu, &confirmacion, sizeof(bool), 0);
-	free(direccion_fisica);
 	free(tam_escribir);
 	free(datos);
 }

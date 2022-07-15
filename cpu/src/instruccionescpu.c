@@ -29,6 +29,7 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 			log_info(cpu_log, "Devolviendo PCB actualizado del PID %d...", pcb->id);
 			enviar_pcb(pcb, socket_dispatch, 0);
 			liberar_pcb(pcb);
+			pcb = NULL;
 			continue;
 		}
 		if (hayIO) {
@@ -36,6 +37,7 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 			log_info(cpu_log, "Devolviendo PCB actualizado del PID %d...", pcb->id);
 			enviar_pcb(pcb, socket_dispatch, hayIO);
 			liberar_pcb(pcb);
+			pcb = NULL;
 			continue;
 		}
 		sem_wait(&mutex_interrupt);
@@ -43,11 +45,12 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 			log_warning(interrupt_log, "Se detecto una interrupcion!!!");
 			log_info(interrupt_log, "Enviando PCB del PID %d...", pcb->id);
 			check_interrupt = false;
-			sem_post(&mutex_interrupt);
 
 			enviar_pcb(pcb, socket_dispatch, 0);
 			liberar_pcb(pcb);
+			pcb = NULL;
 		}
+		sem_post(&mutex_interrupt);
 	}
 	free(buffer);
 
@@ -56,6 +59,7 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 t_instruccion fetch(t_pcb* pcb) {
 	t_instruccion instruccion_nueva;
 	instruccion_nueva = *((t_instruccion*) list_get(pcb->instrucciones, pcb->program_counter));
+
 	log_info(cpu_log, "Program Counter: %d + 1", pcb->program_counter);
 	pcb->program_counter++;
 	return instruccion_nueva;

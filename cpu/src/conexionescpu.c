@@ -34,19 +34,21 @@ void *iniciar_conexion_memoria (){
 void *iniciar_conexion_dispatch(){
     //socket servidor
     int servidor_dispatch; 
-    t_buffer* buffer = malloc(sizeof(t_buffer));
+    t_buffer* buffer = crear_buffer();
     t_pcb *pcb;
     log_info(cpu_log,"Iniciando conexion dispatch...");
     servidor_dispatch = iniciar_servidor(cpuconfig.puerto_escucha_dispatch);
     //
     log_info(cpu_log,"Esperando DISPATCH...");
-    int socket_dispatch = esperar_cliente(servidor_dispatch);
+    socket_dispatch = esperar_cliente(servidor_dispatch);
     log_info(cpu_log,"Conexion establecida!!!");
     log_info(cpu_log,"Esperando la conexion de interrupcion...");
     sem_wait(&mutex_interrupt);
     log_info(cpu_log,"Todo listo, inicializando...");
+    sem_post(&mutex_interrupt);
     while(true){
         log_info(cpu_log,"No hay PCB, esperando...");
+        recibir_operacion(socket_dispatch);
         buffer-> stream = recibir_buffer(&(buffer -> size), socket_dispatch);
         log_info(cpu_log,"Llego un PCB");
         pcb = desempaquetar_pcb(buffer->stream);
@@ -56,7 +58,7 @@ void *iniciar_conexion_dispatch(){
 
     free(buffer);
     return NULL;
-};
+};   
 
 void *iniciar_conexion_interrupt(){
     //socket servidor 
@@ -68,7 +70,7 @@ void *iniciar_conexion_interrupt(){
     bool *hay_interrupcion = malloc(sizeof(bool));
     sem_post(&mutex_interrupt);
     while(true){
-        recv(socket_interrupt, hay_interrupcion, sizeof(hay_interrupcion), MSG_WAITALL);
+        recv(socket_interrupt, hay_interrupcion, sizeof(bool), MSG_WAITALL);
         sem_wait(&mutex_interrupt);
         log_info(interrupt_log, "El KERNEL ha solicitado una interrupcion");
         check_interrupt = *hay_interrupcion;
