@@ -44,7 +44,10 @@ int agregar_proceso_memoria(int pid, int tam_proceso){
 	//fflush(stdout);
 	//log_protegido("MEMORIA: Esperando respuesta");
 	recv(socket_memoria, tabla_proceso, sizeof(int), MSG_WAITALL);
-	log_protegido("MEMORIA:Respuesta Recibida!!!");
+	t_log* otro_log;
+	otro_log = log_create("otro.log","OTRO",1,LOG_LEVEL_INFO);
+	log_info(otro_log, "Hola");
+	log_info(log_kernel,"MEMORIA:Respuesta Recibida!!!");
 	log_protegido(string_from_format("MEMORIA:Mi nueva tabla para el proceso %d es: %p", pid, *tabla_proceso));
 
 	int response = *tabla_proceso;
@@ -65,7 +68,6 @@ bool suspender_proceso_memoria(int direccion_tabla){
 
 	log_protegido("MEMORIA:Esperando respuesta...");
 	recv(socket_memoria, confirmacion, sizeof(bool), MSG_WAITALL);
-	log_protegido("MEMORIA:Respuesta Recibida!!!");
 	log_protegido(string_from_format("MEMORIA:Habemos confirmacion de suspendimiento: %d", *confirmacion));
 
 	bool retorno = *confirmacion;

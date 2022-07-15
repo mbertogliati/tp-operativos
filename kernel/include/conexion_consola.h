@@ -15,7 +15,7 @@
 #include "colas.h"
 #include "conexion_memoria.h"
 
-extern t_log *logger;
+extern t_log *log_kernel;
 extern sem_t mutex_memoria, mutex_new, procesos_en_new;
 extern t_queue *queue_new;
 
