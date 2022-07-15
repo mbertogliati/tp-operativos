@@ -1,5 +1,5 @@
 #include "../include/instruccionescpu.h"
-//./consola.out "../kiss-pruebas/BASE_1" 32
+//./consola.out "../kiss-pruebas/PLANI_1" 1
 
 bool proceso_terminado;
 t_instruccion fetch(t_pcb* pcb);
