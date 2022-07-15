@@ -54,11 +54,11 @@ int inicializar_threads(){
 	pthread_create(&hilo_suspendido_blocked, NULL, &thread_suspendido_blocked, NULL);
 	pthread_create(&hilo_exit, NULL, &thread_exit, NULL);
 
-	pthread_join(hilo_ready, NULL);
-	pthread_join(hilo_execute, NULL);
-	pthread_join(hilo_blocked, NULL);
-	pthread_join(hilo_suspendido_blocked, NULL);
-	pthread_join(hilo_exit, NULL);
+	// pthread_join(hilo_ready, NULL);
+	// pthread_join(hilo_execute, NULL);
+	// pthread_join(hilo_blocked, NULL);
+	// pthread_join(hilo_suspendido_blocked, NULL);
+	// pthread_join(hilo_exit, NULL);
 
 	return EXIT_SUCCESS;
 }
