@@ -1,11 +1,10 @@
 #include "../include/conexion_memoria.h"
 
 void conectar_memoria(char *ip, char *puerto) {
-	memoria_log = log_create("kernel_memoria.log", "MEMORIA", true, LOG_LEVEL_INFO);
-	log_info(memoria_log, "Conectando a memoria...");
+	log_protegido("MEMORIA:Conectando a memoria...");
 
 	while((socket_memoria = crear_conexion(ip, puerto)) <= 0){
-		log_warning(memoria_log, "No se ha podido establecer la conexion con Memoria");
+		log_protegido("MEMORIA:No se ha podido establecer la conexion con Memoria");
 		sleep(5);
 	}
 
@@ -16,10 +15,10 @@ void conectar_memoria(char *ip, char *puerto) {
 	recv(socket_memoria, confirmacion, sizeof(bool), MSG_WAITALL);
 
 	if((*confirmacion) == false){
-		log_error(memoria_log, "ERROR - Handshake fallido");
+		log_protegido("MEMORIA:ERROR - Handshake fallido");
 		return;
 	}
-	log_info(memoria_log, "Conexion con memoria exitosa");
+	log_protegido("MEMORIA:Conexion con memoria exitosa");
 
 	free(confirmacion);
 }
@@ -38,18 +37,18 @@ void desconectar_memoria() {
 
 int agregar_proceso_memoria(int pid, int tam_proceso){
 	int *tabla_proceso = malloc(sizeof(int));
-	log_info(logger, "Creando Proceso...");
-	log_info(logger, "Enviando paquete a memoria, espero por nueva tabla");
+	log_protegido("MEMORIA:Creando Proceso...");
+	log_protegido("MEMORIA:Enviando paquete a memoria, espero por nueva tabla");
 	t_paquete *instrucciones_a_memoria = crear_paquete(10);
 	agregar_a_paquete(instrucciones_a_memoria, &pid, sizeof(int));
 	agregar_a_paquete(instrucciones_a_memoria, &tam_proceso, sizeof(int));
 	enviar_paquete(instrucciones_a_memoria, socket_memoria);
 	eliminar_paquete(instrucciones_a_memoria);
 
-	log_info(logger, "Esperando respuesta...");
+	log_protegido("MEMORIA:Esperando respuesta...");
 	recv(socket_memoria, tabla_proceso, sizeof(int), MSG_WAITALL);
-	log_info(logger, "Respuesta Recibida!!!");
-	log_info(logger, "Mi nueva tabla para el proceso %d es: %X", pid, *tabla_proceso);
+	log_protegido("MEMORIA:Respuesta Recibida!!!");
+	log_protegido(string_from_format("MEMORIA:Mi nueva tabla para el proceso %d es: %X", pid, *tabla_proceso));
 
 	int response = *tabla_proceso;
 	free(tabla_proceso);
@@ -58,8 +57,8 @@ int agregar_proceso_memoria(int pid, int tam_proceso){
 }
 
 bool suspender_proceso_memoria(int direccion_tabla){
-	log_info(logger, "Suspendiendo Proceso...");
-	log_info(logger, "Enviando paquete a memoria, espero confirmacion de suspendimiento");
+	log_protegido("MEMORIA:Suspendiendo Proceso...");
+	log_protegido("MEMORIA:Enviando paquete a memoria, espero confirmacion de suspendimiento");
 	t_paquete *instrucciones_a_memoria = crear_paquete(11);
 	agregar_a_paquete(instrucciones_a_memoria, &direccion_tabla, sizeof(int));
 	enviar_paquete(instrucciones_a_memoria, socket_memoria);
@@ -67,10 +66,10 @@ bool suspender_proceso_memoria(int direccion_tabla){
 
 	bool* confirmacion = malloc(sizeof(bool));
 
-	log_info(logger, "Esperando respuesta...");
+	log_protegido("MEMORIA:Esperando respuesta...");
 	recv(socket_memoria, confirmacion, sizeof(bool), MSG_WAITALL);
-	log_info(logger, "Respuesta Recibida!!!");
-	log_info(logger, "Habemos confirmacion de suspendimiento: %d", *confirmacion);
+	log_protegido("MEMORIA:Respuesta Recibida!!!");
+	log_protegido(string_from_format("MEMORIA:Habemos confirmacion de suspendimiento: %d", *confirmacion));
 
 	bool retorno = *confirmacion;
 	free(confirmacion);
@@ -78,8 +77,8 @@ bool suspender_proceso_memoria(int direccion_tabla){
 }
 
 bool finalizar_proceso_memoria(int direccion_tabla){
-	log_info(logger, "Finalizando Proceso...");
-	log_info(logger, "Enviando paquete a memoria, espero confirmacion de boleteamiento");
+	log_protegido("MEMORIA:Finalizando Proceso...");
+	log_protegido("MEMORIA:Enviando paquete a memoria, espero confirmacion de boleteamiento");
 	t_paquete *instrucciones_a_memoria = crear_paquete(16);
 	agregar_a_paquete(instrucciones_a_memoria, &direccion_tabla, sizeof(int));
 	enviar_paquete(instrucciones_a_memoria, socket_memoria);
@@ -87,10 +86,10 @@ bool finalizar_proceso_memoria(int direccion_tabla){
 
 	bool* confirmacion = malloc(sizeof(bool));
 
-	log_info(logger, "Esperando respuesta...");
+	log_protegido("MEMORIA:Esperando respuesta...");
 	recv(socket_memoria, confirmacion, sizeof(bool), MSG_WAITALL);
-	log_info(logger, "Respuesta Recibida!!!");
-	log_info(logger, "Habemos confirmacion de boleteamiento: %d", *confirmacion);
+	log_protegido("MEMORIA:Respuesta Recibida!!!");
+	log_protegido(string_from_format("MEMORIA:Habemos confirmacion de boleteamiento: %d", *confirmacion));
 
 	bool retorno = *confirmacion;
 	free(confirmacion);

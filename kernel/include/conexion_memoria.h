@@ -7,6 +7,7 @@
 
 #include <sys/socket.h>
 #include "../../shared/include/sockets.h"
+#include "colas.h"
 
 int socket_memoria;
 extern t_log *logger;
