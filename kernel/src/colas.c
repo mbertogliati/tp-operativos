@@ -220,7 +220,7 @@ void *thread_ready(){
 t_pcb_con_milisegundos recibir_proceso(){
 	t_pcb_con_milisegundos proceso_para_devolver;
 	t_pcb* pcb;
-	t_buffer* buffer = malloc(sizeof(t_buffer));
+	t_buffer* buffer = crear_buffer();
 	buffer->stream = recibir_buffer(&(buffer->size), socket_dispatch);
 
 	int *IO = sacar_de_buffer(buffer, sizeof(int)); //Saco el tiempo de IO que se lo pase como "codigo de operacion" APROVECHA EL BUG XD

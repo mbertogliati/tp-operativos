@@ -28,7 +28,6 @@ void* pedir_lectura(int tam_leer, int direccion_fisica){
 
     log_info(cpu_log, "Enviando paquete a memoria...");
     enviar_paquete(paq_instr_memoria, socket_memoria);
-    eliminar_paquete(paq_instr_memoria);
 
     log_info(cpu_log, "Esperando respuesta...");
     void *valor_leido = NULL;
@@ -44,7 +43,6 @@ int pedir_marco(int direccion_tabla_2, int entrada_lvl_2) {
     agregar_a_paquete(paq_instr_memoria, &entrada_lvl_2, sizeof(int));
     log_info(cpu_log, "Enviando paquete a memoria...");
     enviar_paquete(paq_instr_memoria, socket_memoria);
-    eliminar_paquete(paq_instr_memoria);
 
     log_info(cpu_log, "Esperando respuesta...");
     int marco;
@@ -62,7 +60,6 @@ int pedir_tabla_2(int tabla_del_proceso, int entrada_lvl_1){
     agregar_a_paquete(paq_instr_memoria, &entrada_lvl_1, sizeof(int));
     log_info(cpu_log, "Enviando paquete a memoria...");
     enviar_paquete(paq_instr_memoria, socket_memoria);
-    eliminar_paquete(paq_instr_memoria);
 
     log_info(cpu_log, "Esperando respuesta...");
     recv(socket_memoria, nro_tabla_2, sizeof(int), MSG_WAITALL);

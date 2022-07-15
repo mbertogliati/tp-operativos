@@ -252,6 +252,7 @@ void crear_tabla(t_buffer *buffer, int socket_kernel) {
 
 	if(!direccion_de_tabla){
 		log_error(kernel_log, "ERROR - No se ha podido agregar el proceso");
+		return;
 	}
 	log_info(kernel_log, "Proceso agregado exitosamente!!");
 

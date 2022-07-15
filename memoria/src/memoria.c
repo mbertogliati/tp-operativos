@@ -103,7 +103,7 @@ int main() {
     if(!configuracion)
         return EXIT_FAILURE;
 
-    printf("El puerto es: %s\n", configuracion->puerto);
+    printf("Memoria finalizo correctamente");
 
     //iniciar_conexion(configuracion_memoria);
 
