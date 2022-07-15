@@ -76,7 +76,7 @@ t_pcb* sacar_de_cola(t_queue *cola, sem_t semaforo_mutex){
 	return pcb;
 }
 
-void log_protegido(char* mensaje, ...){
+void log_protegido(char* mensaje){
 	sem_wait(&mlog);
 	log_info(log_kernel, mensaje);
 	sem_post(&mlog);

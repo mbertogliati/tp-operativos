@@ -203,7 +203,7 @@ void *conectar_con_kernel(int *socket_kernel){
 
     kernel_log = log_create("memoria_kernel.log", "KERNEL", true, LOG_LEVEL_INFO);
     printf("Aca se hace la conexion con KERNEL en el socket: %d\n", *socket_kernel);
-    int *instruccion_recibida = malloc(sizeof(int));
+    int instruccion_recibida;
     log_info(kernel_log, "Enviando mensaje de confirmacion...");
     bool *confirmacion = malloc(sizeof(bool));
     *confirmacion = true;
@@ -223,10 +223,12 @@ void *conectar_con_kernel(int *socket_kernel){
 
     while(true){
         log_info(kernel_log, "Esperando Peticion de KERNEL...");
-        while(recv(*socket_kernel, instruccion_recibida, sizeof(int), MSG_WAITALL) <= 0){
-                log_error(kernel_log, "ERROR - El cliente ha cerrado la conexion");
-                return NULL;
-        }
+        // while(recv(*socket_kernel, &instruccion_recibida, sizeof(int), MSG_WAITALL) <= 0){
+        //         log_error(kernel_log, "ERROR - El cliente ha cerrado la conexion");
+        //         return NULL;
+        // }
+
+        instruccion_recibida = recibir_operacion(*socket_kernel);
 
         log_info(kernel_log, "Recibiendo buffer...");
         buffer->stream = recibir_buffer(&(buffer -> size), *socket_kernel);
@@ -236,7 +238,7 @@ void *conectar_con_kernel(int *socket_kernel){
         
         confirmacion = NULL;
 
-        switch(*instruccion_recibida){
+        switch(instruccion_recibida){
             case CREAR_NUEVA_TABLA:
 
                 log_info(kernel_log, "El kernel quiere agregar un proceso");
@@ -306,7 +308,6 @@ void *conectar_con_kernel(int *socket_kernel){
 
     }
 
-    free(instruccion_recibida);
     free(buffer);
     return NULL;
 }

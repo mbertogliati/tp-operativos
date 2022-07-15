@@ -10,7 +10,7 @@ void conectar_memoria(char *ip, char *puerto) {
 
 	int distinto_de_cero = 1;
 	bool* confirmacion = malloc(sizeof(bool));
-	enviar_mensaje_memoria(&distinto_de_cero, sizeof(int));
+	send(socket_memoria,&distinto_de_cero, sizeof(int),0);
 
 	recv(socket_memoria, confirmacion, sizeof(bool), MSG_WAITALL);
 
@@ -21,10 +21,6 @@ void conectar_memoria(char *ip, char *puerto) {
 	log_protegido("MEMORIA:Conexion con memoria exitosa");
 
 	free(confirmacion);
-}
-
-void enviar_mensaje_memoria(void *mensaje, int tam) {
-	enviar_mensaje(mensaje, tam, socket_memoria);
 }
 
 void *recibir_mensaje_memoria() {
@@ -39,13 +35,14 @@ int agregar_proceso_memoria(int pid, int tam_proceso){
 	int *tabla_proceso = malloc(sizeof(int));
 	log_protegido("MEMORIA:Creando Proceso...");
 	log_protegido("MEMORIA:Enviando paquete a memoria, espero por nueva tabla");
-	t_paquete *instrucciones_a_memoria = crear_paquete(10);
+	t_paquete *instrucciones_a_memoria = crear_paquete(CREAR_NUEVA_TABLA);
 	agregar_a_paquete(instrucciones_a_memoria, &pid, sizeof(int));
 	agregar_a_paquete(instrucciones_a_memoria, &tam_proceso, sizeof(int));
 	enviar_paquete(instrucciones_a_memoria, socket_memoria);
 	eliminar_paquete(instrucciones_a_memoria);
 
-	log_protegido("MEMORIA:Esperando respuesta...");
+	//fflush(stdout);
+	log_protegido("MEMORIA: Esperando respuesta");
 	recv(socket_memoria, tabla_proceso, sizeof(int), MSG_WAITALL);
 	log_protegido("MEMORIA:Respuesta Recibida!!!");
 	log_protegido(string_from_format("MEMORIA:Mi nueva tabla para el proceso %d es: %X", pid, *tabla_proceso));
@@ -59,7 +56,7 @@ int agregar_proceso_memoria(int pid, int tam_proceso){
 bool suspender_proceso_memoria(int direccion_tabla){
 	log_protegido("MEMORIA:Suspendiendo Proceso...");
 	log_protegido("MEMORIA:Enviando paquete a memoria, espero confirmacion de suspendimiento");
-	t_paquete *instrucciones_a_memoria = crear_paquete(11);
+	t_paquete *instrucciones_a_memoria = crear_paquete(PROCESO_SUSPENDIDO);
 	agregar_a_paquete(instrucciones_a_memoria, &direccion_tabla, sizeof(int));
 	enviar_paquete(instrucciones_a_memoria, socket_memoria);
 	eliminar_paquete(instrucciones_a_memoria);
@@ -79,7 +76,7 @@ bool suspender_proceso_memoria(int direccion_tabla){
 bool finalizar_proceso_memoria(int direccion_tabla){
 	log_protegido("MEMORIA:Finalizando Proceso...");
 	log_protegido("MEMORIA:Enviando paquete a memoria, espero confirmacion de boleteamiento");
-	t_paquete *instrucciones_a_memoria = crear_paquete(16);
+	t_paquete *instrucciones_a_memoria = crear_paquete(LIBERAR);
 	agregar_a_paquete(instrucciones_a_memoria, &direccion_tabla, sizeof(int));
 	enviar_paquete(instrucciones_a_memoria, socket_memoria);
 	eliminar_paquete(instrucciones_a_memoria);

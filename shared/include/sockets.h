@@ -12,6 +12,7 @@ typedef enum {
 	INSTRUCCIONES_CONSOLA, MENSAJE, TERMINAR_CONSOLA
 } op_code;
 
+
 typedef struct {
 	int size;
 	void *stream;
@@ -36,7 +37,7 @@ void *recibir_mensaje(int);
 // cliente
 
 int crear_conexion(char *ip, char *puerto);
-t_paquete *crear_paquete(op_code codigo_operacion);
+t_paquete *crear_paquete(int codigo_operacion);
 void agregar_a_paquete(t_paquete *paquete, void *valor, int bytes);
 void enviar_paquete(t_paquete *paquete, int socket_cliente);
 void enviar_mensaje(void *mensaje, int bytes, int socket_cliente);
