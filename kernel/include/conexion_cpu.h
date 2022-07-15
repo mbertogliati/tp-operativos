@@ -7,6 +7,8 @@
 #include "../../shared/include/estructuras/instrucciones.h"
 #include <commons/log.h>
 
+#include "colas.h"
+
 t_log* kernel_cpu_log;
 extern t_log* logger;
 int socket_dispatch;
