@@ -77,6 +77,5 @@ int enviar_pcb(t_pcb *pcb, int socket_a_enviar, int IO) {
 	t_paquete *paquete_pcb = crear_paquete(IO);
 	empaquetar_pcb(paquete_pcb, pcb);
 	enviar_paquete(paquete_pcb, socket_a_enviar);
-	eliminar_paquete(paquete_pcb);
 	return EXIT_SUCCESS;
 }
