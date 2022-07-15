@@ -42,10 +42,10 @@ int agregar_proceso_memoria(int pid, int tam_proceso){
 	eliminar_paquete(instrucciones_a_memoria);
 
 	//fflush(stdout);
-	log_protegido("MEMORIA: Esperando respuesta");
+	//log_protegido("MEMORIA: Esperando respuesta");
 	recv(socket_memoria, tabla_proceso, sizeof(int), MSG_WAITALL);
 	log_protegido("MEMORIA:Respuesta Recibida!!!");
-	log_protegido(string_from_format("MEMORIA:Mi nueva tabla para el proceso %d es: %X", pid, *tabla_proceso));
+	log_protegido(string_from_format("MEMORIA:Mi nueva tabla para el proceso %d es: %p", pid, *tabla_proceso));
 
 	int response = *tabla_proceso;
 	free(tabla_proceso);
