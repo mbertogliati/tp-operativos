@@ -1,9 +1,8 @@
 #include "../include/memoria.h"
 
-
-void imprimir_puntero_void(void* a_imprimir, int tamanio_a_imprimir){
+void imprimir_puntero_void(void* a_imprimir, int tamanio_a_imprimir) {
 	for(int i = 0; i < tamanio_a_imprimir; i++)
-		printf("%x", ((unsigned char*) a_imprimir)[i]);
+		printf("%p\n", a_imprimir + i);
 	printf("\n");
 }
 
@@ -11,17 +10,17 @@ void funcion_test1(){
 	void* proceso = malloc(16);
 	imprimir_puntero_void(proceso, 16);
 	imprimir_puntero_void(proceso, configuracion->tam_pagina);
-	int proceso1 = agregar_proceso(1, 16, proceso);
-	int proceso2 = agregar_proceso(2, 33, proceso);
-	printf("Puntero proceso 2: %d\n", proceso2);
+	t_list *proceso1 = agregar_proceso(1, 16, proceso);
+	t_list *proceso2 = agregar_proceso(2, 33, proceso);
+	printf("Puntero proceso 2: %p\n", proceso2);
 	free(proceso);
 	proceso = malloc(12);
-	int proceso3 = agregar_proceso(3, 12, proceso);
-	printf("PUntero proceso 3: %d\n", proceso3);
+	t_list *proceso3 = agregar_proceso(3, 12, proceso);
+	printf("Puntero proceso 3: %p\n", proceso3);
 	free(proceso);
 
-	int tabla2 = obtener_tabla2(proceso1, 1);
-	printf("%d\n", tabla2);
+	t_list *tabla2 = obtener_tabla2(proceso1, 1);
+	printf("%p\n", tabla2);
 	int marco = obtener_marco(tabla2, 1);
 	printf("%d\n", marco);
 	int direccion = (marco * configuracion->tam_pagina);
@@ -29,8 +28,6 @@ void funcion_test1(){
 	proceso = leer_de_memoria(direccion, configuracion->tam_pagina);
 	imprimir_puntero_void(proceso, configuracion->tam_pagina);
 	free(proceso);
-
-
 
 	//finalizar_proceso(proceso1);
 
@@ -98,9 +95,8 @@ void funcion_test1(){
 }
 
 int main() {
-
     configuracion = NULL;
-	
+
     iniciar_estructuras();
 	iniciar_conexiones(configuracion);
 
@@ -108,7 +104,7 @@ int main() {
         return EXIT_FAILURE;
 
     printf("El puerto es: %s\n", configuracion->puerto);
-    
+
     //iniciar_conexion(configuracion_memoria);
 
     //funcion_test1();

@@ -46,5 +46,5 @@ int *planificacion_ptrs;
 void iniciar_estructuras();
 void cargar_configuraciones(char* path);
 bool es_configuracion_valida(t_config *config_memoria);
-int agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso);
+t_list *agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso);
 #endif

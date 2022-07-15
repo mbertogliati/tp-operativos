@@ -1,9 +1,9 @@
 #include "../include/conexionescpu.h"
 
-void *iniciar_conexion_memoria (void *arg){
+void *iniciar_conexion_memoria (){
 
     socket_memoria = -1;
-    while((socket_memoria = crear_conexion(cpuconfig -> ip_memoria, cpuconfig -> puerto_memoria)) <= 0){
+    while((socket_memoria = crear_conexion(cpuconfig.ip_memoria, cpuconfig.puerto_memoria)) <= 0){
         log_warning(cpu_log, "No se ha podido conectar con la MEMORIA");
         sleep(5);
     }
@@ -31,13 +31,13 @@ void *iniciar_conexion_memoria (void *arg){
 };
 
 
-void *iniciar_conexion_dispatch(void *arg){
+void *iniciar_conexion_dispatch(){
     //socket servidor
     int servidor_dispatch; 
     t_buffer* buffer = malloc(sizeof(t_buffer));
     t_pcb *pcb;
     log_info(cpu_log,"Iniciando conexion dispatch...");
-    servidor_dispatch = iniciar_servidor(cpuconfig -> puerto_escucha_dispatch);
+    servidor_dispatch = iniciar_servidor(cpuconfig.puerto_escucha_dispatch);
     //
     log_info(cpu_log,"Esperando DISPATCH...");
     int socket_dispatch = esperar_cliente(servidor_dispatch);
@@ -58,11 +58,11 @@ void *iniciar_conexion_dispatch(void *arg){
     return NULL;
 };
 
-void *iniciar_conexion_interrupt(void *arg){
+void *iniciar_conexion_interrupt(){
     //socket servidor 
     interrupt_log = log_create("logs/interrupt.log","INTERRUPT", true, LOG_LEVEL_INFO);
     log_info(interrupt_log, "Iniciando conexion INTERRUPT");
-    int server_interrupt = iniciar_servidor( cpuconfig -> puerto_escucha_interrupt);
+    int server_interrupt = iniciar_servidor(cpuconfig.puerto_escucha_interrupt);
     socket_interrupt = esperar_cliente(server_interrupt);
     log_info(interrupt_log, "Conexion Establecida!!!");
     bool *hay_interrupcion = malloc(sizeof(bool));
@@ -80,17 +80,15 @@ void *iniciar_conexion_interrupt(void *arg){
 
 };
 void iniciar_conexiones(){
-
     log_info(cpu_log, "Iniciando las conexiones...");
-    iniciar_conexion_memoria(NULL);
+    iniciar_conexion_memoria();
     pthread_t dispatch;
     pthread_t interrupt;
 
     sem_init(&mutex_interrupt, 0, 0);
-    pthread_create(&dispatch, NULL, &iniciar_conexion_dispatch, NULL);
-    pthread_create(&interrupt, NULL, &iniciar_conexion_interrupt, NULL);
+    pthread_create(&dispatch, NULL, (void *) iniciar_conexion_dispatch, NULL);
+    pthread_create(&interrupt, NULL, (void *) iniciar_conexion_interrupt, NULL);
 
     pthread_join(dispatch, NULL);
     pthread_join(interrupt, NULL);
-
 }

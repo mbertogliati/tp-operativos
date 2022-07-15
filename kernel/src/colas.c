@@ -78,7 +78,7 @@ t_pcb* sacar_de_cola(t_queue *cola, sem_t semaforo_mutex){
 
 void log_protegido(char* mensaje){
 	sem_wait(&mlog);
-	log_info(log_kernel, mensaje);
+	log_info(log_kernel, "%s", mensaje);
 	sem_post(&mlog);
 }
 
@@ -221,14 +221,13 @@ t_pcb_con_milisegundos recibir_proceso(){
 	t_pcb_con_milisegundos proceso_para_devolver;
 	t_pcb* pcb;
 	t_buffer* buffer = malloc(sizeof(t_buffer));
-	int IO;
 	buffer->stream = recibir_buffer(&(buffer->size), socket_dispatch);
 
-	IO = sacar_de_buffer(buffer, sizeof(int)); //Saco el tiempo de IO que se lo pase como "codigo de operacion" APROVECHA EL BUG XD
+	int *IO = sacar_de_buffer(buffer, sizeof(int)); //Saco el tiempo de IO que se lo pase como "codigo de operacion" APROVECHA EL BUG XD
 	sacar_de_buffer(buffer, sizeof(int));//Saco el tamaño porque no lo necesito
 
 	pcb = desempaquetar_pcb(buffer->stream);
-	proceso_para_devolver.milisegundos = IO;
+	proceso_para_devolver.milisegundos = *IO;
 	proceso_para_devolver.pcb = pcb;
 	free(buffer);
 
@@ -289,7 +288,7 @@ void *thread_execute(){
 
 				agregar_a_cola(bloqueado_queue, proceso_recibido.pcb, mbloqueado);
 				sem_wait(&mbloqueado_tiempo);
-				queue_push(bloqueado_tiempo, proceso_recibido.milisegundos);
+				queue_push(bloqueado_tiempo, &proceso_recibido.milisegundos);
 				sem_post(&mbloqueado_tiempo);
 				log_protegido("EXECUTE:Se agrego el proceso a bloqueado.");
 				sem_post(&bloqueado);
@@ -321,7 +320,8 @@ void *thread_blocked(){
 		sem_wait(&bloqueado);
 		t_pcb* pcb = sacar_de_cola(bloqueado_queue, mbloqueado);
 		sem_wait(&mbloqueado_tiempo);
-		int espera_restante = queue_pop(bloqueado_tiempo);
+		int *pop = queue_pop(bloqueado_tiempo);
+		int espera_restante = *pop;
 		sem_post(&mbloqueado_tiempo);
 		log_protegido(string_from_format("BLOCKED:Realizando espera de %d milisegundos para el proceso %d en bloqueado.", espera_restante, pcb->id));
 		espera_restante = esperar_bloqueado(espera_restante);
@@ -331,7 +331,7 @@ void *thread_blocked(){
 			suspender_proceso_memoria(pcb->tabla_paginas);
 			agregar_a_cola(suspendido_bloqueado, pcb, msuspendido_bloqueado);
 			sem_wait(&msuspendido_tiempo);
-			queue_push(suspendido_tiempo, espera_restante);
+			queue_push(suspendido_tiempo, &espera_restante);
 			sem_post(&msuspendido_tiempo);
 			sem_post(&suspendido);
 			sem_post(&nivel_multiprogramacion);
@@ -348,7 +348,8 @@ void *thread_suspendido_blocked(){
 		sem_wait(&suspendido);
 		t_pcb* pcb = sacar_de_cola(suspendido_bloqueado, msuspendido_bloqueado);
 		sem_wait(&msuspendido_tiempo);
-		int tiempo_espera = queue_pop(suspendido_tiempo);
+		int *pop = queue_pop(suspendido_tiempo);
+		int tiempo_espera = *pop;
 		sem_post(&msuspendido_tiempo);
 
 		log_protegido(string_from_format("SUSPENDIDO_BLOCKED:Realizando espera de %d milisegundos para el proceso %d en suspendido.", tiempo_espera, pcb->id));

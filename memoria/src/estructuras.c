@@ -124,7 +124,7 @@ t_tabla2* inicializar_tabla2(int id_proceso, int numero_pagina){
 	return tabla;
 }
 
-int crear_metadata(int tamanio_proceso, int id_proceso){
+t_list *crear_metadata(int tamanio_proceso, int id_proceso){
 	int cant_paginas = ceil((double) tamanio_proceso / (double) configuracion->tam_pagina);
 	int cant_tablas2 = ceil((double) cant_paginas / (double) configuracion->entradas_por_tabla);
 	int pagina_counter = 0;
@@ -154,13 +154,13 @@ int crear_metadata(int tamanio_proceso, int id_proceso){
 	return tabla1;
 }
 
-int agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso){
+t_list *agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso){
 	log_info(kernel_log, "Id del proceso: %d, Tamanio proceso: %d", id_proceso, tamanio_proceso);
-	int direccion_tabla = crear_metadata(tamanio_proceso, id_proceso);
+	t_list *direccion_tabla = crear_metadata(tamanio_proceso, id_proceso);
 	if(!direccion_tabla){
 		return(direccion_tabla);
 	}
-	log_info(kernel_log, "Tabla NVL 1 creada en %d", direccion_tabla);
+	log_info(kernel_log, "Tabla NVL 1 creada en %p", direccion_tabla);
 
 	crear_SWAP(id_proceso, tamanio_proceso, proceso);
 

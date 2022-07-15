@@ -1,9 +1,7 @@
 #include "../include/tlb.h"
 
 int chequear_tlb(int pagina){
-    t_tlb* entrada_tlb;
-
-    entrada_tlb = NULL;
+    t_tlb* entrada_tlb = NULL;
     int indice = 0;
     bool no_se_encontro=true;
     t_list_iterator* iterador_tlb = list_iterator_create(TLB);
@@ -20,13 +18,13 @@ int chequear_tlb(int pagina){
     if(no_se_encontro)
         return -1;
     
-    if(strcmp((cpuconfig->reemplazo_tlb),"LRU")==0){
+    if(strcmp((cpuconfig.reemplazo_tlb),"LRU")==0){
         list_remove(TLB, indice);
         list_add(TLB,entrada_tlb);
     }
     
     list_iterator_destroy(iterador_tlb);
-    return entrada_tlb;
+    return (int) entrada_tlb;
 }
 
 void actualizar_tlb(int pagina, int marco){
@@ -35,7 +33,7 @@ void actualizar_tlb(int pagina, int marco){
     nueva_entrada->pagina = pagina;
     nueva_entrada->marco = marco;
 
-    if(list_size(TLB) < cpuconfig->entradas_tlb){
+    if(list_size(TLB) < cpuconfig.entradas_tlb){
         list_add(TLB, nueva_entrada);
         return;
     }

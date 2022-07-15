@@ -73,16 +73,17 @@ int crear_conexion(char *ip, char *puerto) {
 	return socket_cliente;
 }
 
-void crear_buffer(t_paquete *paquete) {
-	paquete->buffer = malloc(sizeof(t_buffer));
-	paquete->buffer->size = 0;
-	paquete->buffer->stream = NULL;
+t_buffer *crear_buffer() {
+	t_buffer *buffer = malloc(sizeof(t_buffer));
+	buffer->size = 0;
+	buffer->stream = NULL;
+	return buffer;
 }
 
 t_paquete *crear_paquete(int codigo_operacion) {
 	t_paquete *paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = codigo_operacion;
-	crear_buffer(paquete);
+	paquete->buffer = crear_buffer();
 	return paquete;
 }
 
@@ -109,6 +110,12 @@ void *serializar_paquete(t_paquete *paquete, int size_serializado) {
 	return magic;
 }
 
+void eliminar_paquete(t_paquete *paquete) {
+	free(paquete->buffer->stream);
+	free(paquete->buffer);
+	free(paquete);
+}
+
 void enviar_paquete(t_paquete* paquete, int socket_cliente) {
 	int size_serializado = paquete->buffer->size + 2 * sizeof(int);
 	void *a_enviar = serializar_paquete(paquete, size_serializado);
@@ -122,12 +129,6 @@ void enviar_mensaje(void *mensaje, int bytes, int socket_cliente) {
 	agregar_a_paquete(paquete, mensaje, bytes);
 	enviar_paquete(paquete, socket_cliente);
 	eliminar_paquete(paquete);
-}
-
-void eliminar_paquete(t_paquete *paquete) {
-	free(paquete->buffer->stream);
-	free(paquete->buffer);
-	free(paquete);
 }
 
 void liberar_conexion(int socket_cliente) {

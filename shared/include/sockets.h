@@ -37,11 +37,11 @@ void *recibir_mensaje(int);
 // cliente
 
 int crear_conexion(char *ip, char *puerto);
+t_buffer *crear_buffer();
 t_paquete *crear_paquete(int codigo_operacion);
 void agregar_a_paquete(t_paquete *paquete, void *valor, int bytes);
 void enviar_paquete(t_paquete *paquete, int socket_cliente);
 void enviar_mensaje(void *mensaje, int bytes, int socket_cliente);
-void eliminar_paquete(t_paquete *paquete);
 void liberar_conexion(int socket_cliente);
 void *sacar_de_buffer(t_buffer *buffer, int tam_dato);
 

@@ -33,9 +33,8 @@ void suspender_proceso(int id_proceso){
 }
 
 //Version con direccion de tabla1
-void suspender_proceso2(int direccion){
-	log_info(kernel_log, "Direccion proceso: %d", direccion);
-	t_list* tabla1 = direccion;
+void suspender_proceso2(t_list* tabla1){
+	log_info(kernel_log, "Direccion proceso: %p", tabla1);
 	int marco_inicial = list_size(tabla_planificacion);
 
 	for(int i = 0; i < list_size(tabla1); i++){
@@ -73,8 +72,7 @@ void suspender_proceso2(int direccion){
 	}
 }
 
-void finalizar_proceso(int direccion){
-	t_list* tabla1 = direccion;
+void finalizar_proceso(t_list* tabla1){
 	int tamanio_tabla1 = list_size(tabla1);
 	int marco_inicial = list_size(tabla_planificacion);
 	int id_proceso;
@@ -115,14 +113,11 @@ void finalizar_proceso(int direccion){
 
 }
 
-int obtener_tabla2(int direccion, int indice){
-	t_list* tabla1 = direccion;
-
+t_list *obtener_tabla2(t_list* tabla1, int indice){
 	return list_get(tabla1, indice);
 }
 
-int obtener_marco(int direccion, int indice){
-	t_list* tabla2 = (t_list*)direccion;
+int obtener_marco(t_list* tabla2, int indice){
 	t_tabla2* pagina = list_get(tabla2, indice);
 
 	//De no estar cargada en memoria la carga, devuelve el marco al final
