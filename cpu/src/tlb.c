@@ -6,10 +6,13 @@ int chequear_tlb(int pagina){
     bool no_se_encontro=true;
     t_list_iterator* iterador_tlb = list_iterator_create(TLB);
 
+    log_warning(cpu_log, "TLB:");
     while(list_iterator_has_next(iterador_tlb)){
-        entrada_tlb = list_iterator_next(iterador_tlb);
+        entrada_tlb = list_iterator_next(iterador_tlb);    
         indice = iterador_tlb->index;
+        log_warning(cpu_log, "%d \tP:%d \tM:%d",indice,entrada_tlb->pagina,entrada_tlb->marco);
         if(entrada_tlb->pagina == pagina){
+            log_warning(cpu_log,"TLB HIT!");
             tlb_hits++;
             no_se_encontro=false;
             break;

@@ -57,11 +57,14 @@ void empaquetar_pcb(t_paquete *paquete_pcb, t_pcb *pcb) {
 	agregar_a_paquete(paquete_pcb, &(pcb->id), sizeof(uint16_t));
 	agregar_a_paquete(paquete_pcb, &(pcb->tamanio), sizeof(uint32_t));
 	agregar_a_paquete(paquete_pcb, &(pcb->cant_instrucciones), sizeof(uint8_t));
+	t_instruccion* siguiente;
 
 	t_list_iterator *iterador_instrucciones = list_iterator_create(pcb->instrucciones);
 
-	while (list_iterator_has_next(iterador_instrucciones))
-		empaquetar_instruccion(paquete_pcb, list_iterator_next(iterador_instrucciones));
+	while (list_iterator_has_next(iterador_instrucciones)){
+		siguiente = (t_instruccion*) list_iterator_next(iterador_instrucciones);
+		empaquetar_instruccion(paquete_pcb, siguiente);
+	}
 
 	list_iterator_destroy(iterador_instrucciones);
 

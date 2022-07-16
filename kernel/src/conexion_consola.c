@@ -18,7 +18,7 @@ void conectar_consola(int kernel) {
 void recibir_paquete_consola(void *buffer, int size, t_pcb *pcb) {
 	int desplazamiento = 0;
 
-	memcpy(&(pcb->tamanio), buffer + desplazamiento, sizeof(uint32_t));
+	memcpy(&(pcb->tamanio), buffer + desplazamiento, sizeof(uint32_t)); 
 	desplazamiento += sizeof(uint32_t);
 
 	pcb->instrucciones = list_create();

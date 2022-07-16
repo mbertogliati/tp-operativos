@@ -149,8 +149,7 @@ t_list *crear_metadata(int tamanio_proceso, int id_proceso){
 		list_add(tabla1, tabla2);
 	}
 
-	list_add(tablas, tabla1);
-
+	//list_add(tablas, tabla1);
 	return tabla1;
 }
 

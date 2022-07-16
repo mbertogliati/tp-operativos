@@ -83,7 +83,7 @@ uint32_t fetch_operand(int tabla_paginas, uint32_t direccion_logica) {
 	return valor_leido;
 }
 
-bool escribir_a_memoria(int tabla_paginas, uint32_t direccion_logica, void* dato_a_escribir) {
+bool escribir_a_memoria(int tabla_paginas, uint32_t direccion_logica, const void* dato_a_escribir) {
 	int nro_de_pagina = floor(((double) direccion_logica) / ((double) *tam_de_pagina));
 	int desplazamiento = direccion_logica - nro_de_pagina * (*tam_de_pagina);
 	int direccion_fisica = obtener_direccion_fisica(tabla_paginas, direccion_logica, *entradas_por_tabla, *tam_de_pagina);
@@ -134,7 +134,7 @@ uint32_t leer_desde_memoria(int tabla_paginas, uint32_t direccion_logica) {
 
 }
 
-uint32_t execute(t_instruccion instruccion, int tabla_paginas, uint32_t operando) {
+uint32_t execute(const t_instruccion instruccion, const int tabla_paginas,  const uint32_t operando) {
 	switch (instruccion.identificador) {
 	uint32_t valor_leido;
 	case READ:

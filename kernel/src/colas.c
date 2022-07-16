@@ -43,6 +43,7 @@ void inicializar_estructuras() {
 	sem_init(&msuspendido_tiempo, 0, 1);
 	sem_init(&msuspendido_ready, 0, 1);
 	log_protegido("Semaforos Mutex inicializados.");
+	interrupcion = false;
 }
 
 int inicializar_threads(){
@@ -138,9 +139,11 @@ void agregar_a_ready_sjf(t_pcb *pcb) {
 	//pthread_mutex_unlock(&mready);
 
 	//TODO Avisar por interrupt
-	log_protegido("Se da aviso de interrupt a CPU.");
-	bool interrupcion = true;
-	send(socket_interrupt, &interrupcion, sizeof(bool), 0);
+	if(interrupcion){
+		log_protegido("Se da aviso de interrupt a CPU.");
+		send(socket_interrupt, &interrupcion, sizeof(bool), 0);
+		interrupcion = false;
+	}
 	
 
 }
@@ -236,26 +239,38 @@ t_pcb_con_milisegundos recibir_proceso(){
 	return proceso_para_devolver;
 }
 
+double calcular_milisegundos(struct timeval tiempo_envio, struct timeval tiempo_retorno){
+	double milisegundos_envio;
+	double milisegundos_retorno;
+
+	milisegundos_envio = (double)(tiempo_envio.tv_sec*1000.0) + (double)(tiempo_envio.tv_usec / 1000.0);
+	milisegundos_retorno = (double)(tiempo_retorno.tv_sec*1000.0) + (double)(tiempo_retorno.tv_usec / 1000.0);
+	return milisegundos_retorno - milisegundos_envio;
+
+}
 
 void *thread_execute(){
+	struct timeval tiempo_envio, tiempo_retorno;
 	while(1){
 		t_pcb_con_milisegundos proceso_recibido;
-		time_t tiempo_envio, tiempo_retorno;
+		
 		sem_wait(&procesos_en_ready);
 		log_info(log_kernel, "EXECUTE:Hay procesos en ready para ejecutar.");
 
 		t_pcb* pcb = quitar_de_ready();
+		interrupcion = true;
 		log_protegido(string_from_format("EXECUTE:Se mueve a ejecutar el proceso %d.", pcb->id));
 
 		//Enviar a cpu;
 		enviar_pcb(pcb, socket_dispatch, 0);
-		time(&tiempo_envio);
+		gettimeofday(&tiempo_envio, NULL);
 		log_protegido("EXECUTE:Proceso enviado a CPU para su ejecucion.");
 		//Eliminar pcb
 		liberar_pcb(pcb);
 		//Recibir nuevo pcb con milisegundos
 		proceso_recibido = recibir_proceso();
-		time(&tiempo_retorno);
+		interrupcion = false;
+		gettimeofday(&tiempo_retorno, NULL);
 		log_protegido("EXECUTE:Proceso recibido de CPU.");
 
 
@@ -265,9 +280,9 @@ void *thread_execute(){
 				log_protegido("EXECUTE:Proceso recibido por interrupcion.");
 				if(pcb->rafaga_inicial == 0){
 					pcb->rafaga_inicial = pcb->est_rafaga;
-					pcb->est_rafaga = pcb->est_rafaga - (tiempo_retorno - tiempo_envio);
+					pcb->est_rafaga = pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
 				}else{
-					pcb->est_rafaga = pcb->est_rafaga - (tiempo_retorno - tiempo_envio);
+					pcb->est_rafaga = pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
 				}
 
 				agregar_a_ready(proceso_recibido.pcb);
@@ -278,11 +293,11 @@ void *thread_execute(){
 
 				//Hago la estimacion de la proxima rafaga
 				if(pcb->rafaga_inicial == 0){
-					calcular_estimacion(tiempo_retorno - tiempo_envio, pcb);
+					calcular_estimacion(calcular_milisegundos(tiempo_envio, tiempo_retorno), pcb);
 				}else{
 					int real = pcb->est_rafaga;
 					pcb->est_rafaga = pcb->rafaga_inicial;
-					real = pcb->est_rafaga - real + (tiempo_retorno - tiempo_envio);
+					real = pcb->est_rafaga - real + calcular_milisegundos(tiempo_envio, tiempo_retorno);
 					calcular_estimacion(real, pcb);
 				}
 				pcb->rafaga_inicial = 0;

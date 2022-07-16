@@ -64,11 +64,14 @@ void imprimir_instruccion(t_instruccion *instruccion) {
 }
 
 void liberar_instruccion(t_instruccion *instruccion) {
-	free(instruccion->parametros);
+	if(instruccion->parametros != NULL)
+		free(instruccion->parametros);
 	free(instruccion);
 }
 
 void empaquetar_instruccion(t_paquete *paquete, t_instruccion *i) {
+	if(i == NULL)
+		return;
 	agregar_a_paquete(paquete, &(i->identificador), sizeof(uint8_t));
 	agregar_a_paquete(paquete, &(i->cant_parametros), sizeof(uint8_t));
 	if (i->parametros)

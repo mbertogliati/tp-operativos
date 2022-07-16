@@ -11,6 +11,7 @@
 #include <commons/collections/list.h>
 #include <commons/collections/queue.h>
 #include <commons/string.h>
+#include <sys/time.h>
 
 #include "../../shared/include/estructuras/pcb.h"
 #include "conexion_memoria.h"
@@ -20,6 +21,7 @@
 
 int new_counter, suspendido_counter, id_counter;
 extern t_log* log_kernel;
+bool interrupcion;
 
 //Colas
 t_list *ready;

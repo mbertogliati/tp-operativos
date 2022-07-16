@@ -64,7 +64,7 @@ int pedir_tabla_2(int tabla_del_proceso, int entrada_lvl_1){
     log_info(cpu_log, "Esperando respuesta...");
     recv(socket_memoria, &nro_tabla_2, sizeof(int), MSG_WAITALL);
     log_info(cpu_log, "Respuesta recibida!!!");
-    log_info(cpu_log, "El numero de tabla 2 es: %d", nro_tabla_2);
+    log_info(cpu_log, "El numero de tabla 2 es: %X", nro_tabla_2);
 
     return nro_tabla_2;
 }
@@ -81,6 +81,8 @@ int obtener_direccion_fisica(int tabla_paginas, uint32_t direccion_logica, int e
     entrada_lvl_1 = floor( ((double) nro_de_pagina) / ((double) entradas_por_tabla));
     entrada_lvl_2 = nro_de_pagina % (entradas_por_tabla);
     desplazamiento = direccion_logica - nro_de_pagina * (tam_pagina);
+
+    log_warning(cpu_log,"Pido Pagina: %d",nro_de_pagina);
 
     marco = chequear_tlb(nro_de_pagina);
     if(marco < 0){
