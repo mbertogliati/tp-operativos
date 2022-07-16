@@ -1,10 +1,12 @@
 #include "../include/conexion_consola.h"
 
+
 void conectar_consola(int kernel) {
 	log_protegido("CONSOLA:Servidor listo para recibir al cliente");
 	pthread_t thread;
 	pid_counter = 0;
 
+	// recibir muchas consolas
 	while (1) {
 		int consola = esperar_cliente(kernel);
 		log_protegido("CONSOLA:Se conectó un cliente!");
@@ -21,7 +23,7 @@ void recibir_paquete_consola(void *buffer, int size, t_pcb *pcb) {
 
 	pcb->instrucciones = list_create();
 
-	while (desplazamiento < size)
+	while(desplazamiento < size)
 		list_add(pcb->instrucciones, desempaquetar_instruccion(buffer, &desplazamiento));
 
 	pcb->cant_instrucciones = list_size(pcb->instrucciones);
@@ -40,13 +42,18 @@ t_pcb *generar_pcb(int socket_cliente) {
 
 void proceso_new(int *socket_cliente) {
 	while (1) {
+		t_pcb *pcb;
 		switch (recibir_operacion(*socket_cliente)) {
 		case INSTRUCCIONES_CONSOLA:
-			agregar_a_new(generar_pcb(*socket_cliente));
+			pcb = generar_pcb(*socket_cliente);
+			agregar_a_new(pcb);
+
 			break;
+
 		case -1:
 			log_protegido("CONSOLA:El cliente se desconectó.");
 			return;
+
 		default:
 			log_protegido("CONSOLA_ERROR:Código de operación inválido.");
 			return;

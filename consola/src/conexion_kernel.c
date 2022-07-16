@@ -43,13 +43,13 @@ void enviar_paquete_instrucciones(t_paquete *paquete, int socket_kernel) {
 }
 
 void terminar(int socket_kernel) {
-	log_info(logger, "Terminando consola...");
 	int mensaje;
 	recv(socket_kernel, &mensaje, sizeof(int), MSG_WAITALL);
-	if (mensaje == TERMINAR_CONSOLA)
-		log_info(logger, "La consola termino correctamente");
-	else log_error(logger, "Operación desconocida, cierre inesperado");
-	liberar_conexion(socket_kernel);
-	log_destroy(logger);
-	return;
+	if (mensaje == TERMINAR_CONSOLA) {
+		log_info(logger, "Terminando consola");
+		liberar_conexion(socket_kernel);
+		log_destroy(logger);
+		return;
+	}
+	log_error(logger, "Operación desconocida");
 }

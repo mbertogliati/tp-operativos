@@ -1,25 +1,5 @@
 #include "../include/kernel.h"
 
-int main() {
-	log_kernel = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
-	config = config_create("kernel.config");
-
-	inicializar_estructuras();
-
-	conectar_memoria(configs.ip_memoria, configs.puerto_memoria);
-	conectar_cpu(configs.ip_cpu, configs.puerto_cpu_dispatch, configs.puerto_cpu_interrupt);
-	inicializar_threads();
-	int servidor = iniciar_servidor(configs.puerto_escucha);
-	conectar_consola(servidor);
-
-	desconectar_memoria();
-
-	log_destroy(memoria_log);
-	config_destroy(config);
-
-	return EXIT_SUCCESS;
-}
-
 // int main() {
 // 	crear_config();
 // 	logger = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
@@ -88,3 +68,28 @@ int main() {
 //	pthread_join(thread_consola, NULL);
 //
 //}
+
+
+int main() {
+	//funcion_prueba_checkpoint();
+	log_kernel = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
+	crear_config();
+	//config = config_create("kernel.config");
+
+	inicializar_estructuras();
+
+	conectar_memoria(ip_memoria(), puerto_memoria());
+	conectar_cpu(ip_cpu(), puerto_cpu_dispatch(), puerto_cpu_interrupt());
+	inicializar_threads();
+	int servidor = iniciar_servidor(puerto_escucha());
+	conectar_consola(servidor);
+
+
+
+	desconectar_memoria();
+
+	log_destroy(memoria_log);
+	config_destroy(config);
+
+	return EXIT_SUCCESS;
+}
