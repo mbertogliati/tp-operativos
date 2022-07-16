@@ -72,6 +72,11 @@ void liberar_instruccion(t_instruccion *instruccion) {
 void empaquetar_instruccion(t_paquete *paquete, t_instruccion *i) {
 	if(i == NULL)
 		return;
+	if(i->identificador>6 || i->identificador < 0)
+		return;
+	if (i->cant_parametros > 2 || i->cant_parametros<0)
+		return;
+
 	agregar_a_paquete(paquete, &(i->identificador), sizeof(uint8_t));
 	agregar_a_paquete(paquete, &(i->cant_parametros), sizeof(uint8_t));
 	if (i->parametros)
