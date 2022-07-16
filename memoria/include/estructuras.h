@@ -44,6 +44,7 @@ typedef struct{
 int *planificacion_ptrs;
 
 void iniciar_estructuras();
+FILE* encontrar_SWAP(int id_proceso);
 void cargar_configuraciones(char* path);
 bool es_configuracion_valida(t_config *config_memoria);
 t_list *agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso);

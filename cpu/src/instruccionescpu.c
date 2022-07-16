@@ -61,8 +61,8 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 }
 
 t_instruccion fetch(t_pcb* pcb) {
-	t_instruccion instruccion_nueva;
-	instruccion_nueva = *((t_instruccion*) list_get(pcb->instrucciones, pcb->program_counter));
+	t_instruccion instruccion_nueva =
+			*((t_instruccion*) list_get(pcb->instrucciones, pcb->program_counter));
 
 	log_info(cpu_log, "Program Counter: %d + 1", pcb->program_counter);
 	pcb->program_counter++;
@@ -70,15 +70,12 @@ t_instruccion fetch(t_pcb* pcb) {
 }
 
 bool decode(t_instruccion instruccion) {
-	if (instruccion.identificador == COPY)
-		return true;
-	else
-		return false;
+	if (instruccion.identificador == COPY) return true;
+	else return false;
 }
 
 uint32_t fetch_operand(int tabla_paginas, uint32_t direccion_logica) {
-	uint32_t valor_leido;
-	valor_leido = leer_desde_memoria(tabla_paginas, direccion_logica);
+	uint32_t valor_leido = leer_desde_memoria(tabla_paginas, direccion_logica);
 	log_info(cpu_log, "El valor leido desde %d es: %d", direccion_logica, valor_leido);
 	return valor_leido;
 }
@@ -112,7 +109,7 @@ uint32_t leer_desde_memoria(int tabla_paginas, uint32_t direccion_logica) {
 	int direccion_fisica = obtener_direccion_fisica(tabla_paginas, direccion_logica, *entradas_por_tabla, *tam_de_pagina);
 	void* valor_leido;
 	int diferencia = desplazamiento + 4 - *tam_de_pagina;
-	uint32_t retorno;
+
 	if (diferencia <= 0)
 		valor_leido = pedir_lectura(4, direccion_fisica);
 
@@ -120,15 +117,14 @@ uint32_t leer_desde_memoria(int tabla_paginas, uint32_t direccion_logica) {
 		valor_leido = pedir_lectura(4 - diferencia, direccion_fisica);
 		valor_leido = realloc(valor_leido, 4);
 		nro_de_pagina += 1;
-		void *nuevo_valor_leido;
 		int nueva_direccion_logica = nro_de_pagina * (*tam_de_pagina);
 		direccion_fisica = obtener_direccion_fisica(tabla_paginas, nueva_direccion_logica, *entradas_por_tabla, *tam_de_pagina);
-		nuevo_valor_leido = pedir_lectura(diferencia, direccion_fisica);
+		void *nuevo_valor_leido = pedir_lectura(diferencia, direccion_fisica);
 		memcpy(valor_leido + 4 - diferencia, nuevo_valor_leido, diferencia);
 		free(nuevo_valor_leido);
 	}
 
-	retorno = *(uint32_t *) valor_leido;
+	uint32_t retorno = *(uint32_t *) valor_leido;
 	free(valor_leido);
 	return retorno;
 
@@ -158,6 +154,6 @@ uint32_t execute(t_instruccion instruccion, int tabla_paginas, uint32_t operando
 		break;
 	default:
 		break;
-		}
+	}
 	return 0;
 }

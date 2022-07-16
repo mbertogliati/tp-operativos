@@ -16,14 +16,14 @@
 //
 //}
 
-void suspender_proceso(int id_proceso){
+void suspender_proceso(int id_proceso) {
 	//Dice escribir solamente la informacion necesaria, usar t_tabla2->M sin importar el algoritmo
 	//de reemplazo?
 	t_tabla2* tabla2;
 	int marcos_counter = 0;
-	for(int i = 0; i < (configuracion->tam_memoria / configuracion->tam_pagina); i++){
+	for (int i = 0; i < (configuracion->tam_memoria / configuracion->tam_pagina); i++) {
 		tabla2 = list_get(tabla_planificacion, i);
-		if(marcos_counter < configuracion->marcos_por_proceso && tabla2 != NULL && tabla2->id == id_proceso){
+		if (marcos_counter < configuracion->marcos_por_proceso && tabla2 != NULL && tabla2->id == id_proceso) {
 			tabla2->P = 0;
 			escribir_pagina_SWAP(id_proceso, tabla2->pagina, i);
 			marcos_counter++;
@@ -33,27 +33,27 @@ void suspender_proceso(int id_proceso){
 }
 
 //Version con direccion de tabla1
-void suspender_proceso2(t_list* tabla1){
+void suspender_proceso2(t_list* tabla1) {
 	log_info(kernel_log, "Direccion proceso: %p", tabla1);
 	int marco_inicial = list_size(tabla_planificacion);
 
-	for(int i = 0; i < list_size(tabla1); i++){
+	for (int i = 0; i < list_size(tabla1); i++) {
 		t_list* tabla2 = list_get(tabla1, i);
-		for(int j = 0; j < list_size(tabla2); j++){
+		for (int j = 0; j < list_size(tabla2); j++) {
 			t_tabla2* pagina = list_get(tabla2, j);
-			if(pagina->P){
+			if (pagina->P) {
 				log_info(kernel_log, "Pagina %d presente en marco %d de memoria", pagina->pagina, pagina->marco);
 				pagina->P = false;
 
 				//Busco el primer marco del grupo asignado
-				if(pagina->marco < marco_inicial)
+				if (pagina->marco < marco_inicial)
 					marco_inicial = pagina->marco;
 
-				if(strcmp(configuracion->algoritmo_reemplazo, "CLOCK")){
+				if (strcmp(configuracion->algoritmo_reemplazo, "CLOCK")) {
 					escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
 					log_info(kernel_log, "Pagina escrita a SWAP");
-				}else{
-					if(pagina->M){
+				} else {
+					if (pagina->M) {
 						escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
 						log_info(kernel_log, "Pagina escrita a SWAP");
 					}
@@ -62,9 +62,9 @@ void suspender_proceso2(t_list* tabla1){
 			}
 		}
 		//Actualizo todos los marcos a la vez para evitar errores con los semaforos
-		if(marco_inicial != list_size(tabla_planificacion)){
+		if (marco_inicial != list_size(tabla_planificacion)) {
 			sem_wait(&mutex_tabla_planificacion);
-			for(int i=0; i < configuracion->marcos_por_proceso; i++)
+			for (int i = 0; i < configuracion->marcos_por_proceso; i++)
 				list_replace(tabla_planificacion, marco_inicial + i, NULL);
 			sem_post(&mutex_tabla_planificacion);
 			log_info(kernel_log, "Marcos %d a %d actualizados en tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso);
@@ -72,17 +72,17 @@ void suspender_proceso2(t_list* tabla1){
 	}
 }
 
-void finalizar_proceso(t_list* tabla1){
+void finalizar_proceso(t_list* tabla1) {
 	int tamanio_tabla1 = list_size(tabla1);
 	int marco_inicial = list_size(tabla_planificacion);
 	int id_proceso;
 
-	for(int i = 0; i < tamanio_tabla1; i++){
+	for (int i = 0; i < tamanio_tabla1; i++) {
 		t_list* tabla2 = list_get(tabla1, 0);
 		int tamanio_tabla2 = list_size(tabla2);
-		for(int j = 0; j < tamanio_tabla2; j++){
+		for (int j = 0; j < tamanio_tabla2; j++) {
 			t_tabla2* pagina = list_get(tabla2, 0);
-			if(!pagina->P && pagina->marco < marco_inicial){
+			if (!pagina->P && pagina->marco < marco_inicial) {
 				marco_inicial = pagina->marco;
 			}
 			id_proceso = pagina->id;
@@ -96,9 +96,9 @@ void finalizar_proceso(t_list* tabla1){
 	}
 
 	//Actualizo todos los marcos a la vez para evitar problemas con los semaforos
-	if(marco_inicial != list_size(tabla_planificacion)){
+	if (marco_inicial != list_size(tabla_planificacion)) {
 		sem_wait(&mutex_tabla_planificacion);
-		for(int i = 0; i < configuracion->marcos_por_proceso; i++)
+		for (int i = 0; i < configuracion->marcos_por_proceso; i++)
 			list_replace(tabla_planificacion, marco_inicial + i, NULL);
 		sem_post(&mutex_tabla_planificacion);
 		log_info(kernel_log, "Marcos %d a %d actualizados en tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso);
@@ -106,27 +106,25 @@ void finalizar_proceso(t_list* tabla1){
 
 	list_destroy(tabla1);
 
-	char* SWAP_path = string_from_format("%s/%d.swap",
-				configuracion->path_swap,
-				id_proceso);
+	char* SWAP_path = string_from_format("%s/%d.swap", configuracion->path_swap, id_proceso);
 	remove(SWAP_path);
 
 }
 
-t_list *obtener_tabla2(t_list* tabla1, int indice){
+t_list *obtener_tabla2(t_list* tabla1, int indice) {
 	return list_get(tabla1, indice);
 }
 
-int obtener_marco(t_list* tabla2, int indice){
+int obtener_marco(t_list* tabla2, int indice) {
 	t_tabla2* pagina = list_get(tabla2, indice);
 
 	//De no estar cargada en memoria la carga, devuelve el marco al final
-	if(!pagina->P){
+	if (!pagina->P) {
 		log_info(cpu_log, "La pagina %d no se encuentra presente en memoria", pagina->pagina);
 		int marco = ejecutar_algoritmo_de_reemplazo(pagina->pagina, pagina->id);
 
 		//En caso de error se retorna inmediatamente -1
-		if(marco == -1)
+		if (marco == -1)
 			return marco;
 
 		pagina->marco = marco;
@@ -143,7 +141,7 @@ int obtener_marco(t_list* tabla2, int indice){
 
 //Como la lectura y escritura de memoria siempre va a ser despues de la funcion obtener_marco(),
 //y no van a ocurrir reemplazo de paginas antes, se garantiza que la pagina siempre esta en memoria
-void escribir_a_memoria(int direccion, int tamanio_a_escribir, void* a_escribir){
+void escribir_a_memoria(int direccion, int tamanio_a_escribir, void* a_escribir) {
 	char* puntero = memoria_principal;
 	puntero += direccion;
 
@@ -155,19 +153,19 @@ void escribir_a_memoria(int direccion, int tamanio_a_escribir, void* a_escribir)
 	log_info(cpu_log, "%d bytes escritos desde la posicion %d de memoria", tamanio_a_escribir, direccion);
 }
 
-void* leer_de_memoria(int direccion, int tamanio_a_leer){
+void* leer_de_memoria(int direccion, int tamanio_a_leer) {
 
 	void* puntero = memoria_principal;
 	puntero += direccion;
 	void* lectura = malloc(tamanio_a_leer);
 
-	memcpy(lectura,puntero,tamanio_a_leer);
+	memcpy(lectura, puntero, tamanio_a_leer);
 	log_info(cpu_log, "%d bytes leidos desde la posicion %d de memoria", tamanio_a_leer, direccion);
 
 	return lectura;
 }
 
-void leer_pagina_SWAP(int id_proceso, int pagina, int marco){
+void leer_pagina_SWAP(int id_proceso, int pagina, int marco) {
 	void* pagina_leida = malloc(configuracion->tam_pagina);
 	FILE* SWAP_file = encontrar_SWAP(id_proceso);
 
@@ -188,7 +186,7 @@ void leer_pagina_SWAP(int id_proceso, int pagina, int marco){
 
 }
 
-void escribir_pagina_SWAP(int id_proceso, int pagina, int marco){
+void escribir_pagina_SWAP(int id_proceso, int pagina, int marco) {
 	FILE* SWAP_file = encontrar_SWAP(id_proceso);
 
 	char* puntero = memoria_principal;

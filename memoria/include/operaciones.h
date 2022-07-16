@@ -1,6 +1,7 @@
 #ifndef OPERACIONES_H_
 #define OPERACIONES_H_
 #include "estructuras.h"
+#include "reemplazo.h"
 #include <stdint.h>
 #include <string.h>
 #include <semaphore.h>

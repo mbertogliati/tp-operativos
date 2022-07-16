@@ -79,6 +79,15 @@ int iniciar_conexiones(){
     return EXIT_SUCCESS;
 }
 
+t_list *recibir_direccion(t_buffer *buffer) {
+	log_info(kernel_log, "Recibiendo Proceso...");
+	int* aux = sacar_de_buffer(buffer, sizeof(int));
+	t_list *direccion_de_tabla = (t_list*)*aux;
+	free(aux);
+	log_info(kernel_log, "Proceso recibido! Tabla: %X", (int) direccion_de_tabla);
+	return direccion_de_tabla;
+}
+
 void enviar_paquete_configuraciones(int socket_cpu);
 void devolver_indice(t_buffer *buffer, int socket_cpu);
 void devolver_marco(t_buffer *buffer, int socket_cpu);
@@ -145,27 +154,20 @@ void enviar_paquete_configuraciones(int socket_cpu) {
 
 void devolver_indice(t_buffer *buffer, int socket_cpu) {
 	log_info(cpu_log, "El CPU quiere Tabla NVL 2");
-	int* aux = sacar_de_buffer(buffer, sizeof(int));
-	t_list *direccion = (t_list*)*aux;
-	free(aux);
+	t_list *direccion = recibir_direccion(buffer);
 	int *indice = sacar_de_buffer(buffer, sizeof(int));
 	t_list *direccion_tabla2 = obtener_tabla2(direccion, *indice);
 	send(socket_cpu, &direccion_tabla2, sizeof(int), 0);
-	//free(direccion_tabla2);
 	free(indice);
-	//free(direccion);
 }
 
 void devolver_marco(t_buffer *buffer, int socket_cpu) {
 	log_info(cpu_log, "El CPU quiere Nro de marco");
-	int* aux = sacar_de_buffer(buffer, sizeof(int));
-	t_list *direccion = (t_list*)*aux;
-	free(aux);
+	t_list *direccion = recibir_direccion(buffer);
 	int *indice = sacar_de_buffer(buffer, sizeof(int));
 	int marco = obtener_marco(direccion, *indice);
 	send(socket_cpu, &marco, sizeof(int), 0);
 	free(indice);
-	//free(direccion);
 }
 
 void leer(t_buffer *buffer, int socket_cpu) {
@@ -260,7 +262,7 @@ void crear_tabla(t_buffer *buffer, int socket_kernel) {
 	log_info(kernel_log, "Proceso agregado exitosamente!!");
 
 	log_info(kernel_log, "Respondiendo al kernel...");
-	send(socket_kernel,&direccion_de_tabla, sizeof(int), 0);
+	send(socket_kernel, &direccion_de_tabla, sizeof(int), 0);
 	log_info(kernel_log, "Listo!");
 
 	free(id_proceso);
@@ -271,11 +273,7 @@ void proceso_suspendido(t_buffer *buffer, int socket_kernel) {
 	log_info(kernel_log, "El kernel quiere suspender un proceso");
 	bool confirmacion = true;
 
-	log_info(kernel_log, "Recibiendo Proceso...");
-	int* aux = sacar_de_buffer(buffer, sizeof(int));
-	t_list *direccion_de_tabla = (t_list*)*aux;
-	free(aux);
-	log_info(kernel_log, "Proceso recibido! Tabla: %X", (int)direccion_de_tabla);
+	t_list *direccion_de_tabla = recibir_direccion(buffer);
 
 	log_info(kernel_log, "Suspendiendo Proceso...");
 	suspender_proceso2(direccion_de_tabla);
@@ -289,9 +287,9 @@ void liberar(t_buffer *buffer, int socket_kernel) {
 	bool confirmacion = true;
 
 	log_info(kernel_log, "Recibiendo proceso...");
-	int* aux = sacar_de_buffer(buffer, sizeof(int));
-	t_list *direccion_de_tabla = (t_list*)*aux;
-	free(aux);
+
+	t_list *direccion_de_tabla = recibir_direccion(buffer);
+
 	log_info(kernel_log, "Proceso recibido! Tabla: %X", (int)direccion_de_tabla);
 	finalizar_proceso(direccion_de_tabla);
 
