@@ -198,7 +198,7 @@ void *thread_ready(){
 			suspendido_counter--;
 			sem_post(&msuspendido_counter);
 			t_pcb *pcb = sacar_de_cola(suspendido_ready, msuspendido_ready);
-			pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
+			//pcb->tabla_paginas = agregar_proceso_memoria(pcb->id, pcb->tamanio);
 			agregar_a_ready(pcb);
 			log_protegido(string_from_format("READY:Se agrego el proceso %d a ready.", pcb->id));
 		}else{

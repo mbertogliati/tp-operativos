@@ -245,7 +245,8 @@ void crear_tabla(t_buffer *buffer, int socket_kernel) {
 	log_info(kernel_log, "Proceso recibido!!!");
 
 	log_info(kernel_log, "Agregando proceso...");
-	t_list *direccion_de_tabla = agregar_proceso(*id_proceso, *tam_proceso, puntero_proceso);
+	t_list *direccion_de_tabla;
+	direccion_de_tabla = agregar_proceso(*id_proceso, *tam_proceso, puntero_proceso);
 	free(puntero_proceso);
 
 	if(!direccion_de_tabla){
@@ -255,7 +256,7 @@ void crear_tabla(t_buffer *buffer, int socket_kernel) {
 	log_info(kernel_log, "Proceso agregado exitosamente!!");
 
 	log_info(kernel_log, "Respondiendo al kernel...");
-	send(socket_kernel, direccion_de_tabla, sizeof(int), 0);
+	send(socket_kernel,&direccion_de_tabla, sizeof(int), 0);
 	log_info(kernel_log, "Listo!");
 
 	free(id_proceso);
@@ -267,8 +268,10 @@ void proceso_suspendido(t_buffer *buffer, int socket_kernel) {
 	bool confirmacion = true;
 
 	log_info(kernel_log, "Recibiendo Proceso...");
-	t_list *direccion_de_tabla = sacar_de_buffer(buffer, sizeof(int));
-	log_info(kernel_log, "Proceso Recibido!!!");
+	int* aux = sacar_de_buffer(buffer, sizeof(int));
+	t_list *direccion_de_tabla = (t_list*)*aux;
+	free(aux);
+	log_info(kernel_log, "Proceso recibido! Tabla: %X", (int)direccion_de_tabla);
 
 	log_info(kernel_log, "Suspendiendo Proceso...");
 	suspender_proceso2(direccion_de_tabla);
@@ -282,8 +285,10 @@ void liberar(t_buffer *buffer, int socket_kernel) {
 	bool confirmacion = true;
 
 	log_info(kernel_log, "Recibiendo proceso...");
-	t_list *direccion_de_tabla = sacar_de_buffer(buffer, sizeof(int));
-	log_info(kernel_log, "Proceso recibido!!!");
+	int* aux = sacar_de_buffer(buffer, sizeof(int));
+	t_list *direccion_de_tabla = (t_list*)*aux;
+	free(aux);
+	log_info(kernel_log, "Proceso recibido! Tabla: %X", (int)direccion_de_tabla);
 	finalizar_proceso(direccion_de_tabla);
 
 	send(socket_kernel, &confirmacion, sizeof(bool), 0);

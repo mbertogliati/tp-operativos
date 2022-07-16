@@ -39,7 +39,7 @@ int agregar_proceso_memoria(int pid, int tam_proceso){
 	int tabla_proceso;
 	recv(socket_memoria, &tabla_proceso, sizeof(int), MSG_WAITALL);
 	log_info(log_kernel,"MEMORIA:Respuesta Recibida!!!");
-	log_protegido(string_from_format("MEMORIA:Mi nueva tabla para el proceso %d es: %d", pid, tabla_proceso));
+	log_protegido(string_from_format("MEMORIA:Mi nueva tabla para el proceso %d es: %X", pid, tabla_proceso));
 
 	return tabla_proceso;
 }

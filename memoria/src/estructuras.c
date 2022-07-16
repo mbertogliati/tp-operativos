@@ -85,8 +85,8 @@ FILE* encontrar_SWAP(int id_proceso){
 				configuracion->path_swap,
 				id_proceso);
 	if(!access(SWAP_path, F_OK))
-		return fopen(SWAP_path, "r+");
-	return fopen(SWAP_path, "w+");
+		return fopen(SWAP_path, "rb+");
+	return fopen(SWAP_path, "wb+");
 }
 
 void crear_SWAP(int id_proceso, int tamanio_proceso, void* proceso){
@@ -160,7 +160,7 @@ t_list *agregar_proceso(int id_proceso, int tamanio_proceso, void* proceso){
 	if(!direccion_tabla){
 		return(direccion_tabla);
 	}
-	log_info(kernel_log, "Tabla NVL 1 creada en %p", direccion_tabla);
+	log_info(kernel_log, "Tabla NVL 1 creada en %X", (int)direccion_tabla);
 
 	crear_SWAP(id_proceso, tamanio_proceso, proceso);
 
