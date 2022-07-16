@@ -10,6 +10,7 @@ int chequear_tlb(int pagina){
         entrada_tlb = list_iterator_next(iterador_tlb);
         indice = iterador_tlb->index;
         if(entrada_tlb->pagina == pagina){
+            tlb_hits++;
             no_se_encontro=false;
             break;
         }

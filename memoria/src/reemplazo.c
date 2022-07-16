@@ -125,7 +125,7 @@ int encontrar_grupo_de_marcos_de_proceso(int id_proceso){
 
 	//Encuentra el grupo de marcos asignados a el proceso
 	//Se asume que no van a llegar mas procesos de los que puede contener la memoria
-	while(inicio_grupo_marcos != size_tabla_planificacion){
+	while(inicio_grupo_marcos < size_tabla_planificacion){
 		pagina_actual = list_get(tabla_planificacion, inicio_grupo_marcos);
 		if(pagina_actual && pagina_actual->id == id_proceso){
 			sem_post(&mutex_tabla_planificacion);

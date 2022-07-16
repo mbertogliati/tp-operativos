@@ -12,6 +12,8 @@ typedef struct {
 } t_tlb;
 
 t_list* TLB;
+int tlb_hits;
+int acc_memoria;
 
 int chequear_tlb(int pagina);
 void actualizar_tlb(int pagina, int marco);

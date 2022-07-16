@@ -1,5 +1,5 @@
 #include "../include/instruccionescpu.h"
-//./consola.out "../kiss-pruebas/SUSPE_1" 1
+//./consola.out "../kiss-pruebas/INTEGRAL_1" 2048
 
 bool proceso_terminado;
 t_instruccion fetch(t_pcb* pcb);
@@ -17,6 +17,8 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 	uint32_t operand;
 	list_clean_and_destroy_elements(TLB, free);
 	t_buffer* buffer = malloc(sizeof(t_buffer));
+	tlb_hits = 0;
+	acc_memoria = 0;
 
 	while (pcb) {
 		instruccion_actual = fetch(pcb);
@@ -53,6 +55,7 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 		}
 		sem_post(&mutex_interrupt);
 	}
+	log_info(cpu_log, "TLB HITS: %d  ACCESOS MEMORIA: %d", tlb_hits, acc_memoria);
 	free(buffer);
 
 }

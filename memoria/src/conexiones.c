@@ -145,10 +145,12 @@ void enviar_paquete_configuraciones(int socket_cpu) {
 
 void devolver_indice(t_buffer *buffer, int socket_cpu) {
 	log_info(cpu_log, "El CPU quiere Tabla NVL 2");
-	t_list *direccion = sacar_de_buffer(buffer, sizeof(int));
+	int* aux = sacar_de_buffer(buffer, sizeof(int));
+	t_list *direccion = (t_list*)*aux;
+	free(aux);
 	int *indice = sacar_de_buffer(buffer, sizeof(int));
 	t_list *direccion_tabla2 = obtener_tabla2(direccion, *indice);
-	send(socket_cpu, direccion_tabla2, sizeof(int), 0);
+	send(socket_cpu, &direccion_tabla2, sizeof(int), 0);
 	//free(direccion_tabla2);
 	free(indice);
 	//free(direccion);
@@ -156,7 +158,9 @@ void devolver_indice(t_buffer *buffer, int socket_cpu) {
 
 void devolver_marco(t_buffer *buffer, int socket_cpu) {
 	log_info(cpu_log, "El CPU quiere Nro de marco");
-	t_list *direccion = sacar_de_buffer(buffer, sizeof(int));
+	int* aux = sacar_de_buffer(buffer, sizeof(int));
+	t_list *direccion = (t_list*)*aux;
+	free(aux);
 	int *indice = sacar_de_buffer(buffer, sizeof(int));
 	int marco = obtener_marco(direccion, *indice);
 	send(socket_cpu, &marco, sizeof(int), 0);

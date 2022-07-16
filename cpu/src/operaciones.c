@@ -84,6 +84,7 @@ int obtener_direccion_fisica(int tabla_paginas, uint32_t direccion_logica, int e
 
     marco = chequear_tlb(nro_de_pagina);
     if(marco < 0){
+        acc_memoria += 2;
         nro_tabla_2 = pedir_tabla_2(tabla_paginas, entrada_lvl_1);
         marco = pedir_marco(nro_tabla_2, entrada_lvl_2);
         actualizar_tlb(nro_de_pagina, marco);
