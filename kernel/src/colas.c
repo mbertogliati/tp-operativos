@@ -134,7 +134,7 @@ void agregar_a_ready_sjf(t_pcb *pcb) {
 	//pthread_mutex_lock(&mready);
 	sem_wait(&mready);
 	list_add_sorted(ready, pcb, (void *) menor_estimacion);
-	sem_wait(&mready);
+	sem_post(&mready);
 	//pthread_mutex_unlock(&mready);
 
 	//TODO Avisar por interrupt
@@ -151,7 +151,7 @@ void agregar_a_ready(t_pcb *pcb) {
 	//pcb->tabla_paginas = (int) recibir_mensaje_memoria();
 	if(!strcmp("FIFO", algoritmo_planificacion()))
 		agregar_a_ready_fifo(pcb);
-	if(!strcmp("SJF", algoritmo_planificacion()) || !strcmp("SRT", algoritmo_planificacion()))
+	if(!strcmp("SRT", algoritmo_planificacion()))
 		agregar_a_ready_sjf(pcb);
 	sem_post(&procesos_en_ready);
 }
@@ -357,9 +357,9 @@ void *thread_suspendido_blocked(){
 		sleep(0.001 * tiempo_espera);
 
 		log_protegido("SUSPENDIDO_BLOCKED:Espera en suspendido completada, agregando a suspendido-ready.");
-		sem_wait(&msuspendido_ready);
+		
 		agregar_a_cola(suspendido_ready, pcb, msuspendido_ready);
-		sem_post(&msuspendido_ready);
+		
 
 		sem_wait(&msuspendido_counter);
 		suspendido_counter++;

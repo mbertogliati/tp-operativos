@@ -22,6 +22,7 @@ int crear_socket(struct addrinfo *server_info) {
 int iniciar_servidor(char *puerto) {
 	struct addrinfo *server_info = addrinfo_servidor(NULL, puerto);
 	int socket_servidor = crear_socket(server_info);
+	setsockopt(socket_servidor, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int));
 
 	bind(socket_servidor, server_info->ai_addr, server_info->ai_addrlen);
 	listen(socket_servidor, SOMAXCONN);
@@ -65,10 +66,12 @@ void *recibir_mensaje(int socket_cliente) {
 int crear_conexion(char *ip, char *puerto) {
 	struct addrinfo *server_info = addrinfo_servidor(ip, puerto);
 	int socket_cliente = crear_socket(server_info);
+	
+	setsockopt(socket_cliente, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int));
 
 	if (connect(socket_cliente, server_info->ai_addr, server_info->ai_addrlen) == -1)
 		return -1;
-
+	
 	freeaddrinfo(server_info);
 	return socket_cliente;
 }
