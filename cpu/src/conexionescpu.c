@@ -48,7 +48,8 @@ void *iniciar_conexion_dispatch(){
     sem_post(&mutex_interrupt);
     while(true){
         log_info(cpu_log,"No hay PCB, esperando...");
-        recibir_operacion(socket_dispatch);
+        if(recibir_operacion(socket_dispatch) == -1)
+            break;
         buffer-> stream = recibir_buffer(&(buffer -> size), socket_dispatch);
         log_info(cpu_log,"Llego un PCB");
         pcb = desempaquetar_pcb(buffer->stream);
@@ -57,6 +58,7 @@ void *iniciar_conexion_dispatch(){
     }
 
     free(buffer);
+    log_error(cpu_log, "ERROR DISPATCH - El KERNEL se ha desconectado");
     return NULL;
 };   
 
@@ -70,13 +72,15 @@ void *iniciar_conexion_interrupt(){
     bool *hay_interrupcion = malloc(sizeof(bool));
     sem_post(&mutex_interrupt);
     while(true){
-        recv(socket_interrupt, hay_interrupcion, sizeof(bool), MSG_WAITALL);
+        if(recv(socket_interrupt, hay_interrupcion, sizeof(bool), MSG_WAITALL) <= 0)
+            break;
         sem_wait(&mutex_interrupt);
         log_info(interrupt_log, "El KERNEL ha solicitado una interrupcion");
         check_interrupt = *hay_interrupcion;
         sem_post(&mutex_interrupt);
     }
 
+    log_error(cpu_log, "ERROR INTERRUPT - El KERNEL se ha desconectado");
     log_destroy(interrupt_log);
     free(hay_interrupcion);
 

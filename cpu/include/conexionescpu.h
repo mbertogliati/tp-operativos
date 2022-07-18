@@ -3,6 +3,7 @@
 
 #include <pthread.h>
 #include <semaphore.h>
+#include <assert.h>
 
 #include "../include/estructurascpu.h"
 #include "../../shared/include/sockets.h"

@@ -63,6 +63,7 @@ void empaquetar_pcb(t_paquete *paquete_pcb, t_pcb *pcb) {
 
 	while (list_iterator_has_next(iterador_instrucciones)){
 		siguiente = (t_instruccion*) list_iterator_next(iterador_instrucciones);
+		assert(siguiente != NULL);
 		empaquetar_instruccion(paquete_pcb, siguiente);
 	}
 

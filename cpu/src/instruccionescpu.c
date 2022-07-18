@@ -30,6 +30,7 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 			proceso_terminado = false;
 			log_info(cpu_log, "Proceso %d TERMINADO", pcb->id);
 			log_info(cpu_log, "Devolviendo PCB actualizado del PID %d...", pcb->id);
+			chequear_instrucciones(pcb->instrucciones, pcb->cant_instrucciones);
 			enviar_pcb(pcb, socket_dispatch, 0);
 			liberar_pcb(pcb);
 			pcb = NULL;
@@ -38,6 +39,7 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 		if (hayIO) {
 			log_info(cpu_log, "Operacion de IO por %dms solicitada", hayIO);
 			log_info(cpu_log, "Devolviendo PCB actualizado del PID %d...", pcb->id);
+			chequear_instrucciones(pcb->instrucciones, pcb->cant_instrucciones);
 			enviar_pcb(pcb, socket_dispatch, hayIO);
 			liberar_pcb(pcb);
 			pcb = NULL;
@@ -49,6 +51,7 @@ void ciclo_de_instruccion(t_pcb* pcb) {
 			log_info(interrupt_log, "Enviando PCB del PID %d...", pcb->id);
 			check_interrupt = false;
 
+			chequear_instrucciones(pcb->instrucciones, pcb->cant_instrucciones);
 			enviar_pcb(pcb, socket_dispatch, 0);
 			liberar_pcb(pcb);
 			pcb = NULL;

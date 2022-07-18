@@ -2,6 +2,8 @@
 #define INSTRUCCIONES_H_
 
 #include <stdint.h>
+#include <assert.h>
+#include <commons/collections/list.h>
 #include "../sockets.h"
 
 typedef enum {
@@ -21,5 +23,6 @@ void empaquetar_instruccion(t_paquete *paquete, t_instruccion *i);
 void imprimir_instruccion(t_instruccion *);
 void liberar_instruccion(t_instruccion *);
 t_instruccion *desempaquetar_instruccion(void *, int *);
+void chequear_instrucciones(t_list* lista_instrucciones, int cant_instrucciones);
 
 #endif /* INSTRUCCIONES_H_ */

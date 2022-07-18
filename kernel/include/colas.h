@@ -12,6 +12,9 @@
 #include <commons/collections/queue.h>
 #include <commons/string.h>
 #include <sys/time.h>
+#include <assert.h>
+#include <sys/ioctl.h>
+
 
 #include "../../shared/include/estructuras/pcb.h"
 #include "conexion_memoria.h"

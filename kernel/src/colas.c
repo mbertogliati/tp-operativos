@@ -55,6 +55,12 @@ int inicializar_threads(){
 	pthread_create(&hilo_suspendido_blocked, NULL, &thread_suspendido_blocked, NULL);
 	pthread_create(&hilo_exit, NULL, &thread_exit, NULL);
 
+	pthread_setname_np(hilo_ready, "READY");
+	pthread_setname_np(hilo_execute, "EXEC");
+	pthread_setname_np(hilo_blocked, "BLOCK");
+	pthread_setname_np(hilo_suspendido_blocked, "SUS-BLOCK");
+	pthread_setname_np(hilo_exit, "EXIT");
+
 	// pthread_join(hilo_ready, NULL);
 	// pthread_join(hilo_execute, NULL);
 	// pthread_join(hilo_blocked, NULL);
@@ -235,13 +241,15 @@ t_pcb_con_milisegundos recibir_proceso(){
 	t_pcb* pcb;
 	
 	//Saco el tiempo de IO que se lo pase como "codigo de operacion"
-	int IO = recibir_operacion(socket_dispatch); 
+	int IO = recibir_operacion(socket_dispatch);
+	assert(IO != -1);
 
 	t_buffer* buffer = crear_buffer(); 
 	buffer->stream = recibir_buffer(&(buffer->size), socket_dispatch);
 
 	pcb = desempaquetar_pcb(buffer->stream);
-	proceso_para_devolver.milisegundos = IO;
+	proceso_para_devolver.milisegundos = malloc(sizeof(int));
+	*(proceso_para_devolver.milisegundos) = IO;
 	proceso_para_devolver.pcb = pcb;
 	free(buffer->stream);
 	free(buffer);
@@ -261,31 +269,39 @@ double calcular_milisegundos(struct timeval tiempo_envio, struct timeval tiempo_
 
 void *thread_execute(){
 	struct timeval tiempo_envio, tiempo_retorno;
+	int buffer_vacio;
+	t_pcb_con_milisegundos proceso_recibido;
 	while(1){
-		t_pcb_con_milisegundos proceso_recibido;
-		
 		sem_wait(&procesos_en_ready);
 		log_info(log_kernel, "EXECUTE:Hay procesos en ready para ejecutar.");
 
 		t_pcb* pcb = quitar_de_ready();
 		interrupcion = true;
 		log_protegido(string_from_format("EXECUTE:Se mueve a ejecutar el proceso %d.", pcb->id));
-
+		chequear_instrucciones(pcb->instrucciones, pcb->cant_instrucciones);
 		//Enviar a cpu;
 		enviar_pcb(pcb, socket_dispatch, 0);
 		gettimeofday(&tiempo_envio, NULL);
 		log_protegido("EXECUTE:Proceso enviado a CPU para su ejecucion.");
+		
 		//Eliminar pcb
 		liberar_pcb(pcb);
 		//Recibir nuevo pcb con milisegundos
 		proceso_recibido = recibir_proceso();
+		chequear_instrucciones(proceso_recibido.pcb->instrucciones, proceso_recibido.pcb->cant_instrucciones);
+		//Chequea que el buffer de socket este vacio (que no haya quedado basura)
+		//De lo contrario termina el programa
+		ioctl(socket_dispatch, FIONREAD, &buffer_vacio);
+		assert(buffer_vacio == 0);
+		
+
 		interrupcion = false;
 		gettimeofday(&tiempo_retorno, NULL);
 		log_protegido("EXECUTE:Proceso recibido de CPU.");
 
 		if(proceso_recibido.pcb->program_counter < proceso_recibido.pcb->cant_instrucciones){
 			//Interrupcion
-			if(proceso_recibido.milisegundos == 0){
+			if(*(proceso_recibido.milisegundos) == 0){
 				log_protegido("EXECUTE:Proceso recibido por interrupcion.");
 				if(proceso_recibido.pcb->rafaga_inicial == 0){
 					proceso_recibido.pcb->rafaga_inicial = proceso_recibido.pcb->est_rafaga;
@@ -313,7 +329,7 @@ void *thread_execute(){
 
 				agregar_a_cola(bloqueado_queue, proceso_recibido.pcb, mbloqueado);
 				sem_wait(&mbloqueado_tiempo);
-				queue_push(bloqueado_tiempo, &proceso_recibido.milisegundos);
+				queue_push(bloqueado_tiempo, proceso_recibido.milisegundos);
 				sem_post(&mbloqueado_tiempo);
 				log_protegido("EXECUTE:Se agrego el proceso a bloqueado.");
 				sem_post(&bloqueado);
@@ -345,23 +361,23 @@ void *thread_blocked(){
 		sem_wait(&bloqueado);
 		t_pcb* pcb = sacar_de_cola(bloqueado_queue, mbloqueado);
 		sem_wait(&mbloqueado_tiempo);
-		int *pop = queue_pop(bloqueado_tiempo);
-		int espera_restante = *pop;
+		int *espera_restante = queue_pop(bloqueado_tiempo);
 		sem_post(&mbloqueado_tiempo);
-		log_protegido(string_from_format("BLOCKED:Realizando espera de %d milisegundos para el proceso %d en bloqueado.", espera_restante, pcb->id));
-		espera_restante = esperar_bloqueado(espera_restante);
+		log_protegido(string_from_format("BLOCKED:Realizando espera de %d milisegundos para el proceso %d en bloqueado.", *espera_restante, pcb->id));
+		*espera_restante = esperar_bloqueado(*espera_restante);
 
-		if(espera_restante > 0){
+		if(*espera_restante > 0){
 			log_protegido("BLOCKED:Espera mayor a la permitida en bloqueado, suspendiendo el proceso.");
 			suspender_proceso_memoria(pcb->tabla_paginas);
 			agregar_a_cola(suspendido_bloqueado, pcb, msuspendido_bloqueado);
 			sem_wait(&msuspendido_tiempo);
-			queue_push(suspendido_tiempo, &espera_restante);
+			queue_push(suspendido_tiempo, espera_restante);
 			sem_post(&msuspendido_tiempo);
 			sem_post(&suspendido);
 			sem_post(&nivel_multiprogramacion);
 		}else{
 			log_protegido("BLOCKED:Espera en bloqueado completada, agregando a ready.");
+			free(espera_restante);
 			agregar_a_ready(pcb);
 		}
 	}
@@ -373,12 +389,12 @@ void *thread_suspendido_blocked(){
 		sem_wait(&suspendido);
 		t_pcb* pcb = sacar_de_cola(suspendido_bloqueado, msuspendido_bloqueado);
 		sem_wait(&msuspendido_tiempo);
-		int *pop = queue_pop(suspendido_tiempo);
-		int tiempo_espera = *pop;
+		int *tiempo_espera = queue_pop(suspendido_tiempo);
 		sem_post(&msuspendido_tiempo);
 
-		log_protegido(string_from_format("SUSPENDIDO_BLOCKED:Realizando espera de %d milisegundos para el proceso %d en suspendido.", tiempo_espera, pcb->id));
-		sleep(0.001 * tiempo_espera);
+		log_protegido(string_from_format("SUSPENDIDO_BLOCKED:Realizando espera de %d milisegundos para el proceso %d en suspendido.", *tiempo_espera, pcb->id));
+		sleep(0.001 * (*tiempo_espera));
+		free(tiempo_espera);
 
 		log_protegido("SUSPENDIDO_BLOCKED:Espera en suspendido completada, agregando a suspendido-ready.");
 		
@@ -388,7 +404,7 @@ void *thread_suspendido_blocked(){
 		sem_wait(&msuspendido_counter);
 		suspendido_counter++;
 		sem_post(&msuspendido_counter);
-
+		
 		sem_post(&ready_disponible);
 	}
 }

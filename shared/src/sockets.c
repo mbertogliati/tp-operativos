@@ -122,7 +122,7 @@ void eliminar_paquete(t_paquete *paquete) {
 void enviar_paquete(t_paquete* paquete, int socket_cliente) {
 	int size_serializado = paquete->buffer->size + 2 * sizeof(int);
 	void *a_enviar = serializar_paquete(paquete, size_serializado);
-	send(socket_cliente, a_enviar, size_serializado, 0);
+	assert(send(socket_cliente, a_enviar, size_serializado, 0) > 0);
 	free(a_enviar);
 	eliminar_paquete(paquete);
 }

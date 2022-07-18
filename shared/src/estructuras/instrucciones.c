@@ -70,12 +70,9 @@ void liberar_instruccion(t_instruccion *instruccion) {
 }
 
 void empaquetar_instruccion(t_paquete *paquete, t_instruccion *i) {
-	if(i == NULL)
-		return;
-	if(i->identificador>6 || i->identificador < 0)
-		return;
-	if (i->cant_parametros > 2 || i->cant_parametros<0)
-		return;
+
+	assert(i->identificador <= 6);
+	assert(i->cant_parametros >= 0 && i->cant_parametros <=2);
 
 	agregar_a_paquete(paquete, &(i->identificador), sizeof(uint8_t));
 	agregar_a_paquete(paquete, &(i->cant_parametros), sizeof(uint8_t));
@@ -102,4 +99,14 @@ t_instruccion *desempaquetar_instruccion(void *buffer, int *desplazamiento) {
 	else parametros = NULL;
 
 	return crear_instruccion(identificador, cant_parametros, parametros);
+}
+void chequear_instrucciones(t_list* lista_instrucciones, int cant_instrucciones){
+	t_list_iterator* iterador_lista = list_iterator_create(lista_instrucciones);
+	t_instruccion* instruccion_actual; 
+	while(list_iterator_has_next(iterador_lista)){
+		instruccion_actual = (t_instruccion*) list_iterator_next(iterador_lista);
+		
+		assert(instruccion_actual != NULL);
+		imprimir_instruccion(instruccion_actual);	
+	}
 }

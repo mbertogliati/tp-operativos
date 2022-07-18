@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <assert.h>
 
 typedef enum {
 	INSTRUCCIONES_CONSOLA, MENSAJE, TERMINAR_CONSOLA

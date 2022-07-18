@@ -2,6 +2,7 @@
 #define PCB_H_
 
 #include <stdint.h>
+#include <assert.h>
 #include <commons/collections/list.h>
 
 typedef struct {

@@ -11,6 +11,7 @@ void conectar_consola(int kernel) {
 		int consola = esperar_cliente(kernel);
 		log_protegido("CONSOLA:Se conectó un cliente!");
 		pthread_create(&thread, NULL, (void *) proceso_new, &consola);
+		pthread_setname_np(thread, "CONSOLA");
 		pthread_detach(thread);
 	}
 }
