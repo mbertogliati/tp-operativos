@@ -104,6 +104,15 @@ void agregar_a_new(t_pcb *pcb) {
 	sem_post(&ready_disponible);
 }
 
+void imprimir_elemento_ready(t_pcb* pcb){
+	log_protegido(string_from_format("PCB id:%d   Rafaga:%lf", pcb->id, pcb->est_rafaga));
+}
+
+void imprimir_lista_ready(){
+	log_protegido("Imprimo elementos de la lista ready en orden:");
+	list_iterate(ready, (void*)imprimir_elemento_ready);
+}
+
 
 // ready-fifo
 void agregar_a_ready_fifo(t_pcb *pcb) {
@@ -118,14 +127,13 @@ void agregar_a_ready_fifo(t_pcb *pcb) {
 }
 
 // ready-sjf
-double calcular_estimacion(double real, t_pcb *pcb) {
+void calcular_estimacion(double real, t_pcb *pcb) {
 	pcb->est_rafaga = pcb->est_rafaga * alfa() + real * (1 - alfa());
 	log_protegido(string_from_format("Se estima rafaga de %lf para el proceso %d.", pcb->est_rafaga, pcb->id));
-	return pcb->est_rafaga;
 }
 
 int menor_estimacion(t_pcb *pcb1, t_pcb * pcb2) {
-	return pcb1->est_rafaga < pcb2->est_rafaga;
+	return pcb1->est_rafaga <= pcb2->est_rafaga;
 }
 
 void agregar_a_ready_sjf(t_pcb *pcb) {
@@ -156,6 +164,8 @@ void agregar_a_ready(t_pcb *pcb) {
 		agregar_a_ready_fifo(pcb);
 	if(!strcmp("SRT", algoritmo_planificacion()))
 		agregar_a_ready_sjf(pcb);
+
+	//imprimir_lista_ready();
 	sem_post(&procesos_en_ready);
 }
 
@@ -273,18 +283,17 @@ void *thread_execute(){
 		gettimeofday(&tiempo_retorno, NULL);
 		log_protegido("EXECUTE:Proceso recibido de CPU.");
 
-
 		if(proceso_recibido.pcb->program_counter < proceso_recibido.pcb->cant_instrucciones){
 			//Interrupcion
 			if(proceso_recibido.milisegundos == 0){
 				log_protegido("EXECUTE:Proceso recibido por interrupcion.");
-				if(pcb->rafaga_inicial == 0){
-					pcb->rafaga_inicial = pcb->est_rafaga;
-					pcb->est_rafaga = pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
+				if(proceso_recibido.pcb->rafaga_inicial == 0){
+					proceso_recibido.pcb->rafaga_inicial = proceso_recibido.pcb->est_rafaga;
+					proceso_recibido.pcb->est_rafaga = proceso_recibido.pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
 				}else{
-					pcb->est_rafaga = pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
+					proceso_recibido.pcb->est_rafaga = proceso_recibido.pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
 				}
-
+				//log_protegido(string_from_format("EXECUTE:Rafaga actual del proceso %d: %lf",proceso_recibido.pcb->id, proceso_recibido.pcb->est_rafaga));
 				agregar_a_ready(proceso_recibido.pcb);
 				log_protegido("EXECUTE:Se agrego el proceso a ready.");
 			}else{
@@ -292,13 +301,13 @@ void *thread_execute(){
 				log_protegido("EXECUTE:Proceso recibido por I/O.");
 
 				//Hago la estimacion de la proxima rafaga
-				if(pcb->rafaga_inicial == 0){
-					calcular_estimacion(calcular_milisegundos(tiempo_envio, tiempo_retorno), pcb);
+				if(proceso_recibido.pcb->rafaga_inicial == 0){
+					calcular_estimacion(calcular_milisegundos(tiempo_envio, tiempo_retorno), proceso_recibido.pcb);
 				}else{
-					int real = pcb->est_rafaga;
-					pcb->est_rafaga = pcb->rafaga_inicial;
-					real = pcb->est_rafaga - real + calcular_milisegundos(tiempo_envio, tiempo_retorno);
-					calcular_estimacion(real, pcb);
+					double real = proceso_recibido.pcb->est_rafaga;
+					proceso_recibido.pcb->est_rafaga = proceso_recibido.pcb->rafaga_inicial;
+					real = proceso_recibido.pcb->est_rafaga - real + calcular_milisegundos(tiempo_envio, tiempo_retorno);
+					calcular_estimacion(real, proceso_recibido.pcb);
 				}
 				pcb->rafaga_inicial = 0;
 
