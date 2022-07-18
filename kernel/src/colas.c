@@ -248,8 +248,14 @@ t_pcb_con_milisegundos recibir_proceso(){
 	buffer->stream = recibir_buffer(&(buffer->size), socket_dispatch);
 
 	pcb = desempaquetar_pcb(buffer->stream);
-	proceso_para_devolver.milisegundos = malloc(sizeof(int));
-	*(proceso_para_devolver.milisegundos) = IO;
+	
+	if(IO == 0)
+		proceso_para_devolver.milisegundos = NULL;
+	else {
+		proceso_para_devolver.milisegundos = malloc(sizeof(int));
+		*(proceso_para_devolver.milisegundos) = IO;
+	}
+
 	proceso_para_devolver.pcb = pcb;
 	free(buffer->stream);
 	free(buffer);
@@ -301,7 +307,7 @@ void *thread_execute(){
 
 		if(proceso_recibido.pcb->program_counter < proceso_recibido.pcb->cant_instrucciones){
 			//Interrupcion
-			if(*(proceso_recibido.milisegundos) == 0){
+			if(proceso_recibido.milisegundos == NULL){
 				log_protegido("EXECUTE:Proceso recibido por interrupcion.");
 				if(proceso_recibido.pcb->rafaga_inicial == 0){
 					proceso_recibido.pcb->rafaga_inicial = proceso_recibido.pcb->est_rafaga;
