@@ -229,8 +229,10 @@ int clock_modificado(int id_proceso, int pagina, int marco_inicio){
 
 	for(int i=0; i<2; i++){
 		log_info(cpu_log, "Ejecuto paso 1");
+		log_info(cpu_log, "Imprimo las posiciones que estoy chequeando: ");
 		for(int j=0; j < configuracion->marcos_por_proceso; j++){//Recorre todo el grupo de marcos
 			pagina_actual = list_get(tabla_planificacion, marco_inicio + planificacion_ptrs[posicion_ptr]);
+			log_info(cpu_log, "Posicion: %d", marco_inicio+planificacion_ptrs[posicion_ptr]);
 
 			if(!pagina_actual->U && !pagina_actual->M){//Si los dos son 0 da falso y se reemplaza
 				sem_post(&mutex_tabla_planificacion);

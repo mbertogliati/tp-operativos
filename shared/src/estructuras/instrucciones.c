@@ -39,6 +39,7 @@ uint8_t get_cant_parametros(uint8_t identificador) {
 
 t_instruccion *crear_instruccion(uint8_t identificador, uint8_t cant_parametros, uint32_t *parametros) {
 	t_instruccion *instruccion = (t_instruccion *) malloc(sizeof(t_instruccion));
+	assert(instruccion != NULL);
 	instruccion->identificador = identificador;
 	instruccion->cant_parametros = cant_parametros;
 	instruccion->parametros = parametros;
@@ -46,6 +47,9 @@ t_instruccion *crear_instruccion(uint8_t identificador, uint8_t cant_parametros,
 }
 
 void imprimir_instruccion(t_instruccion *instruccion) {
+
+	assert(instruccion != NULL);
+
 	uint8_t identificador = instruccion->identificador;
 	uint8_t cant_parametros = instruccion->cant_parametros;
 	uint32_t *parametros = instruccion->parametros;
@@ -55,7 +59,9 @@ void imprimir_instruccion(t_instruccion *instruccion) {
 	if (!parametros)
 		puts("no hay parametros\n");
 
+
 	for (int i = 0; i < cant_parametros; i++) {
+		assert(parametros != NULL);
 		if (i == cant_parametros - 1)
 			printf("%d\n\n", parametros[i]);
 		else
@@ -83,6 +89,8 @@ void empaquetar_instruccion(t_paquete *paquete, t_instruccion *i) {
 t_instruccion *desempaquetar_instruccion(void *buffer, int *desplazamiento) {
 	uint8_t identificador, cant_parametros;
 	uint32_t *parametros;
+
+	assert(buffer != NULL);
 
 	memcpy(&identificador, buffer + *desplazamiento, sizeof(uint8_t));
 	*desplazamiento += sizeof(uint8_t);

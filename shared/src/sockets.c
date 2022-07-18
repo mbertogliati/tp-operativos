@@ -51,6 +51,8 @@ void *recibir_buffer(int *size, int socket_cliente) {
 
 	recv(socket_cliente, size, sizeof(int), MSG_WAITALL);
 	buffer = malloc(*size);
+	assert(buffer != NULL);
+
 	recv(socket_cliente, buffer, *size, MSG_WAITALL);
 
 	return buffer;
@@ -78,6 +80,8 @@ int crear_conexion(char *ip, char *puerto) {
 
 t_buffer *crear_buffer() {
 	t_buffer *buffer = malloc(sizeof(t_buffer));
+	assert(buffer != NULL);
+
 	buffer->size = 0;
 	buffer->stream = NULL;
 	return buffer;
@@ -85,6 +89,8 @@ t_buffer *crear_buffer() {
 
 t_paquete *crear_paquete(int codigo_operacion) {
 	t_paquete *paquete = malloc(sizeof(t_paquete));
+	assert(paquete != NULL);
+
 	paquete->codigo_operacion = codigo_operacion;
 	paquete->buffer = crear_buffer();
 	return paquete;
@@ -99,6 +105,8 @@ void agregar_a_paquete(t_paquete *paquete, void *valor, int bytes) {
 
 void *serializar_paquete(t_paquete *paquete, int size_serializado) {
 	void *magic = malloc(size_serializado);
+	assert(magic != NULL);
+
 	int desplazamiento = 0;
 	t_buffer *buffer = paquete->buffer;
 
@@ -139,8 +147,14 @@ void liberar_conexion(int socket_cliente) {
 }
 
 void* sacar_de_buffer(t_buffer* buffer, int tam_dato) {
+
+	assert(buffer!=NULL);
+
 	void* buffer_nuevo = malloc(buffer->size-tam_dato);
+	assert(buffer_nuevo != NULL);
+
 	void* dato = malloc(tam_dato);
+	assert(dato != NULL);
 
 	memcpy(dato, buffer->stream, tam_dato);
 	memcpy(buffer_nuevo, buffer->stream+tam_dato, (buffer->size-tam_dato));

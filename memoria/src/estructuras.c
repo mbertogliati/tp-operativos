@@ -5,7 +5,7 @@ void iniciar_estructuras(){
 	cargar_configuraciones("config/memoria.config");
 	memoria_principal = calloc(1, configuracion->tam_memoria);
 	log_info(memoria_log, "Memoria principal creada");
-	tablas = list_create();
+	//tablas = list_create();
 
 	tabla_planificacion = list_create();
 	for(int i = 0; i < configuracion->tam_memoria / configuracion->tam_pagina; i++){
@@ -93,14 +93,14 @@ void crear_SWAP(int id_proceso, int tamanio_proceso, void* proceso){
 	//Crear directorios si no existen?
 	FILE* SWAP_file = encontrar_SWAP(id_proceso);
 	if(!SWAP_file){
-		log_error(kernel_log, "ERROR - No se pudo crear el archivo");
+		log_error(kernel_log, "ERROR - No se pudo crear el archivo .swap");
 		return;
 	}
 	log_info(kernel_log, "Archivo .swap creado");
 	fwrite(proceso, tamanio_proceso, 1, SWAP_file);
 	//En caso de que el tamanio del archivo no sea divisible por el tamanio de una pagina, se lo redondea
 	if(tamanio_proceso % configuracion->tam_pagina != 0){
-		int resto = configuracion->tam_pagina * ((tamanio_proceso / configuracion->tam_pagina) + 1) - tamanio_proceso;
+		int resto = tamanio_proceso % configuracion->tam_pagina;
 		void *relleno = malloc(resto);
 		fwrite(relleno, resto, 1, SWAP_file);
 		free(relleno);

@@ -28,7 +28,7 @@ t_log *memoria_log;
 t_log *cpu_log;
 t_log *kernel_log;
 void* memoria_principal;
-t_list* tablas;
+//t_list* tablas;
 t_list* tabla_planificacion;
 t_config_memoria* configuracion;
 

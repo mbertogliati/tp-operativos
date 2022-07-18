@@ -15,6 +15,7 @@ void imprimir_pcb(t_pcb *pcb) {
 t_pcb *desempaquetar_pcb(void *buffer) {
 	int desplazamiento = 0;
 	t_pcb *pcb = (t_pcb *) malloc(sizeof(t_pcb));
+	assert(pcb != NULL);
 	pcb->instrucciones = list_create();
 
 	memcpy(&(pcb->fd), buffer + desplazamiento, sizeof(int));
@@ -31,6 +32,7 @@ t_pcb *desempaquetar_pcb(void *buffer) {
 
 	for (int i = 0; i < pcb->cant_instrucciones; i++)
 		list_add(pcb->instrucciones, desempaquetar_instruccion(buffer, &desplazamiento));
+	
 
 	memcpy(&(pcb->program_counter), buffer + desplazamiento, sizeof(uint32_t));
 	desplazamiento += sizeof(uint32_t);
@@ -53,6 +55,9 @@ void liberar_pcb(t_pcb *pcb) {
 }
 
 void empaquetar_pcb(t_paquete *paquete_pcb, t_pcb *pcb) {
+	assert(pcb != NULL);
+	assert(paquete_pcb != NULL);
+	
 	agregar_a_paquete(paquete_pcb, &(pcb->fd), sizeof(int));
 	agregar_a_paquete(paquete_pcb, &(pcb->id), sizeof(uint16_t));
 	agregar_a_paquete(paquete_pcb, &(pcb->tamanio), sizeof(uint32_t));

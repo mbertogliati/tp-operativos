@@ -83,8 +83,8 @@ void *iniciar_conexion_interrupt(){
     log_error(cpu_log, "ERROR INTERRUPT - El KERNEL se ha desconectado");
     log_destroy(interrupt_log);
     free(hay_interrupcion);
-
-};
+    return NULL;
+}
 void iniciar_conexiones(){
     log_info(cpu_log, "Iniciando las conexiones...");
     iniciar_conexion_memoria();
