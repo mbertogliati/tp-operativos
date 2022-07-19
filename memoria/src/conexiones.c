@@ -145,46 +145,47 @@ void enviar_paquete_configuraciones(int socket_cpu) {
 
 void devolver_indice(t_buffer *buffer, int socket_cpu) {
 	log_info(cpu_log, "El CPU quiere Tabla NVL 2");
-	int* aux = sacar_de_buffer(buffer, sizeof(int));
-	t_list *direccion = (t_list*)*aux;
-	free(aux);
+	int *dato = (int*) sacar_de_buffer(buffer, sizeof(int));
+	t_list* direccion_tabla1 = (t_list*)*dato;
 	int *indice = sacar_de_buffer(buffer, sizeof(int));
-	t_list *direccion_tabla2 = obtener_tabla2(direccion, *indice);
+	t_list *direccion_tabla2 = obtener_tabla2(direccion_tabla1, *indice);
 	send(socket_cpu, &direccion_tabla2, sizeof(int), 0);
-	//free(direccion_tabla2);
+	free(dato);
 	free(indice);
-	//free(direccion);
 }
 
 void devolver_marco(t_buffer *buffer, int socket_cpu) {
 	log_info(cpu_log, "El CPU quiere Nro de marco");
-	int* aux = sacar_de_buffer(buffer, sizeof(int));
-	t_list *direccion = (t_list*)*aux;
-	free(aux);
+	int* dato = (int *) sacar_de_buffer(buffer, sizeof(int));
+	t_list *direccion = (t_list*)*dato;
 	int *indice = sacar_de_buffer(buffer, sizeof(int));
 	int marco = obtener_marco(direccion, *indice);
 	send(socket_cpu, &marco, sizeof(int), 0);
+	free(dato);
 	free(indice);
-	//free(direccion);
 }
 
 void leer(t_buffer *buffer, int socket_cpu) {
 	log_info(cpu_log, "El CPU quiere LEER de memoria");
-	int *direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
+	int *dato = sacar_de_buffer(buffer, sizeof(int));
+	int direccion_fisica = *dato;
 	int *tam_leer = sacar_de_buffer(buffer, sizeof(int));
-	void *datos_leidos = leer_de_memoria(*direccion_fisica, *tam_leer);
+	void *datos_leidos = leer_de_memoria(direccion_fisica, *tam_leer);
 	send(socket_cpu, datos_leidos, *tam_leer, 0);
 	free(tam_leer);
+	free(dato);
 }
 
 void escribir(t_buffer *buffer, int socket_cpu) {
 	log_info(cpu_log, "El CPU quiere ESCRIBIR en memoria");
-	int *direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
+	int *dato_direccion_fisica = sacar_de_buffer(buffer, sizeof(int));
+	int direccion_fisica = *dato_direccion_fisica;
 	int *tam_escribir = sacar_de_buffer(buffer, sizeof(int));
 	void *datos = sacar_de_buffer(buffer, *tam_escribir);
-	escribir_a_memoria(*direccion_fisica, *tam_escribir, datos);
+	escribir_a_memoria(direccion_fisica, *tam_escribir, datos);
 	bool confirmacion = true;
 	send(socket_cpu, &confirmacion, sizeof(bool), 0);
+	free(dato_direccion_fisica);
 	free(tam_escribir);
 	free(datos);
 }

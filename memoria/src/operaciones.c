@@ -87,12 +87,14 @@ void finalizar_proceso(t_list* tabla1){
 				log_info(kernel_log,"Marco incial: %d", marco_inicial);
 			}
 			id_proceso = pagina->id;
-			free(pagina);
-			list_remove(tabla2, 0);
 			log_info(kernel_log, "Metadata pagina nro %d en marco %d P=%d PID: %d borrada", i * configuracion->entradas_por_tabla + j,pagina->marco, id_proceso, pagina->P);
+			list_remove(tabla2, 0);
+			free(pagina);
+			
 		}
-		list_destroy(tabla2);
 		list_remove(tabla1, 0);
+		list_destroy(tabla2);
+		
 		log_info(kernel_log, "Tabla NVL 2 nro %d borrada", i);
 	}
 
@@ -111,6 +113,7 @@ void finalizar_proceso(t_list* tabla1){
 				configuracion->path_swap,
 				id_proceso);
 	remove(SWAP_path);
+	free(SWAP_path);
 
 }
 

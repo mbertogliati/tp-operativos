@@ -84,9 +84,15 @@ FILE* encontrar_SWAP(int id_proceso){
 	char* SWAP_path = string_from_format("%s/%d.swap",
 				configuracion->path_swap,
 				id_proceso);
-	if(!access(SWAP_path, F_OK))
-		return fopen(SWAP_path, "rb+");
-	return fopen(SWAP_path, "wb+");
+	FILE* archivo_swap;
+	if(!access(SWAP_path, F_OK)){
+		archivo_swap =  fopen(SWAP_path, "rb+");
+		free(SWAP_path);
+		return archivo_swap;
+	}
+	archivo_swap = fopen(SWAP_path, "wb+");
+	free(SWAP_path);
+	return archivo_swap;
 }
 
 void crear_SWAP(int id_proceso, int tamanio_proceso, void* proceso){
