@@ -41,7 +41,7 @@ void inicializar_estructuras() {
 	sem_init(&msuspendido_bloqueado, 0, 1);
 	sem_init(&msuspendido_tiempo, 0, 1);
 	sem_init(&msuspendido_ready, 0, 1);
-	log_protegido(string_from_format(string_from_format("Semaforos Mutex inicializados.")));
+	log_protegido(string_from_format("Semaforos Mutex inicializados."));
 	interrupcion = false;
 }
 
