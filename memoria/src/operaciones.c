@@ -46,7 +46,7 @@ void suspender_proceso2(t_list* tabla1){
 				pagina->P = false;
 
 				//Busco el primer marco del grupo asignado
-				if(pagina->marco < marco_inicial)
+				if(pagina->P && pagina->marco < marco_inicial)
 					marco_inicial = pagina->marco;
 
 				if(strcmp(configuracion->algoritmo_reemplazo, "CLOCK")){
@@ -67,7 +67,7 @@ void suspender_proceso2(t_list* tabla1){
 			for(int i=0; i < configuracion->marcos_por_proceso; i++)
 				list_replace(tabla_planificacion, marco_inicial + i, NULL);
 			sem_post(&mutex_tabla_planificacion);
-			log_info(kernel_log, "Marcos %d a %d actualizados en tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso);
+			log_info(kernel_log, "Marcos %d a %d vaciados de la tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso-1);
 		}
 	}
 }
@@ -82,12 +82,12 @@ void finalizar_proceso(t_list* tabla1){
 		int tamanio_tabla2 = list_size(tabla2);
 		for(int j = 0; j < tamanio_tabla2; j++){
 			t_tabla2* pagina = list_get(tabla2, 0);
-			if(!pagina->P && pagina->marco < marco_inicial){
+			if(pagina->P && pagina->marco < marco_inicial){
 				marco_inicial = pagina->marco;
 				log_info(kernel_log,"Marco incial: %d", marco_inicial);
 			}
 			id_proceso = pagina->id;
-			log_info(kernel_log, "Metadata pagina nro %d en marco %d P=%d PID: %d borrada", i * configuracion->entradas_por_tabla + j,pagina->marco, id_proceso, pagina->P);
+			log_info(kernel_log, "Metadata pagina Nº%d en marco %d P=%d PID: %d borrada", i * configuracion->entradas_por_tabla + j,pagina->marco, pagina->P, id_proceso);
 			list_remove(tabla2, 0);
 			free(pagina);
 			
@@ -104,7 +104,7 @@ void finalizar_proceso(t_list* tabla1){
 		for(int i = 0; i < configuracion->marcos_por_proceso; i++)
 			list_replace(tabla_planificacion, marco_inicial + i, NULL);
 		sem_post(&mutex_tabla_planificacion);
-		log_info(kernel_log, "Marcos %d a %d actualizados en tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso);
+		log_info(kernel_log, "Marcos %d a %d vaciados de la tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso-1);
 	}
 
 	list_destroy(tabla1);

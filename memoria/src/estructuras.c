@@ -126,6 +126,7 @@ t_tabla2* inicializar_tabla2(int id_proceso, int numero_pagina){
 	tabla->U = 0;
 	tabla->id = id_proceso;
 	tabla->pagina = numero_pagina;
+	tabla->marco = -1;
 	log_info(kernel_log, "Metadata pagina nro %d creada", numero_pagina);
 	return tabla;
 }

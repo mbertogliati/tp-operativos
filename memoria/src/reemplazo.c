@@ -129,7 +129,7 @@ int encontrar_grupo_de_marcos_de_proceso(int id_proceso){
 		pagina_actual = list_get(tabla_planificacion, inicio_grupo_marcos);
 		if(pagina_actual && pagina_actual->id == id_proceso){
 			sem_post(&mutex_tabla_planificacion);
-			log_info(cpu_log, "Grupo de marcos del proceso encontrado en marcos %d a %d", inicio_grupo_marcos, inicio_grupo_marcos + configuracion->marcos_por_proceso);
+			log_info(cpu_log, "Grupo de marcos del proceso encontrado en marcos %d a %d", inicio_grupo_marcos, inicio_grupo_marcos + configuracion->marcos_por_proceso-1);
 			return inicio_grupo_marcos;
 		}
 		inicio_grupo_marcos += configuracion->marcos_por_proceso;
