@@ -2,14 +2,14 @@
 
 
 void conectar_consola(int kernel) {
-	log_protegido("CONSOLA:Servidor listo para recibir al cliente");
+	log_protegido(string_from_format("CONSOLA:Servidor listo para recibir al cliente"));
 	pthread_t thread;
 	pid_counter = 0;
 
 	// recibir muchas consolas
 	while (1) {
 		int consola = esperar_cliente(kernel);
-		log_protegido("CONSOLA:Se conectó un cliente!");
+		log_protegido(string_from_format("CONSOLA:Se conectó un cliente!"));
 		pthread_create(&thread, NULL, (void *) proceso_new, &consola);
 		pthread_setname_np(thread, "CONSOLA");
 		pthread_detach(thread);
@@ -52,11 +52,11 @@ void proceso_new(int *socket_cliente) {
 			break;
 
 		case -1:
-			log_protegido("CONSOLA:El cliente se desconectó.");
+			log_protegido(string_from_format("CONSOLA:El cliente se desconectó."));
 			return;
 
 		default:
-			log_protegido("CONSOLA_ERROR:Código de operación inválido.");
+			log_protegido(string_from_format("CONSOLA_ERROR:Código de operación inválido."));
 			return;
 		}
 	}

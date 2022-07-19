@@ -3,19 +3,19 @@
 void conectar_cpu(char* ip, char* puerto_dispatch, char* puerto_interrupt){
 
     //logger = log_create("cpu.log", "CPU", 1, LOG_LEVEL_DEBUG);
-    log_protegido("Iniciando conexion con el Cpu");
+    log_protegido(string_from_format("Iniciando conexion con el Cpu"));
 
     while((socket_interrupt = crear_conexion(ip, puerto_interrupt)) <= 0){
-        log_protegido("No se ha podido establecer la comunicacion con el Interrupt");
+        log_protegido(string_from_format("No se ha podido establecer la comunicacion con el Interrupt"));
         sleep(5);
     }
-    printf("Conexion con Interrupt Exitosa\n");
+    log_protegido((string_from_format("Conexion con Interrupt Exitosa\n")));
     
 
     while((socket_dispatch = crear_conexion(ip, puerto_dispatch)) <= 0){
-        log_protegido("No se ha podido establecer la comunicacion con el Dispatch");
+        log_protegido(string_from_format("No se ha podido establecer la comunicacion con el Dispatch"));
         sleep(5);
     }
-    log_protegido("Conexion con Dispatcher Exitosa");
+    log_protegido(string_from_format("Conexion con Dispatcher Exitosa"));
 
 }
