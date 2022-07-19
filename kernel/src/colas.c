@@ -299,8 +299,8 @@ void *thread_execute(){
 		chequear_instrucciones(proceso_recibido.pcb->instrucciones, proceso_recibido.pcb->cant_instrucciones);
 		//Chequea que el buffer de socket este vacio (que no haya quedado basura)
 		//De lo contrario termina el programa
-		ioctl(socket_dispatch, FIONREAD, &buffer_vacio);
-		assert(buffer_vacio == 0);
+		//ioctl(socket_dispatch, FIONREAD, &buffer_vacio);
+		//assert(buffer_vacio == 0);
 		gettimeofday(&tiempo_retorno, NULL);
 		log_protegido("EXECUTE:Proceso recibido de CPU.");
 
