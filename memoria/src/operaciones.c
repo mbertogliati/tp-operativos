@@ -84,11 +84,12 @@ void finalizar_proceso(t_list* tabla1){
 			t_tabla2* pagina = list_get(tabla2, 0);
 			if(!pagina->P && pagina->marco < marco_inicial){
 				marco_inicial = pagina->marco;
+				log_info(kernel_log,"Marco incial: %d", marco_inicial);
 			}
 			id_proceso = pagina->id;
 			free(pagina);
 			list_remove(tabla2, 0);
-			log_info(kernel_log, "Metadata pagina nro %d borrada", i * configuracion->entradas_por_tabla + j);
+			log_info(kernel_log, "Metadata pagina nro %d en marco %d P=%d PID: %d borrada", i * configuracion->entradas_por_tabla + j,pagina->marco, id_proceso, pagina->P);
 		}
 		list_destroy(tabla2);
 		list_remove(tabla1, 0);

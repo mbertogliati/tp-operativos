@@ -6,15 +6,15 @@
 #include <commons/collections/list.h>
 
 typedef struct {
-	int fd;
-	uint16_t id;
-	uint32_t tamanio;
-	uint8_t cant_instrucciones;
-	t_list *instrucciones;
-	uint32_t program_counter;
-	int tabla_paginas;
-	double est_rafaga;
-	double rafaga_inicial;
+	int fd; //4
+	uint16_t id;//2
+	uint32_t tamanio;//4
+	uint8_t cant_instrucciones;// 1
+	t_list *instrucciones;//  (15*2 + 15*4*2) (1*2 +1*4) + (16*2 + 16*4) 2 96*2
+	uint32_t program_counter;// 4
+	int tabla_paginas;//4
+	double est_rafaga;// 8
+	double rafaga_inicial;// 8
 } t_pcb;
 
 void imprimir_pcb(t_pcb *pcb);
