@@ -86,6 +86,7 @@ void log_protegido(char* mensaje){
 	sem_wait(&mlog);
 	log_info(log_kernel, "%s", mensaje);
 	sem_post(&mlog);
+	free(mensaje);
 }
 
 // new
