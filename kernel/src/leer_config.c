@@ -1,7 +1,7 @@
 #include "../include/leer_config.h"
 
-void crear_config() {
-	config = config_create("kernel.config");
+void crear_config(char* config_path) {
+	config = config_create(config_path);
 }
 
 void destruir_config() {

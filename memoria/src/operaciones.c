@@ -34,13 +34,15 @@ void suspender_proceso(int id_proceso){
 
 //Version con direccion de tabla1
 void suspender_proceso2(t_list* tabla1){
-	log_info(kernel_log, "Direccion proceso: %p", tabla1);
+	log_info(kernel_log, "Direccion Tabla 1: %X", (int) tabla1);
 	int marco_inicial = list_size(tabla_planificacion);
 
 	for(int i = 0; i < list_size(tabla1); i++){
 		t_list* tabla2 = list_get(tabla1, i);
 		for(int j = 0; j < list_size(tabla2); j++){
 			t_tabla2* pagina = list_get(tabla2, j);
+			if(i==0 && j==0)
+				log_info(kernel_log,"PID: %d", pagina->id);
 			if(pagina->P){
 				log_info(kernel_log, "Pagina %d presente en marco %d de memoria", pagina->pagina, pagina->marco);
 				pagina->P = false;
@@ -66,6 +68,7 @@ void suspender_proceso2(t_list* tabla1){
 			sem_wait(&mutex_tabla_planificacion);
 			for(int i=0; i < configuracion->marcos_por_proceso; i++)
 				list_replace(tabla_planificacion, marco_inicial + i, NULL);
+			planificacion_ptrs[marco_inicial / configuracion->marcos_por_proceso] = 0;
 			sem_post(&mutex_tabla_planificacion);
 			log_info(kernel_log, "Marcos %d a %d vaciados de la tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso-1);
 		}
@@ -82,6 +85,8 @@ void finalizar_proceso(t_list* tabla1){
 		int tamanio_tabla2 = list_size(tabla2);
 		for(int j = 0; j < tamanio_tabla2; j++){
 			t_tabla2* pagina = list_get(tabla2, 0);
+			if(i==0 && j==0)
+				log_info(kernel_log,"PID: %d", pagina->id);
 			if(pagina->P && pagina->marco < marco_inicial){
 				marco_inicial = pagina->marco;
 				log_info(kernel_log,"Marco incial: %d", marco_inicial);
@@ -103,7 +108,9 @@ void finalizar_proceso(t_list* tabla1){
 		sem_wait(&mutex_tabla_planificacion);
 		for(int i = 0; i < configuracion->marcos_por_proceso; i++)
 			list_replace(tabla_planificacion, marco_inicial + i, NULL);
+		planificacion_ptrs[marco_inicial / configuracion->marcos_por_proceso] = 0;
 		sem_post(&mutex_tabla_planificacion);
+		
 		log_info(kernel_log, "Marcos %d a %d vaciados de la tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso-1);
 	}
 
@@ -140,7 +147,7 @@ int obtener_marco(t_list* tabla2, int indice){
 		sem_post(&mutex_tabla_planificacion);
 	}
 	//De ser referenciada se pone el bit de uso en 1
-	pagina->U = 1;
+	//pagina->U = 1;
 	log_info(cpu_log, "Pagina %d de proceso %d en marco %d de memoria", pagina->pagina, pagina->id, pagina->marco);
 	return pagina->marco;
 }
@@ -153,7 +160,8 @@ void escribir_a_memoria(int direccion, int tamanio_a_escribir, void* a_escribir)
 
 	//Se pone el bit de modificacion(M) en 1
 	t_tabla2* pagina = list_get(tabla_planificacion, direccion / configuracion->tam_pagina);
-	pagina->M = true;
+	pagina->M = 1;
+	pagina->U = 1;
 	memcpy(puntero, a_escribir, tamanio_a_escribir);
 
 	log_info(cpu_log, "%d bytes escritos desde la posicion %d de memoria", tamanio_a_escribir, direccion);
@@ -164,6 +172,8 @@ void* leer_de_memoria(int direccion, int tamanio_a_leer){
 	void* puntero = memoria_principal;
 	puntero += direccion;
 	void* lectura = malloc(tamanio_a_leer);
+	t_tabla2* pagina = list_get(tabla_planificacion, direccion / configuracion->tam_pagina);
+	pagina->U = 1;
 
 	memcpy(lectura,puntero,tamanio_a_leer);
 	log_info(cpu_log, "%d bytes leidos desde la posicion %d de memoria", tamanio_a_leer, direccion);

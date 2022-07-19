@@ -5,7 +5,7 @@
 
 extern t_config *config;
 
-void crear_config();
+void crear_config(char* config_path);
 void destruir_config();
 
 // memoria

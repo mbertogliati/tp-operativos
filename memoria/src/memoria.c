@@ -94,10 +94,19 @@ void funcion_test1(){
 //	printf("direccion tabla2: %d\n", tabla2);
 }
 
-int main() {
+int main(int argc, char** argv) {
     configuracion = NULL;
 
-    iniciar_estructuras();
+	if(argc < 2){
+        puts("ERROR - Arhcivo de configuracion no especificado");
+        return EXIT_FAILURE;
+    }
+    else if(argc > 2){
+        puts("ERROR - Demasiados argumentos");
+        return EXIT_FAILURE;
+    }
+
+    iniciar_estructuras(argv[1]);
 	iniciar_conexiones(configuracion);
 
     if(!configuracion)

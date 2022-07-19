@@ -43,7 +43,7 @@ typedef struct{
 
 int *planificacion_ptrs;
 
-void iniciar_estructuras();
+void iniciar_estructuras(char* config_path);
 void cargar_configuraciones(char* path);
 FILE* encontrar_SWAP(int id_proceso);
 bool es_configuracion_valida(t_config *config_memoria);

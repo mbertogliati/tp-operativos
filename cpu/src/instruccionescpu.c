@@ -11,7 +11,7 @@ uint32_t execute(t_instruccion instruccion, int tabla_paginas, uint32_t operando
 void ciclo_de_instruccion(t_pcb* pcb) {
 
 	log_info(cpu_log, "Comenzando ciclo con nuevo PCB...");
-	log_info(cpu_log, "PID: %d", pcb->id);
+	log_info(cpu_log, "PID: %d \t TP 1: %X", pcb->id, pcb->tabla_paginas);
 	t_instruccion instruccion_actual;
 	uint32_t hayIO;
 	uint32_t operand;

@@ -1,8 +1,8 @@
 #include "../include/estructuras.h"
 
 
-void iniciar_estructuras(){
-	cargar_configuraciones("config/memoria.config");
+void iniciar_estructuras(char* config_path){
+	cargar_configuraciones(config_path);
 	memoria_principal = calloc(1, configuracion->tam_memoria);
 	log_info(memoria_log, "Memoria principal creada");
 	//tablas = list_create();
@@ -26,7 +26,7 @@ void cargar_configuraciones(char* path){
     //TODO Liberar configuracion cuando se finalize el programa
     configuracion = malloc(sizeof(t_config_memoria));
 
-    memoria_log = log_create("memoria.log","MEMORIA",true,LOG_LEVEL_ERROR);
+    memoria_log = log_create("memoria.log","MEMORIA",1,LOG_LEVEL_INFO);
 
     if(!(config_memoria = config_create(path))){
         log_error(memoria_log,"ERROR - No se encontro el archivo de configuracion de memoria");

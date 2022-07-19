@@ -70,10 +70,22 @@
 //}
 
 
-int main() {
+int main(int argc, char** argv) {
 	//funcion_prueba_checkpoint();
+
 	log_kernel = log_create("kernel.log", "KERNEL", 1, LOG_LEVEL_DEBUG);
-	crear_config();
+
+	if(argc < 2){
+        log_error(log_kernel, "ERROR - Arhcivo de configuracion no especificado");
+		log_destroy(log_kernel);
+        return EXIT_FAILURE;
+    }
+	else if(argc > 2){
+		log_error(log_kernel, "ERROR - Demasiados argumentos");
+		log_destroy(log_kernel);
+        return EXIT_FAILURE;
+	}
+	crear_config(argv[1]);
 	//config = config_create("kernel.config");
 
 	inicializar_estructuras();

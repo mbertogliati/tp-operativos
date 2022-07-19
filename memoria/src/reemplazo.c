@@ -129,7 +129,7 @@ int encontrar_grupo_de_marcos_de_proceso(int id_proceso){
 		pagina_actual = list_get(tabla_planificacion, inicio_grupo_marcos);
 		if(pagina_actual && pagina_actual->id == id_proceso){
 			sem_post(&mutex_tabla_planificacion);
-			log_info(cpu_log, "Grupo de marcos del proceso encontrado en marcos %d a %d", inicio_grupo_marcos, inicio_grupo_marcos + configuracion->marcos_por_proceso-1);
+			log_info(cpu_log, "Grupo de marcos del PID: %d encontrado en marcos %d a %d",id_proceso, inicio_grupo_marcos, inicio_grupo_marcos + configuracion->marcos_por_proceso-1);
 			return inicio_grupo_marcos;
 		}
 		inicio_grupo_marcos += configuracion->marcos_por_proceso;
@@ -137,18 +137,18 @@ int encontrar_grupo_de_marcos_de_proceso(int id_proceso){
 
 	//De no encontrarselo se asigna el primer grupo vacio al proceso
 	inicio_grupo_marcos = 0;
-	while(inicio_grupo_marcos != size_tabla_planificacion){
+	while(inicio_grupo_marcos < size_tabla_planificacion){
 		pagina_actual = list_get(tabla_planificacion, inicio_grupo_marcos);
 		if(!pagina_actual){
 			sem_post(&mutex_tabla_planificacion);
-			log_info(cpu_log, "Marcos %d a %d asignado al proceso", inicio_grupo_marcos, inicio_grupo_marcos + configuracion->marcos_por_proceso);
+			log_info(cpu_log, "Marcos %d a %d asignado al PID: %d", inicio_grupo_marcos, inicio_grupo_marcos + configuracion->marcos_por_proceso-1,id_proceso);
 			return inicio_grupo_marcos;
 		}
 		inicio_grupo_marcos += configuracion->marcos_por_proceso;
 	}
 	//Si llega aca ocurrio un error
 	sem_post(&mutex_tabla_planificacion);
-	log_error(cpu_log, "ERROR - No se encontro espacio disponible para el proceso");
+	log_error(cpu_log, "ERROR - No se encontro espacio disponible para el PID: %d", id_proceso);
 	return -1;
 }
 

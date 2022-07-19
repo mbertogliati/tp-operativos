@@ -86,7 +86,7 @@ void leer(t_buffer *buffer, int socket_cpu);
 void escribir(t_buffer *buffer, int socket_cpu);
 
 void *conectar_con_cpu(int* socket_cpu){
-    cpu_log = log_create("memoria_cpu.log", "MEMORIA-CPU", true, LOG_LEVEL_ERROR);
+    cpu_log = log_create("memoria_cpu.log", "MEMORIA-CPU", 1, LOG_LEVEL_INFO);
     printf("Aca se hace la conexion con CPU en el socket: %d\n", *socket_cpu);
 
     log_info(cpu_log, "Enviando paquete de configuraciones al CPU...");
@@ -172,6 +172,7 @@ void leer(t_buffer *buffer, int socket_cpu) {
 	int *tam_leer = sacar_de_buffer(buffer, sizeof(int));
 	void *datos_leidos = leer_de_memoria(direccion_fisica, *tam_leer);
 	send(socket_cpu, datos_leidos, *tam_leer, 0);
+	free(datos_leidos);
 	free(tam_leer);
 	free(dato);
 }
@@ -195,7 +196,7 @@ void proceso_suspendido(t_buffer *buffer, int socket_kernel);
 void liberar(t_buffer *buffer, int socket_kernel);
 
 void *conectar_con_kernel(int *socket_kernel){
-    kernel_log = log_create("memoria_kernel.log", "MEMORIA-KERNEL", true, LOG_LEVEL_ERROR);
+    kernel_log = log_create("memoria_kernel.log", "MEMORIA-KERNEL", 1, LOG_LEVEL_INFO);
     printf("Aca se hace la conexion con KERNEL en el socket: %d\n", *socket_kernel);
 
     log_info(kernel_log, "Enviando mensaje de confirmacion...");
@@ -289,7 +290,6 @@ void liberar(t_buffer *buffer, int socket_kernel) {
 	log_info(kernel_log, "El kernel quiere eliminar un Proceso");
 	bool confirmacion = true;
 
-	log_info(kernel_log, "Recibiendo proceso...");
 	int* aux = sacar_de_buffer(buffer, sizeof(int));
 	t_list *direccion_de_tabla = (t_list*)*aux;
 	free(aux);
