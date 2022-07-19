@@ -14,6 +14,7 @@
 #include <sys/time.h>
 #include <assert.h>
 #include <sys/ioctl.h>
+#include <linux/sockios.h>
 
 
 #include "../../shared/include/estructuras/pcb.h"

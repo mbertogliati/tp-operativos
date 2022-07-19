@@ -85,7 +85,7 @@ t_pcb* sacar_de_cola(t_queue *cola, sem_t semaforo_mutex){
 
 void log_protegido(char* mensaje){
 	sem_wait(&mlog);
-	//log_info(log_kernel, "%s", mensaje);
+	log_info(log_kernel, "%s", mensaje);
 	sem_post(&mlog);
 }
 
@@ -171,7 +171,7 @@ void agregar_a_ready(t_pcb *pcb) {
 	if(!strcmp("SRT", algoritmo_planificacion()))
 		agregar_a_ready_sjf(pcb);
 
-	//imprimir_lista_ready();
+	imprimir_lista_ready();
 	sem_post(&procesos_en_ready);
 }
 
@@ -280,7 +280,7 @@ void *thread_execute(){
 	double real;
 	while(1){
 		sem_wait(&procesos_en_ready);
-		log_info(log_kernel, "EXECUTE:Hay procesos en ready para ejecutar.");
+		log_protegido("EXECUTE:Hay procesos en ready para ejecutar.");
 
 		t_pcb* pcb = quitar_de_ready();
 		interrupcion = true;
@@ -294,13 +294,16 @@ void *thread_execute(){
 		//Eliminar pcb
 		liberar_pcb(pcb);
 		//Recibir nuevo pcb con milisegundos
+		ioctl(socket_dispatch, FIONREAD, &buffer_vacio);
+
 		proceso_recibido = recibir_proceso();
 		interrupcion = false;
 		chequear_instrucciones(proceso_recibido.pcb->instrucciones, proceso_recibido.pcb->cant_instrucciones);
 		//Chequea que el buffer de socket este vacio (que no haya quedado basura)
 		//De lo contrario termina el programa
-		//ioctl(socket_dispatch, FIONREAD, &buffer_vacio);
-		//assert(buffer_vacio == 0);
+		ioctl(socket_dispatch, FIONREAD, &buffer_vacio);
+		assert(buffer_vacio == 0);
+
 		gettimeofday(&tiempo_retorno, NULL);
 		log_protegido("EXECUTE:Proceso recibido de CPU.");
 
@@ -354,9 +357,9 @@ void *thread_execute(){
 //blocked
 int esperar_bloqueado(int tiempo_espera){
 	if(tiempo_espera > tiempo_max_bloqueado())
-		sleep(0.001 * tiempo_max_bloqueado());
+		usleep(1000 * tiempo_max_bloqueado());
 	else
-		sleep(0.001 * tiempo_espera);
+		usleep(1000 * tiempo_espera);
 
 	return (tiempo_espera - tiempo_max_bloqueado());
 }
@@ -400,7 +403,7 @@ void *thread_suspendido_blocked(){
 		sem_post(&msuspendido_tiempo);
 
 		log_protegido(string_from_format("SUSPENDIDO_BLOCKED:Realizando espera de %d milisegundos para el proceso %d en suspendido.", *tiempo_espera, pcb->id));
-		sleep(0.001 * (*tiempo_espera));
+		usleep(1000 * (*tiempo_espera));
 		free(tiempo_espera);
 
 		log_protegido("SUSPENDIDO_BLOCKED:Espera en suspendido completada, agregando a suspendido-ready.");

@@ -115,6 +115,6 @@ void chequear_instrucciones(t_list* lista_instrucciones, int cant_instrucciones)
 		instruccion_actual = (t_instruccion*) list_iterator_next(iterador_lista);
 		
 		assert(instruccion_actual != NULL);
-		imprimir_instruccion(instruccion_actual);	
+		//imprimir_instruccion(instruccion_actual);	
 	}
 }
