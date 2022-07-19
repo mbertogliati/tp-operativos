@@ -97,3 +97,7 @@ $(SHARED_OBJPATH)/%.o: $(SHARED_SRCPATH)/%.c $(SHARED_INCPATH)/*.h
 #Borra todos los objetos y ejecutables:
 clean:
 	rm -f $(CPU_OBJS) $(KERNEL_OBJS) $(MEMORIA_OBJS) $(CONSOLA_OBJS) $(SHARED_OBJS) $(EJECUTABLES)
+
+clean_log:
+	rm -f cpu/logs/cpu_memoria.log cpu/logs/cpu.log cpu/logs/interrupt.log kernel/kernel.log consola/consola.log  memoria/memoria.log memoria/memoria_kernel.log memoria/memoria_cpu.log
+
