@@ -137,7 +137,7 @@ uint32_t leer_desde_memoria(int tabla_paginas, uint32_t direccion_logica) {
 
 }
 
-uint32_t execute(const t_instruccion instruccion, const int tabla_paginas,  const uint32_t operando) {
+uint32_t execute(const t_instruccion instruccion, const int tabla_paginas,  uint32_t operando) {
 	switch (instruccion.identificador) {
 	uint32_t valor_leido;
 	case READ:
@@ -148,7 +148,7 @@ uint32_t execute(const t_instruccion instruccion, const int tabla_paginas,  cons
 		escribir_a_memoria(tabla_paginas, instruccion.parametros[0], &(instruccion.parametros[1]));
 		break;
 	case COPY:
-		escribir_a_memoria(tabla_paginas, instruccion.parametros[0], &operando);
+		escribir_a_memoria(tabla_paginas, instruccion.parametros[0], (void*) &operando);
 		break;
 	case NO_OP:
 		sleep(0.001 * cpuconfig.retardo_noop);

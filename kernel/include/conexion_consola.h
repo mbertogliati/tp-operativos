@@ -1,6 +1,6 @@
 #ifndef COLAS_H_
 #define COLAS_H_
-
+#define _GNU_SOURCE
 
 #include <string.h>
 #include <stdio.h>

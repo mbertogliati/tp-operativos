@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <semaphore.h>
+#include "reemplazo.h"
 
 sem_t mutex_tabla_planificacion;
 

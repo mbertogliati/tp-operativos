@@ -1,5 +1,6 @@
 #ifndef INCLUDE_COLAS_H_
 #define INCLUDE_COLAS_H_
+#define _GNU_SOURCE
 
 #include <pthread.h>
 #include <semaphore.h>
