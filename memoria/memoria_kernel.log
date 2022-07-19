@@ -1,0 +1,945 @@
+[INFO] 11:05:44:752 MEMORIA-KERNEL/(12898:12971): Enviando mensaje de confirmacion...
+[INFO] 11:05:44:752 MEMORIA-KERNEL/(12898:12971): Mensaje enviado!!!
+[INFO] 11:05:44:752 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Recibiendo buffer...
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Buffer Recibido!!!
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): El kernel quiere agregar un proceso
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Recibiendo Proceso...
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Proceso recibido!!!
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Agregando proceso...
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Id del proceso: 1, Tamanio proceso: 2048
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 0 creada
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 0 creada
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 1 creada
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 2 creada
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 3 creada
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 1 creada
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 4 creada
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 5 creada
+[INFO] 11:05:50:831 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 6 creada
+[INFO] 11:05:50:832 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 7 creada
+[INFO] 11:05:50:832 MEMORIA-KERNEL/(12898:12971): Tabla NVL 1 creada en B6A00638
+[INFO] 11:05:50:832 MEMORIA-KERNEL/(12898:12971): Archivo .swap creado
+[INFO] 11:05:50:832 MEMORIA-KERNEL/(12898:12971): Archivo .swap llenado
+[INFO] 11:05:50:832 MEMORIA-KERNEL/(12898:12971): Proceso agregado exitosamente!!
+[INFO] 11:05:50:832 MEMORIA-KERNEL/(12898:12971): Respondiendo al kernel...
+[INFO] 11:05:50:832 MEMORIA-KERNEL/(12898:12971): Listo!
+[INFO] 11:05:50:834 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Recibiendo buffer...
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Buffer Recibido!!!
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): El kernel quiere agregar un proceso
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Recibiendo Proceso...
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Proceso recibido!!!
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Agregando proceso...
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Id del proceso: 2, Tamanio proceso: 2048
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 0 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 0 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 1 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 2 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 3 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 1 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 4 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 5 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 6 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 7 creada
+[INFO] 11:05:51:191 MEMORIA-KERNEL/(12898:12971): Tabla NVL 1 creada en B6A00678
+[INFO] 11:05:51:192 MEMORIA-KERNEL/(12898:12971): Archivo .swap creado
+[INFO] 11:05:51:192 MEMORIA-KERNEL/(12898:12971): Archivo .swap llenado
+[INFO] 11:05:51:192 MEMORIA-KERNEL/(12898:12971): Proceso agregado exitosamente!!
+[INFO] 11:05:51:192 MEMORIA-KERNEL/(12898:12971): Respondiendo al kernel...
+[INFO] 11:05:51:192 MEMORIA-KERNEL/(12898:12971): Listo!
+[INFO] 11:05:51:192 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:05:51:621 MEMORIA-KERNEL/(12898:12971): Recibiendo buffer...
+[INFO] 11:05:51:621 MEMORIA-KERNEL/(12898:12971): Buffer Recibido!!!
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): El kernel quiere agregar un proceso
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Recibiendo Proceso...
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Proceso recibido!!!
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Agregando proceso...
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Id del proceso: 3, Tamanio proceso: 2048
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 0 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 0 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 1 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 2 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 3 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 1 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 4 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 5 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 6 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 7 creada
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Tabla NVL 1 creada en B6A01790
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Archivo .swap creado
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Archivo .swap llenado
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Proceso agregado exitosamente!!
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Respondiendo al kernel...
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Listo!
+[INFO] 11:05:51:622 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:05:52:778 MEMORIA-KERNEL/(12898:12971): Recibiendo buffer...
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Buffer Recibido!!!
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): El kernel quiere agregar un proceso
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Recibiendo Proceso...
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Proceso recibido!!!
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Agregando proceso...
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Id del proceso: 4, Tamanio proceso: 2048
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 0 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 0 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 1 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 2 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 3 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 1 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 4 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 5 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 6 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 7 creada
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Tabla NVL 1 creada en B6A01978
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Archivo .swap creado
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Archivo .swap llenado
+[INFO] 11:05:52:779 MEMORIA-KERNEL/(12898:12971): Proceso agregado exitosamente!!
+[INFO] 11:05:52:780 MEMORIA-KERNEL/(12898:12971): Respondiendo al kernel...
+[INFO] 11:05:52:780 MEMORIA-KERNEL/(12898:12971): Listo!
+[INFO] 11:05:52:780 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:05:53:580 MEMORIA-KERNEL/(12898:12971): Recibiendo buffer...
+[INFO] 11:05:53:580 MEMORIA-KERNEL/(12898:12971): Buffer Recibido!!!
+[INFO] 11:05:53:580 MEMORIA-KERNEL/(12898:12971): El kernel quiere agregar un proceso
+[INFO] 11:05:53:580 MEMORIA-KERNEL/(12898:12971): Recibiendo Proceso...
+[INFO] 11:05:53:580 MEMORIA-KERNEL/(12898:12971): Proceso recibido!!!
+[INFO] 11:05:53:580 MEMORIA-KERNEL/(12898:12971): Agregando proceso...
+[INFO] 11:05:53:580 MEMORIA-KERNEL/(12898:12971): Id del proceso: 5, Tamanio proceso: 2048
+[INFO] 11:05:53:580 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 0 creada
+[INFO] 11:05:53:580 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 0 creada
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 1 creada
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 2 creada
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 3 creada
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 1 creada
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 4 creada
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 5 creada
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 6 creada
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 7 creada
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Tabla NVL 1 creada en B6A01B28
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Archivo .swap creado
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Archivo .swap llenado
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Proceso agregado exitosamente!!
+[INFO] 11:05:53:585 MEMORIA-KERNEL/(12898:12971): Respondiendo al kernel...
+[INFO] 11:05:53:586 MEMORIA-KERNEL/(12898:12971): Listo!
+[INFO] 11:05:53:586 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:05:55:117 MEMORIA-KERNEL/(12898:12971): Recibiendo buffer...
+[INFO] 11:05:55:117 MEMORIA-KERNEL/(12898:12971): Buffer Recibido!!!
+[INFO] 11:05:55:117 MEMORIA-KERNEL/(12898:12971): El kernel quiere suspender un proceso
+[INFO] 11:05:55:117 MEMORIA-KERNEL/(12898:12971): Recibiendo Proceso...
+[INFO] 11:05:55:117 MEMORIA-KERNEL/(12898:12971): Proceso recibido! Tabla: B6A00638
+[INFO] 11:05:55:117 MEMORIA-KERNEL/(12898:12971): Suspendiendo Proceso...
+[INFO] 11:05:55:117 MEMORIA-KERNEL/(12898:12971): Direccion proceso: 0xb6a00638
+[INFO] 11:05:55:117 MEMORIA-KERNEL/(12898:12971): Pagina 0 presente en marco 0 de memoria
+[INFO] 11:05:56:118 MEMORIA-KERNEL/(12898:12971): Pagina escrita a SWAP
+[INFO] 11:05:56:118 MEMORIA-KERNEL/(12898:12971): Pagina 1 presente en marco 1 de memoria
+[INFO] 11:05:57:119 MEMORIA-KERNEL/(12898:12971): Pagina escrita a SWAP
+[INFO] 11:05:57:119 MEMORIA-KERNEL/(12898:12971): Pagina 2 presente en marco 2 de memoria
+[INFO] 11:05:59:721 MEMORIA-KERNEL/(12898:12971): Pagina escrita a SWAP
+[INFO] 11:05:59:721 MEMORIA-KERNEL/(12898:12971): Marcos 0 a 4 actualizados en tabla de planificacion
+[INFO] 11:05:59:721 MEMORIA-KERNEL/(12898:12971): Marcos 0 a 4 actualizados en tabla de planificacion
+[INFO] 11:05:59:721 MEMORIA-KERNEL/(12898:12971): Proceso Suspendido!!!
+[INFO] 11:05:59:721 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:06:03:750 MEMORIA-KERNEL/(12898:12971): Recibiendo buffer...
+[INFO] 11:06:03:750 MEMORIA-KERNEL/(12898:12971): Buffer Recibido!!!
+[INFO] 11:06:03:750 MEMORIA-KERNEL/(12898:12971): El kernel quiere suspender un proceso
+[INFO] 11:06:03:750 MEMORIA-KERNEL/(12898:12971): Recibiendo Proceso...
+[INFO] 11:06:03:750 MEMORIA-KERNEL/(12898:12971): Proceso recibido! Tabla: B6A00678
+[INFO] 11:06:03:750 MEMORIA-KERNEL/(12898:12971): Suspendiendo Proceso...
+[INFO] 11:06:03:750 MEMORIA-KERNEL/(12898:12971): Direccion proceso: 0xb6a00678
+[INFO] 11:06:03:750 MEMORIA-KERNEL/(12898:12971): Pagina 1 presente en marco 5 de memoria
+[INFO] 11:06:04:751 MEMORIA-KERNEL/(12898:12971): Pagina escrita a SWAP
+[INFO] 11:06:04:752 MEMORIA-KERNEL/(12898:12971): Pagina 2 presente en marco 6 de memoria
+[INFO] 11:06:05:752 MEMORIA-KERNEL/(12898:12971): Pagina escrita a SWAP
+[INFO] 11:06:05:752 MEMORIA-KERNEL/(12898:12971): Pagina 3 presente en marco 7 de memoria
+[INFO] 11:06:06:753 MEMORIA-KERNEL/(12898:12971): Pagina escrita a SWAP
+[INFO] 11:06:06:753 MEMORIA-KERNEL/(12898:12971): Marcos 5 a 9 actualizados en tabla de planificacion
+[INFO] 11:06:06:753 MEMORIA-KERNEL/(12898:12971): Pagina 4 presente en marco 4 de memoria
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Pagina escrita a SWAP
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Marcos 4 a 8 actualizados en tabla de planificacion
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Proceso Suspendido!!!
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Recibiendo buffer...
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Buffer Recibido!!!
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): El kernel quiere eliminar un Proceso
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Recibiendo proceso...
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Proceso recibido! Tabla: B6A00638
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 0 en marco 0 P=1 PID: 1 borrada
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 1 en marco 1 P=1 PID: 1 borrada
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 2 en marco 2 P=1 PID: 1 borrada
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 3 en marco 1734438944 P=1 PID: 0 borrada
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 0 borrada
+[INFO] 11:06:07:779 MEMORIA-KERNEL/(12898:12971): Marco incial: 16
+[INFO] 11:06:07:780 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 4 en marco 16 P=1 PID: 0 borrada
+[INFO] 11:06:07:780 MEMORIA-KERNEL/(12898:12971): Marco incial: 11
+[INFO] 11:06:07:780 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 5 en marco 11 P=1 PID: 0 borrada
+[INFO] 11:06:07:780 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 6 en marco 1734438944 P=1 PID: 0 borrada
+[INFO] 11:06:07:780 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 7 en marco 1734438944 P=1 PID: 0 borrada
+[INFO] 11:06:07:780 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 1 borrada
+[INFO] 11:06:07:780 MEMORIA-KERNEL/(12898:12971): Marcos 11 a 15 actualizados en tabla de planificacion
+[INFO] 11:06:07:780 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Recibiendo buffer...
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Buffer Recibido!!!
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): El kernel quiere eliminar un Proceso
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Recibiendo proceso...
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Proceso recibido! Tabla: B6A00678
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 0 en marco 5 P=2 PID: 1 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 1 en marco 4 P=2 PID: 1 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 2 en marco 7 P=2 PID: 1 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 3 en marco 6 P=2 PID: 1 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 0 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Marco incial: 5
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 4 en marco 5 P=2 PID: 0 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 5 en marco 825831738 P=2 PID: 0 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 6 en marco 825831738 P=2 PID: 0 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Metadata pagina nro 7 en marco 825831738 P=2 PID: 0 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Tabla NVL 2 nro 1 borrada
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Marcos 5 a 9 actualizados en tabla de planificacion
+[INFO] 11:06:31:961 MEMORIA-KERNEL/(12898:12971): Esperando Peticion de KERNEL...
+[INFO] 11:21:55:466 MEMORIA-KERNEL/(14018:14073): Enviando mensaje de confirmacion...
+[INFO] 11:21:55:467 MEMORIA-KERNEL/(14018:14073): Mensaje enviado!!!
+[INFO] 11:21:55:467 MEMORIA-KERNEL/(14018:14073): Esperando Peticion de KERNEL...
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Recibiendo buffer...
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Buffer Recibido!!!
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): El kernel quiere agregar un proceso
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Recibiendo Proceso...
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Proceso recibido!!!
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Agregando proceso...
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Id del proceso: 1, Tamanio proceso: 2048
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Tabla NVL 2 nro 0 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 0 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 1 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 2 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 3 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Tabla NVL 2 nro 1 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 4 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 5 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 6 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 7 creada
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Tabla NVL 1 creada en B6A00638
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Archivo .swap creado
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Archivo .swap llenado
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Proceso agregado exitosamente!!
+[INFO] 11:22:01:821 MEMORIA-KERNEL/(14018:14073): Respondiendo al kernel...
+[INFO] 11:22:01:822 MEMORIA-KERNEL/(14018:14073): Listo!
+[INFO] 11:22:01:822 MEMORIA-KERNEL/(14018:14073): Esperando Peticion de KERNEL...
+[INFO] 11:22:06:322 MEMORIA-KERNEL/(14018:14073): Recibiendo buffer...
+[INFO] 11:22:06:322 MEMORIA-KERNEL/(14018:14073): Buffer Recibido!!!
+[INFO] 11:22:06:322 MEMORIA-KERNEL/(14018:14073): El kernel quiere suspender un proceso
+[INFO] 11:22:06:322 MEMORIA-KERNEL/(14018:14073): Recibiendo Proceso...
+[INFO] 11:22:06:322 MEMORIA-KERNEL/(14018:14073): Proceso recibido! Tabla: B6A00638
+[INFO] 11:22:06:322 MEMORIA-KERNEL/(14018:14073): Suspendiendo Proceso...
+[INFO] 11:22:06:322 MEMORIA-KERNEL/(14018:14073): Direccion proceso: 0xb6a00638
+[INFO] 11:22:06:322 MEMORIA-KERNEL/(14018:14073): Pagina 0 presente en marco 0 de memoria
+[INFO] 11:22:07:323 MEMORIA-KERNEL/(14018:14073): Pagina escrita a SWAP
+[INFO] 11:22:07:324 MEMORIA-KERNEL/(14018:14073): Pagina 1 presente en marco 1 de memoria
+[INFO] 11:22:08:326 MEMORIA-KERNEL/(14018:14073): Pagina escrita a SWAP
+[INFO] 11:22:08:327 MEMORIA-KERNEL/(14018:14073): Pagina 2 presente en marco 2 de memoria
+[INFO] 11:22:09:334 MEMORIA-KERNEL/(14018:14073): Pagina escrita a SWAP
+[INFO] 11:22:09:334 MEMORIA-KERNEL/(14018:14073): Marcos 0 a 4 actualizados en tabla de planificacion
+[INFO] 11:22:09:334 MEMORIA-KERNEL/(14018:14073): Marcos 0 a 4 actualizados en tabla de planificacion
+[INFO] 11:22:09:334 MEMORIA-KERNEL/(14018:14073): Proceso Suspendido!!!
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Esperando Peticion de KERNEL...
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Recibiendo buffer...
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Buffer Recibido!!!
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): El kernel quiere agregar un proceso
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Recibiendo Proceso...
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Proceso recibido!!!
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Agregando proceso...
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Id del proceso: 2, Tamanio proceso: 2048
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Tabla NVL 2 nro 0 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 0 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 1 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 2 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 3 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Tabla NVL 2 nro 1 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 4 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 5 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 6 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 7 creada
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Tabla NVL 1 creada en B6A00648
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Archivo .swap creado
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Archivo .swap llenado
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Proceso agregado exitosamente!!
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Respondiendo al kernel...
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Listo!
+[INFO] 11:22:09:335 MEMORIA-KERNEL/(14018:14073): Esperando Peticion de KERNEL...
+[INFO] 11:22:17:211 MEMORIA-KERNEL/(14018:14073): Recibiendo buffer...
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Buffer Recibido!!!
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): El kernel quiere agregar un proceso
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Recibiendo Proceso...
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Proceso recibido!!!
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Agregando proceso...
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Id del proceso: 3, Tamanio proceso: 2048
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Tabla NVL 2 nro 0 creada
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 0 creada
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 1 creada
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 2 creada
+[INFO] 11:22:17:212 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 3 creada
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Tabla NVL 2 nro 1 creada
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 4 creada
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 5 creada
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 6 creada
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Metadata pagina nro 7 creada
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Tabla NVL 1 creada en B6A01988
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Archivo .swap creado
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Archivo .swap llenado
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Proceso agregado exitosamente!!
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Respondiendo al kernel...
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Listo!
+[INFO] 11:22:17:213 MEMORIA-KERNEL/(14018:14073): Esperando Peticion de KERNEL...
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Recibiendo buffer...
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Buffer Recibido!!!
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): El kernel quiere eliminar un Proceso
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Recibiendo proceso...
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Proceso recibido! Tabla: B6A00638
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Marco incial: 4
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Metadata pagina Nº0 en marco 4 P=1 PID: 1 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Metadata pagina Nº1 en marco 5 P=1 PID: 1 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Metadata pagina Nº2 en marco 6 P=1 PID: 1 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Metadata pagina Nº3 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Tabla NVL 2 nro 0 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Metadata pagina Nº4 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Metadata pagina Nº5 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Metadata pagina Nº6 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Metadata pagina Nº7 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Tabla NVL 2 nro 1 borrada
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Marcos 4 a 8 actualizados en tabla de planificacion
+[INFO] 11:22:17:920 MEMORIA-KERNEL/(14018:14073): Esperando Peticion de KERNEL...
+[INFO] 11:23:32:850 MEMORIA-KERNEL/(14230:14289): Enviando mensaje de confirmacion...
+[INFO] 11:23:32:850 MEMORIA-KERNEL/(14230:14289): Mensaje enviado!!!
+[INFO] 11:23:32:850 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): El kernel quiere agregar un proceso
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Recibiendo Proceso...
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Proceso recibido!!!
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Agregando proceso...
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Id del proceso: 1, Tamanio proceso: 2048
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 0 creada
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 0 creada
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 1 creada
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 2 creada
+[INFO] 11:23:39:206 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 3 creada
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 1 creada
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 4 creada
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 5 creada
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 6 creada
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 7 creada
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Tabla NVL 1 creada en B6A00638
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Archivo .swap creado
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Archivo .swap llenado
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Proceso agregado exitosamente!!
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Respondiendo al kernel...
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Listo!
+[INFO] 11:23:39:207 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:23:39:958 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:23:39:963 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:23:39:963 MEMORIA-KERNEL/(14230:14289): El kernel quiere agregar un proceso
+[INFO] 11:23:39:963 MEMORIA-KERNEL/(14230:14289): Recibiendo Proceso...
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Proceso recibido!!!
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Agregando proceso...
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Id del proceso: 2, Tamanio proceso: 2048
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 0 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 0 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 1 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 2 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 3 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 1 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 4 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 5 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 6 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 7 creada
+[INFO] 11:23:39:964 MEMORIA-KERNEL/(14230:14289): Tabla NVL 1 creada en B6A00678
+[INFO] 11:23:39:965 MEMORIA-KERNEL/(14230:14289): Archivo .swap creado
+[INFO] 11:23:39:965 MEMORIA-KERNEL/(14230:14289): Archivo .swap llenado
+[INFO] 11:23:39:965 MEMORIA-KERNEL/(14230:14289): Proceso agregado exitosamente!!
+[INFO] 11:23:39:965 MEMORIA-KERNEL/(14230:14289): Respondiendo al kernel...
+[INFO] 11:23:39:965 MEMORIA-KERNEL/(14230:14289): Listo!
+[INFO] 11:23:39:965 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:23:40:665 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): El kernel quiere agregar un proceso
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Recibiendo Proceso...
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Proceso recibido!!!
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Agregando proceso...
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Id del proceso: 3, Tamanio proceso: 2048
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 0 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 0 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 1 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 2 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 3 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 1 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 4 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 5 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 6 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 7 creada
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Tabla NVL 1 creada en B6A01790
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Archivo .swap creado
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Archivo .swap llenado
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Proceso agregado exitosamente!!
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Respondiendo al kernel...
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Listo!
+[INFO] 11:23:40:666 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:23:41:285 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:23:41:285 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): El kernel quiere agregar un proceso
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Recibiendo Proceso...
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Proceso recibido!!!
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Agregando proceso...
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Id del proceso: 4, Tamanio proceso: 2048
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 0 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 0 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 1 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 2 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 3 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 1 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 4 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 5 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 6 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 7 creada
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Tabla NVL 1 creada en B6A01978
+[INFO] 11:23:41:286 MEMORIA-KERNEL/(14230:14289): Archivo .swap creado
+[INFO] 11:23:41:287 MEMORIA-KERNEL/(14230:14289): Archivo .swap llenado
+[INFO] 11:23:41:287 MEMORIA-KERNEL/(14230:14289): Proceso agregado exitosamente!!
+[INFO] 11:23:41:287 MEMORIA-KERNEL/(14230:14289): Respondiendo al kernel...
+[INFO] 11:23:41:287 MEMORIA-KERNEL/(14230:14289): Listo!
+[INFO] 11:23:41:287 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): El kernel quiere agregar un proceso
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Recibiendo Proceso...
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Proceso recibido!!!
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Agregando proceso...
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Id del proceso: 5, Tamanio proceso: 2048
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 0 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 0 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 1 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 2 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 3 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 1 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 4 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 5 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 6 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Metadata pagina nro 7 creada
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Tabla NVL 1 creada en B6A01B28
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Archivo .swap creado
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Archivo .swap llenado
+[INFO] 11:23:42:061 MEMORIA-KERNEL/(14230:14289): Proceso agregado exitosamente!!
+[INFO] 11:23:42:062 MEMORIA-KERNEL/(14230:14289): Respondiendo al kernel...
+[INFO] 11:23:42:062 MEMORIA-KERNEL/(14230:14289): Listo!
+[INFO] 11:23:42:062 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:23:43:334 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:23:43:334 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:23:43:334 MEMORIA-KERNEL/(14230:14289): El kernel quiere suspender un proceso
+[INFO] 11:23:43:334 MEMORIA-KERNEL/(14230:14289): Recibiendo Proceso...
+[INFO] 11:23:43:334 MEMORIA-KERNEL/(14230:14289): Proceso recibido! Tabla: B6A00638
+[INFO] 11:23:43:334 MEMORIA-KERNEL/(14230:14289): Suspendiendo Proceso...
+[INFO] 11:23:43:335 MEMORIA-KERNEL/(14230:14289): Direccion proceso: 0xb6a00638
+[INFO] 11:23:43:335 MEMORIA-KERNEL/(14230:14289): Pagina 0 presente en marco 0 de memoria
+[INFO] 11:23:44:335 MEMORIA-KERNEL/(14230:14289): Pagina escrita a SWAP
+[INFO] 11:23:44:335 MEMORIA-KERNEL/(14230:14289): Pagina 1 presente en marco 1 de memoria
+[INFO] 11:23:45:336 MEMORIA-KERNEL/(14230:14289): Pagina escrita a SWAP
+[INFO] 11:23:45:337 MEMORIA-KERNEL/(14230:14289): Pagina 2 presente en marco 2 de memoria
+[INFO] 11:23:46:389 MEMORIA-KERNEL/(14230:14289): Pagina escrita a SWAP
+[INFO] 11:23:46:390 MEMORIA-KERNEL/(14230:14289): Marcos 0 a 4 actualizados en tabla de planificacion
+[INFO] 11:23:46:390 MEMORIA-KERNEL/(14230:14289): Marcos 0 a 4 actualizados en tabla de planificacion
+[INFO] 11:23:46:390 MEMORIA-KERNEL/(14230:14289): Proceso Suspendido!!!
+[INFO] 11:23:46:390 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:23:49:410 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:23:49:410 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:23:49:410 MEMORIA-KERNEL/(14230:14289): El kernel quiere suspender un proceso
+[INFO] 11:23:49:410 MEMORIA-KERNEL/(14230:14289): Recibiendo Proceso...
+[INFO] 11:23:49:410 MEMORIA-KERNEL/(14230:14289): Proceso recibido! Tabla: B6A00678
+[INFO] 11:23:49:410 MEMORIA-KERNEL/(14230:14289): Suspendiendo Proceso...
+[INFO] 11:23:49:410 MEMORIA-KERNEL/(14230:14289): Direccion proceso: 0xb6a00678
+[INFO] 11:23:49:410 MEMORIA-KERNEL/(14230:14289): Pagina 1 presente en marco 5 de memoria
+[INFO] 11:23:50:416 MEMORIA-KERNEL/(14230:14289): Pagina escrita a SWAP
+[INFO] 11:23:50:419 MEMORIA-KERNEL/(14230:14289): Pagina 2 presente en marco 6 de memoria
+[INFO] 11:23:51:419 MEMORIA-KERNEL/(14230:14289): Pagina escrita a SWAP
+[INFO] 11:23:51:419 MEMORIA-KERNEL/(14230:14289): Pagina 3 presente en marco 7 de memoria
+[INFO] 11:23:52:420 MEMORIA-KERNEL/(14230:14289): Pagina escrita a SWAP
+[INFO] 11:23:52:420 MEMORIA-KERNEL/(14230:14289): Marcos 5 a 9 actualizados en tabla de planificacion
+[INFO] 11:23:52:420 MEMORIA-KERNEL/(14230:14289): Pagina 4 presente en marco 4 de memoria
+[INFO] 11:23:53:421 MEMORIA-KERNEL/(14230:14289): Pagina escrita a SWAP
+[INFO] 11:23:53:421 MEMORIA-KERNEL/(14230:14289): Marcos 4 a 8 actualizados en tabla de planificacion
+[INFO] 11:23:53:421 MEMORIA-KERNEL/(14230:14289): Proceso Suspendido!!!
+[INFO] 11:23:53:421 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): El kernel quiere eliminar un Proceso
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Recibiendo proceso...
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Proceso recibido! Tabla: B6A00638
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Marco incial: 8
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº0 en marco 8 P=1 PID: 1 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº1 en marco 9 P=1 PID: 1 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº2 en marco 10 P=1 PID: 1 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº3 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 0 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº4 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº5 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº6 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº7 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 1 borrada
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Marcos 8 a 12 actualizados en tabla de planificacion
+[INFO] 11:23:53:907 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): El kernel quiere eliminar un Proceso
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Recibiendo proceso...
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Proceso recibido! Tabla: B6A00678
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Marco incial: 5
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº0 en marco 5 P=1 PID: 2 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Marco incial: 4
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº1 en marco 4 P=1 PID: 2 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº2 en marco 7 P=1 PID: 2 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº3 en marco 6 P=1 PID: 2 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 0 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº4 en marco 5 P=0 PID: 2 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº5 en marco -1 P=0 PID: 2 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº6 en marco -1 P=0 PID: 2 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº7 en marco -1 P=0 PID: 2 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 1 borrada
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Marcos 4 a 8 actualizados en tabla de planificacion
+[INFO] 11:24:16:279 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Recibiendo buffer...
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Buffer Recibido!!!
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): El kernel quiere eliminar un Proceso
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Recibiendo proceso...
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Proceso recibido! Tabla: B6A01790
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº0 en marco 3 P=0 PID: 3 borrada
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº1 en marco 0 P=0 PID: 3 borrada
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Marco incial: 1
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº2 en marco 1 P=1 PID: 3 borrada
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº3 en marco 2 P=1 PID: 3 borrada
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 0 borrada
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº4 en marco 3 P=1 PID: 3 borrada
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Marco incial: 0
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº5 en marco 0 P=1 PID: 3 borrada
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº6 en marco -1 P=0 PID: 3 borrada
+[INFO] 11:26:07:868 MEMORIA-KERNEL/(14230:14289): Metadata pagina Nº7 en marco -1 P=0 PID: 3 borrada
+[INFO] 11:26:07:869 MEMORIA-KERNEL/(14230:14289): Tabla NVL 2 nro 1 borrada
+[INFO] 11:26:07:869 MEMORIA-KERNEL/(14230:14289): Marcos 0 a 4 actualizados en tabla de planificacion
+[INFO] 11:26:07:869 MEMORIA-KERNEL/(14230:14289): Esperando Peticion de KERNEL...
+[ERROR] 11:26:13:175 MEMORIA-KERNEL/(14230:14289): ERROR - El cliente ha cerrado la conexion
+[INFO] 11:29:17:982 MEMORIA-KERNEL/(14869:14924): Enviando mensaje de confirmacion...
+[INFO] 11:29:17:983 MEMORIA-KERNEL/(14869:14924): Mensaje enviado!!!
+[INFO] 11:29:17:983 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:29:25:097 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:29:25:097 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:29:25:097 MEMORIA-KERNEL/(14869:14924): El kernel quiere agregar un proceso
+[INFO] 11:29:25:097 MEMORIA-KERNEL/(14869:14924): Recibiendo Proceso...
+[INFO] 11:29:25:097 MEMORIA-KERNEL/(14869:14924): Proceso recibido!!!
+[INFO] 11:29:25:097 MEMORIA-KERNEL/(14869:14924): Agregando proceso...
+[INFO] 11:29:25:097 MEMORIA-KERNEL/(14869:14924): Id del proceso: 1, Tamanio proceso: 2048
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 0 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 1 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 2 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 3 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 4 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 5 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 6 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 7 creada
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Tabla NVL 1 creada en B6A00638
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Archivo .swap creado
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Archivo .swap llenado
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Proceso agregado exitosamente!!
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Respondiendo al kernel...
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Listo!
+[INFO] 11:29:25:098 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:29:25:561 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:29:25:561 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:29:25:561 MEMORIA-KERNEL/(14869:14924): El kernel quiere agregar un proceso
+[INFO] 11:29:25:561 MEMORIA-KERNEL/(14869:14924): Recibiendo Proceso...
+[INFO] 11:29:25:561 MEMORIA-KERNEL/(14869:14924): Proceso recibido!!!
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Agregando proceso...
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Id del proceso: 2, Tamanio proceso: 2048
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 0 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 1 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 2 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 3 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 4 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 5 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 6 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 7 creada
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Tabla NVL 1 creada en B6A00678
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Archivo .swap creado
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Archivo .swap llenado
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Proceso agregado exitosamente!!
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Respondiendo al kernel...
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Listo!
+[INFO] 11:29:25:562 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): El kernel quiere agregar un proceso
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Recibiendo Proceso...
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Proceso recibido!!!
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Agregando proceso...
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Id del proceso: 3, Tamanio proceso: 2048
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 0 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 1 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 2 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 3 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 4 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 5 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 6 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 7 creada
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Tabla NVL 1 creada en B6A01790
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Archivo .swap creado
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Archivo .swap llenado
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Proceso agregado exitosamente!!
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Respondiendo al kernel...
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Listo!
+[INFO] 11:29:26:021 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): El kernel quiere agregar un proceso
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): Recibiendo Proceso...
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): Proceso recibido!!!
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): Agregando proceso...
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): Id del proceso: 4, Tamanio proceso: 2048
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 creada
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 0 creada
+[INFO] 11:29:26:454 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 1 creada
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 2 creada
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 3 creada
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 creada
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 4 creada
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 5 creada
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 6 creada
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 7 creada
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Tabla NVL 1 creada en B6A01978
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Archivo .swap creado
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Archivo .swap llenado
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Proceso agregado exitosamente!!
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Respondiendo al kernel...
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Listo!
+[INFO] 11:29:26:455 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): El kernel quiere agregar un proceso
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Recibiendo Proceso...
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Proceso recibido!!!
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Agregando proceso...
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Id del proceso: 5, Tamanio proceso: 2048
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 creada
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 0 creada
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 1 creada
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 2 creada
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 3 creada
+[INFO] 11:29:26:863 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 creada
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 4 creada
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 5 creada
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 6 creada
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Metadata pagina nro 7 creada
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Tabla NVL 1 creada en B6A01B28
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Archivo .swap creado
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Archivo .swap llenado
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Proceso agregado exitosamente!!
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Respondiendo al kernel...
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Listo!
+[INFO] 11:29:26:864 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:29:29:275 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:29:29:275 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:29:29:275 MEMORIA-KERNEL/(14869:14924): El kernel quiere suspender un proceso
+[INFO] 11:29:29:275 MEMORIA-KERNEL/(14869:14924): Recibiendo Proceso...
+[INFO] 11:29:29:275 MEMORIA-KERNEL/(14869:14924): Proceso recibido! Tabla: B6A00638
+[INFO] 11:29:29:275 MEMORIA-KERNEL/(14869:14924): Suspendiendo Proceso...
+[INFO] 11:29:29:275 MEMORIA-KERNEL/(14869:14924): Direccion proceso: 0xb6a00638
+[INFO] 11:29:29:275 MEMORIA-KERNEL/(14869:14924): Pagina 0 presente en marco 0 de memoria
+[INFO] 11:29:30:276 MEMORIA-KERNEL/(14869:14924): Pagina escrita a SWAP
+[INFO] 11:29:30:276 MEMORIA-KERNEL/(14869:14924): Pagina 1 presente en marco 1 de memoria
+[INFO] 11:29:31:276 MEMORIA-KERNEL/(14869:14924): Pagina escrita a SWAP
+[INFO] 11:29:31:277 MEMORIA-KERNEL/(14869:14924): Pagina 2 presente en marco 2 de memoria
+[INFO] 11:29:32:278 MEMORIA-KERNEL/(14869:14924): Pagina escrita a SWAP
+[INFO] 11:29:32:279 MEMORIA-KERNEL/(14869:14924): Marcos 0 a 4 actualizados en tabla de planificacion
+[INFO] 11:29:32:279 MEMORIA-KERNEL/(14869:14924): Marcos 0 a 4 actualizados en tabla de planificacion
+[INFO] 11:29:32:279 MEMORIA-KERNEL/(14869:14924): Proceso Suspendido!!!
+[INFO] 11:29:32:279 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:29:35:891 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:29:35:891 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:29:35:891 MEMORIA-KERNEL/(14869:14924): El kernel quiere suspender un proceso
+[INFO] 11:29:35:891 MEMORIA-KERNEL/(14869:14924): Recibiendo Proceso...
+[INFO] 11:29:35:891 MEMORIA-KERNEL/(14869:14924): Proceso recibido! Tabla: B6A00678
+[INFO] 11:29:35:891 MEMORIA-KERNEL/(14869:14924): Suspendiendo Proceso...
+[INFO] 11:29:35:891 MEMORIA-KERNEL/(14869:14924): Direccion proceso: 0xb6a00678
+[INFO] 11:29:35:891 MEMORIA-KERNEL/(14869:14924): Pagina 1 presente en marco 5 de memoria
+[INFO] 11:29:36:892 MEMORIA-KERNEL/(14869:14924): Pagina escrita a SWAP
+[INFO] 11:29:36:892 MEMORIA-KERNEL/(14869:14924): Pagina 2 presente en marco 6 de memoria
+[INFO] 11:29:37:892 MEMORIA-KERNEL/(14869:14924): Pagina escrita a SWAP
+[INFO] 11:29:37:893 MEMORIA-KERNEL/(14869:14924): Pagina 3 presente en marco 7 de memoria
+[INFO] 11:29:38:893 MEMORIA-KERNEL/(14869:14924): Pagina escrita a SWAP
+[INFO] 11:29:38:893 MEMORIA-KERNEL/(14869:14924): Marcos 5 a 9 actualizados en tabla de planificacion
+[INFO] 11:29:38:893 MEMORIA-KERNEL/(14869:14924): Pagina 4 presente en marco 4 de memoria
+[INFO] 11:29:39:929 MEMORIA-KERNEL/(14869:14924): Pagina escrita a SWAP
+[INFO] 11:29:39:929 MEMORIA-KERNEL/(14869:14924): Marcos 4 a 8 actualizados en tabla de planificacion
+[INFO] 11:29:39:929 MEMORIA-KERNEL/(14869:14924): Proceso Suspendido!!!
+[INFO] 11:29:39:929 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): El kernel quiere eliminar un Proceso
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Recibiendo proceso...
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Proceso recibido! Tabla: B6A00638
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Marco incial: 8
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº0 en marco 8 P=1 PID: 1 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº1 en marco 9 P=1 PID: 1 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº2 en marco 10 P=1 PID: 1 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº3 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº4 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº5 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº6 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº7 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 borrada
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Marcos 8 a 11 vaciados de la tabla de planificacion
+[INFO] 11:29:40:523 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): El kernel quiere eliminar un Proceso
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Recibiendo proceso...
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Proceso recibido! Tabla: B6A00678
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Marco incial: 5
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº0 en marco 5 P=1 PID: 2 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Marco incial: 4
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº1 en marco 4 P=1 PID: 2 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº2 en marco 7 P=1 PID: 2 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº3 en marco 6 P=1 PID: 2 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº4 en marco 5 P=0 PID: 2 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº5 en marco -1 P=0 PID: 2 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº6 en marco -1 P=0 PID: 2 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº7 en marco -1 P=0 PID: 2 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 borrada
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Marcos 4 a 7 vaciados de la tabla de planificacion
+[INFO] 11:30:03:911 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): El kernel quiere eliminar un Proceso
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Recibiendo proceso...
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Proceso recibido! Tabla: B6A01790
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº0 en marco 3 P=0 PID: 3 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº1 en marco 0 P=0 PID: 3 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Marco incial: 1
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº2 en marco 1 P=1 PID: 3 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº3 en marco 2 P=1 PID: 3 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº4 en marco 3 P=1 PID: 3 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Marco incial: 0
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº5 en marco 0 P=1 PID: 3 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº6 en marco -1 P=0 PID: 3 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº7 en marco -1 P=0 PID: 3 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 borrada
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Marcos 0 a 3 vaciados de la tabla de planificacion
+[INFO] 11:31:55:880 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:32:03:549 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:32:03:549 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:32:03:549 MEMORIA-KERNEL/(14869:14924): El kernel quiere eliminar un Proceso
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Recibiendo proceso...
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Proceso recibido! Tabla: B6A01B28
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Marco incial: 1
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº0 en marco 1 P=1 PID: 5 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº1 en marco 2 P=1 PID: 5 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº2 en marco 3 P=1 PID: 5 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Marco incial: 0
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº3 en marco 0 P=1 PID: 5 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº4 en marco -1 P=0 PID: 5 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº5 en marco -1 P=0 PID: 5 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº6 en marco -1 P=0 PID: 5 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº7 en marco -1 P=0 PID: 5 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 borrada
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Marcos 0 a 3 vaciados de la tabla de planificacion
+[INFO] 11:32:03:550 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Recibiendo buffer...
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Buffer Recibido!!!
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): El kernel quiere eliminar un Proceso
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Recibiendo proceso...
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Proceso recibido! Tabla: B6A01978
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº0 en marco -1 P=0 PID: 4 borrada
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº1 en marco -1 P=0 PID: 4 borrada
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº2 en marco -1 P=0 PID: 4 borrada
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº3 en marco -1 P=0 PID: 4 borrada
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 0 borrada
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº4 en marco -1 P=0 PID: 4 borrada
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº5 en marco -1 P=0 PID: 4 borrada
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº6 en marco -1 P=0 PID: 4 borrada
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Metadata pagina Nº7 en marco -1 P=0 PID: 4 borrada
+[INFO] 11:32:05:111 MEMORIA-KERNEL/(14869:14924): Tabla NVL 2 nro 1 borrada
+[INFO] 11:32:05:112 MEMORIA-KERNEL/(14869:14924): Esperando Peticion de KERNEL...
+[INFO] 11:35:19:774 MEMORIA-KERNEL/(15501:15562): Enviando mensaje de confirmacion...
+[INFO] 11:35:19:778 MEMORIA-KERNEL/(15501:15562): Mensaje enviado!!!
+[INFO] 11:35:19:779 MEMORIA-KERNEL/(15501:15562): Esperando Peticion de KERNEL...
+[INFO] 11:35:38:630 MEMORIA-KERNEL/(15501:15562): Recibiendo buffer...
+[INFO] 11:35:38:631 MEMORIA-KERNEL/(15501:15562): Buffer Recibido!!!
+[INFO] 11:35:38:632 MEMORIA-KERNEL/(15501:15562): El kernel quiere agregar un proceso
+[INFO] 11:35:38:632 MEMORIA-KERNEL/(15501:15562): Recibiendo Proceso...
+[INFO] 11:35:38:634 MEMORIA-KERNEL/(15501:15562): Proceso recibido!!!
+[INFO] 11:35:38:635 MEMORIA-KERNEL/(15501:15562): Agregando proceso...
+[INFO] 11:35:38:636 MEMORIA-KERNEL/(15501:15562): Id del proceso: 1, Tamanio proceso: 2048
+[INFO] 11:35:38:640 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 0 creada
+[INFO] 11:35:38:641 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 0 creada
+[INFO] 11:35:38:642 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 1 creada
+[INFO] 11:35:38:642 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 2 creada
+[INFO] 11:35:38:643 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 3 creada
+[INFO] 11:35:38:643 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 1 creada
+[INFO] 11:35:38:644 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 4 creada
+[INFO] 11:35:38:644 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 5 creada
+[INFO] 11:35:38:645 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 6 creada
+[INFO] 11:35:38:645 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 7 creada
+[INFO] 11:35:38:647 MEMORIA-KERNEL/(15501:15562): Tabla NVL 1 creada en 429D978
+[INFO] 11:35:38:649 MEMORIA-KERNEL/(15501:15562): Archivo .swap creado
+[INFO] 11:35:38:652 MEMORIA-KERNEL/(15501:15562): Archivo .swap llenado
+[INFO] 11:35:38:655 MEMORIA-KERNEL/(15501:15562): Proceso agregado exitosamente!!
+[INFO] 11:35:38:655 MEMORIA-KERNEL/(15501:15562): Respondiendo al kernel...
+[INFO] 11:35:38:656 MEMORIA-KERNEL/(15501:15562): Listo!
+[INFO] 11:35:38:657 MEMORIA-KERNEL/(15501:15562): Esperando Peticion de KERNEL...
+[INFO] 11:35:39:338 MEMORIA-KERNEL/(15501:15562): Recibiendo buffer...
+[INFO] 11:35:39:339 MEMORIA-KERNEL/(15501:15562): Buffer Recibido!!!
+[INFO] 11:35:39:339 MEMORIA-KERNEL/(15501:15562): El kernel quiere agregar un proceso
+[INFO] 11:35:39:340 MEMORIA-KERNEL/(15501:15562): Recibiendo Proceso...
+[INFO] 11:35:39:341 MEMORIA-KERNEL/(15501:15562): Proceso recibido!!!
+[INFO] 11:35:39:341 MEMORIA-KERNEL/(15501:15562): Agregando proceso...
+[INFO] 11:35:39:341 MEMORIA-KERNEL/(15501:15562): Id del proceso: 2, Tamanio proceso: 2048
+[INFO] 11:35:39:342 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 0 creada
+[INFO] 11:35:39:342 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 0 creada
+[INFO] 11:35:39:343 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 1 creada
+[INFO] 11:35:39:343 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 2 creada
+[INFO] 11:35:39:343 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 3 creada
+[INFO] 11:35:39:344 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 1 creada
+[INFO] 11:35:39:344 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 4 creada
+[INFO] 11:35:39:344 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 5 creada
+[INFO] 11:35:39:345 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 6 creada
+[INFO] 11:35:39:347 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 7 creada
+[INFO] 11:35:39:347 MEMORIA-KERNEL/(15501:15562): Tabla NVL 1 creada en 42AB828
+[INFO] 11:35:39:348 MEMORIA-KERNEL/(15501:15562): Archivo .swap creado
+[INFO] 11:35:39:348 MEMORIA-KERNEL/(15501:15562): Archivo .swap llenado
+[INFO] 11:35:39:349 MEMORIA-KERNEL/(15501:15562): Proceso agregado exitosamente!!
+[INFO] 11:35:39:349 MEMORIA-KERNEL/(15501:15562): Respondiendo al kernel...
+[INFO] 11:35:39:351 MEMORIA-KERNEL/(15501:15562): Listo!
+[INFO] 11:35:39:351 MEMORIA-KERNEL/(15501:15562): Esperando Peticion de KERNEL...
+[INFO] 11:35:40:119 MEMORIA-KERNEL/(15501:15562): Recibiendo buffer...
+[INFO] 11:35:40:119 MEMORIA-KERNEL/(15501:15562): Buffer Recibido!!!
+[INFO] 11:35:40:120 MEMORIA-KERNEL/(15501:15562): El kernel quiere agregar un proceso
+[INFO] 11:35:40:120 MEMORIA-KERNEL/(15501:15562): Recibiendo Proceso...
+[INFO] 11:35:40:121 MEMORIA-KERNEL/(15501:15562): Proceso recibido!!!
+[INFO] 11:35:40:121 MEMORIA-KERNEL/(15501:15562): Agregando proceso...
+[INFO] 11:35:40:122 MEMORIA-KERNEL/(15501:15562): Id del proceso: 3, Tamanio proceso: 2048
+[INFO] 11:35:40:122 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 0 creada
+[INFO] 11:35:40:122 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 0 creada
+[INFO] 11:35:40:123 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 1 creada
+[INFO] 11:35:40:123 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 2 creada
+[INFO] 11:35:40:124 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 3 creada
+[INFO] 11:35:40:125 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 1 creada
+[INFO] 11:35:40:127 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 4 creada
+[INFO] 11:35:40:132 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 5 creada
+[INFO] 11:35:40:133 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 6 creada
+[INFO] 11:35:40:135 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 7 creada
+[INFO] 11:35:40:136 MEMORIA-KERNEL/(15501:15562): Tabla NVL 1 creada en 42B9840
+[INFO] 11:35:40:137 MEMORIA-KERNEL/(15501:15562): Archivo .swap creado
+[INFO] 11:35:40:138 MEMORIA-KERNEL/(15501:15562): Archivo .swap llenado
+[INFO] 11:35:40:139 MEMORIA-KERNEL/(15501:15562): Proceso agregado exitosamente!!
+[INFO] 11:35:40:140 MEMORIA-KERNEL/(15501:15562): Respondiendo al kernel...
+[INFO] 11:35:40:145 MEMORIA-KERNEL/(15501:15562): Listo!
+[INFO] 11:35:40:145 MEMORIA-KERNEL/(15501:15562): Esperando Peticion de KERNEL...
+[INFO] 11:35:40:548 MEMORIA-KERNEL/(15501:15562): Recibiendo buffer...
+[INFO] 11:35:40:549 MEMORIA-KERNEL/(15501:15562): Buffer Recibido!!!
+[INFO] 11:35:40:549 MEMORIA-KERNEL/(15501:15562): El kernel quiere agregar un proceso
+[INFO] 11:35:40:550 MEMORIA-KERNEL/(15501:15562): Recibiendo Proceso...
+[INFO] 11:35:40:550 MEMORIA-KERNEL/(15501:15562): Proceso recibido!!!
+[INFO] 11:35:40:551 MEMORIA-KERNEL/(15501:15562): Agregando proceso...
+[INFO] 11:35:40:551 MEMORIA-KERNEL/(15501:15562): Id del proceso: 4, Tamanio proceso: 2048
+[INFO] 11:35:40:551 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 0 creada
+[INFO] 11:35:40:552 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 0 creada
+[INFO] 11:35:40:552 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 1 creada
+[INFO] 11:35:40:553 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 2 creada
+[INFO] 11:35:40:553 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 3 creada
+[INFO] 11:35:40:553 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 1 creada
+[INFO] 11:35:40:554 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 4 creada
+[INFO] 11:35:40:554 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 5 creada
+[INFO] 11:35:40:554 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 6 creada
+[INFO] 11:35:40:555 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 7 creada
+[INFO] 11:35:40:555 MEMORIA-KERNEL/(15501:15562): Tabla NVL 1 creada en 42D1180
+[INFO] 11:35:40:556 MEMORIA-KERNEL/(15501:15562): Archivo .swap creado
+[INFO] 11:35:40:556 MEMORIA-KERNEL/(15501:15562): Archivo .swap llenado
+[INFO] 11:35:40:556 MEMORIA-KERNEL/(15501:15562): Proceso agregado exitosamente!!
+[INFO] 11:35:40:557 MEMORIA-KERNEL/(15501:15562): Respondiendo al kernel...
+[INFO] 11:35:40:557 MEMORIA-KERNEL/(15501:15562): Listo!
+[INFO] 11:35:40:558 MEMORIA-KERNEL/(15501:15562): Esperando Peticion de KERNEL...
+[INFO] 11:35:41:143 MEMORIA-KERNEL/(15501:15562): Recibiendo buffer...
+[INFO] 11:35:41:144 MEMORIA-KERNEL/(15501:15562): Buffer Recibido!!!
+[INFO] 11:35:41:144 MEMORIA-KERNEL/(15501:15562): El kernel quiere agregar un proceso
+[INFO] 11:35:41:145 MEMORIA-KERNEL/(15501:15562): Recibiendo Proceso...
+[INFO] 11:35:41:145 MEMORIA-KERNEL/(15501:15562): Proceso recibido!!!
+[INFO] 11:35:41:146 MEMORIA-KERNEL/(15501:15562): Agregando proceso...
+[INFO] 11:35:41:146 MEMORIA-KERNEL/(15501:15562): Id del proceso: 5, Tamanio proceso: 2048
+[INFO] 11:35:41:147 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 0 creada
+[INFO] 11:35:41:147 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 0 creada
+[INFO] 11:35:41:148 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 1 creada
+[INFO] 11:35:41:148 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 2 creada
+[INFO] 11:35:41:148 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 3 creada
+[INFO] 11:35:41:149 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 1 creada
+[INFO] 11:35:41:149 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 4 creada
+[INFO] 11:35:41:150 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 5 creada
+[INFO] 11:35:41:150 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 6 creada
+[INFO] 11:35:41:151 MEMORIA-KERNEL/(15501:15562): Metadata pagina nro 7 creada
+[INFO] 11:35:41:152 MEMORIA-KERNEL/(15501:15562): Tabla NVL 1 creada en 42DA538
+[INFO] 11:35:41:153 MEMORIA-KERNEL/(15501:15562): Archivo .swap creado
+[INFO] 11:35:41:153 MEMORIA-KERNEL/(15501:15562): Archivo .swap llenado
+[INFO] 11:35:41:154 MEMORIA-KERNEL/(15501:15562): Proceso agregado exitosamente!!
+[INFO] 11:35:41:154 MEMORIA-KERNEL/(15501:15562): Respondiendo al kernel...
+[INFO] 11:35:41:160 MEMORIA-KERNEL/(15501:15562): Listo!
+[INFO] 11:35:41:160 MEMORIA-KERNEL/(15501:15562): Esperando Peticion de KERNEL...
+[INFO] 11:35:43:738 MEMORIA-KERNEL/(15501:15562): Recibiendo buffer...
+[INFO] 11:35:43:739 MEMORIA-KERNEL/(15501:15562): Buffer Recibido!!!
+[INFO] 11:35:43:740 MEMORIA-KERNEL/(15501:15562): El kernel quiere suspender un proceso
+[INFO] 11:35:43:740 MEMORIA-KERNEL/(15501:15562): Recibiendo Proceso...
+[INFO] 11:35:43:741 MEMORIA-KERNEL/(15501:15562): Proceso recibido! Tabla: 429D978
+[INFO] 11:35:43:742 MEMORIA-KERNEL/(15501:15562): Suspendiendo Proceso...
+[INFO] 11:35:43:743 MEMORIA-KERNEL/(15501:15562): Direccion proceso: 0x429d978
+[INFO] 11:35:43:755 MEMORIA-KERNEL/(15501:15562): Pagina 0 presente en marco 0 de memoria
+[INFO] 11:35:44:764 MEMORIA-KERNEL/(15501:15562): Pagina escrita a SWAP
+[INFO] 11:35:44:764 MEMORIA-KERNEL/(15501:15562): Pagina 1 presente en marco 1 de memoria
+[INFO] 11:35:45:768 MEMORIA-KERNEL/(15501:15562): Pagina escrita a SWAP
+[INFO] 11:35:45:768 MEMORIA-KERNEL/(15501:15562): Pagina 2 presente en marco 2 de memoria
+[INFO] 11:35:46:770 MEMORIA-KERNEL/(15501:15562): Pagina escrita a SWAP
+[INFO] 11:35:46:773 MEMORIA-KERNEL/(15501:15562): Proceso Suspendido!!!
+[INFO] 11:35:46:776 MEMORIA-KERNEL/(15501:15562): Esperando Peticion de KERNEL...
+[INFO] 11:35:50:088 MEMORIA-KERNEL/(15501:15562): Recibiendo buffer...
+[INFO] 11:35:50:088 MEMORIA-KERNEL/(15501:15562): Buffer Recibido!!!
+[INFO] 11:35:50:089 MEMORIA-KERNEL/(15501:15562): El kernel quiere suspender un proceso
+[INFO] 11:35:50:090 MEMORIA-KERNEL/(15501:15562): Recibiendo Proceso...
+[INFO] 11:35:50:090 MEMORIA-KERNEL/(15501:15562): Proceso recibido! Tabla: 42AB828
+[INFO] 11:35:50:091 MEMORIA-KERNEL/(15501:15562): Suspendiendo Proceso...
+[INFO] 11:35:50:091 MEMORIA-KERNEL/(15501:15562): Direccion proceso: 0x42ab828
+[INFO] 11:35:50:092 MEMORIA-KERNEL/(15501:15562): Pagina 1 presente en marco 5 de memoria
+[INFO] 11:35:51:093 MEMORIA-KERNEL/(15501:15562): Pagina escrita a SWAP
+[INFO] 11:35:51:095 MEMORIA-KERNEL/(15501:15562): Pagina 2 presente en marco 6 de memoria
+[INFO] 11:35:52:096 MEMORIA-KERNEL/(15501:15562): Pagina escrita a SWAP
+[INFO] 11:35:52:097 MEMORIA-KERNEL/(15501:15562): Pagina 3 presente en marco 7 de memoria
+[INFO] 11:35:53:106 MEMORIA-KERNEL/(15501:15562): Pagina escrita a SWAP
+[INFO] 11:35:53:106 MEMORIA-KERNEL/(15501:15562): Pagina 4 presente en marco 4 de memoria
+[INFO] 11:35:54:108 MEMORIA-KERNEL/(15501:15562): Pagina escrita a SWAP
+[INFO] 11:35:54:109 MEMORIA-KERNEL/(15501:15562): Proceso Suspendido!!!
+[INFO] 11:35:54:110 MEMORIA-KERNEL/(15501:15562): Esperando Peticion de KERNEL...
+[INFO] 11:35:56:670 MEMORIA-KERNEL/(15501:15562): Recibiendo buffer...
+[INFO] 11:35:56:670 MEMORIA-KERNEL/(15501:15562): Buffer Recibido!!!
+[INFO] 11:35:56:671 MEMORIA-KERNEL/(15501:15562): El kernel quiere eliminar un Proceso
+[INFO] 11:35:56:673 MEMORIA-KERNEL/(15501:15562): Recibiendo proceso...
+[INFO] 11:35:56:694 MEMORIA-KERNEL/(15501:15562): Proceso recibido! Tabla: 429D978
+[INFO] 11:35:56:696 MEMORIA-KERNEL/(15501:15562): Metadata pagina Nº0 en marco 3 P=0 PID: 1 borrada
+[INFO] 11:35:56:700 MEMORIA-KERNEL/(15501:15562): Marco incial: 3
+[INFO] 11:35:56:701 MEMORIA-KERNEL/(15501:15562): Metadata pagina Nº1 en marco 3 P=1 PID: 1 borrada
+[INFO] 11:35:56:702 MEMORIA-KERNEL/(15501:15562): Metadata pagina Nº2 en marco 3 P=1 PID: 1 borrada
+[INFO] 11:35:56:703 MEMORIA-KERNEL/(15501:15562): Metadata pagina Nº3 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:35:56:706 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 0 borrada
+[INFO] 11:35:56:709 MEMORIA-KERNEL/(15501:15562): Metadata pagina Nº4 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:35:56:710 MEMORIA-KERNEL/(15501:15562): Metadata pagina Nº5 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:35:56:711 MEMORIA-KERNEL/(15501:15562): Metadata pagina Nº6 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:35:56:712 MEMORIA-KERNEL/(15501:15562): Metadata pagina Nº7 en marco -1 P=0 PID: 1 borrada
+[INFO] 11:35:56:713 MEMORIA-KERNEL/(15501:15562): Tabla NVL 2 nro 1 borrada
+[INFO] 11:35:56:717 MEMORIA-KERNEL/(15501:15562): Marcos 3 a 6 vaciados de la tabla de planificacion
+[INFO] 11:35:56:728 MEMORIA-KERNEL/(15501:15562): Esperando Peticion de KERNEL...
