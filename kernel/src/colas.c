@@ -14,7 +14,6 @@ void inicializar_estructuras() {
 	suspendido_tiempo = queue_create();
 	exit_queue = queue_create();
 	log_protegido("Colas creadas.");
-
 	//Counters
 	new_counter = 0;
 	suspendido_counter = 0;
