@@ -86,7 +86,7 @@ void leer(t_buffer *buffer, int socket_cpu);
 void escribir(t_buffer *buffer, int socket_cpu);
 
 void *conectar_con_cpu(int* socket_cpu){
-    cpu_log = log_create("memoria_cpu.log", "MEMORIA-CPU", true, LOG_LEVEL_INFO);
+    cpu_log = log_create("memoria_cpu.log", "MEMORIA-CPU", true, LOG_LEVEL_ERROR);
     printf("Aca se hace la conexion con CPU en el socket: %d\n", *socket_cpu);
 
     log_info(cpu_log, "Enviando paquete de configuraciones al CPU...");
@@ -195,7 +195,7 @@ void proceso_suspendido(t_buffer *buffer, int socket_kernel);
 void liberar(t_buffer *buffer, int socket_kernel);
 
 void *conectar_con_kernel(int *socket_kernel){
-    kernel_log = log_create("memoria_kernel.log", "MEMORIA-KERNEL", true, LOG_LEVEL_INFO);
+    kernel_log = log_create("memoria_kernel.log", "MEMORIA-KERNEL", true, LOG_LEVEL_ERROR);
     printf("Aca se hace la conexion con KERNEL en el socket: %d\n", *socket_kernel);
 
     log_info(kernel_log, "Enviando mensaje de confirmacion...");
@@ -246,7 +246,7 @@ void crear_tabla(t_buffer *buffer, int socket_kernel) {
 	log_info(kernel_log, "Recibiendo Proceso...");
 	int *id_proceso = sacar_de_buffer(buffer, sizeof(int));
 	int *tam_proceso = sacar_de_buffer(buffer, sizeof(int));
-	void *puntero_proceso = malloc(*tam_proceso);
+	void *puntero_proceso = calloc(*tam_proceso,1);
 	log_info(kernel_log, "Proceso recibido!!!");
 
 	log_info(kernel_log, "Agregando proceso...");

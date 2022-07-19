@@ -26,7 +26,7 @@ void cargar_configuraciones(char* path){
     //TODO Liberar configuracion cuando se finalize el programa
     configuracion = malloc(sizeof(t_config_memoria));
 
-    memoria_log = log_create("memoria.log","MEMORIA",true,LOG_LEVEL_INFO);
+    memoria_log = log_create("memoria.log","MEMORIA",true,LOG_LEVEL_ERROR);
 
     if(!(config_memoria = config_create(path))){
         log_error(memoria_log,"ERROR - No se encontro el archivo de configuracion de memoria");

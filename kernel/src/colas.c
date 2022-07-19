@@ -333,7 +333,7 @@ void *thread_execute(){
 					real = proceso_recibido.pcb->est_rafaga - real + calcular_milisegundos(tiempo_envio, tiempo_retorno);
 					calcular_estimacion(real, proceso_recibido.pcb);
 				}
-				pcb->rafaga_inicial = 0;
+				proceso_recibido.pcb->rafaga_inicial = 0;
 
 				agregar_a_cola(bloqueado_queue, proceso_recibido.pcb, mbloqueado);
 				sem_wait(&mbloqueado_tiempo);

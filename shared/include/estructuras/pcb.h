@@ -10,7 +10,7 @@ typedef struct {
 	uint16_t id;//2
 	uint32_t tamanio;//4
 	uint8_t cant_instrucciones;// 1
-	t_list *instrucciones;//  (15*2 + 15*4*2) (1*2 +1*4) + (16*2 + 16*4) 2 96*2
+	t_list *instrucciones;// 4 + ?
 	uint32_t program_counter;// 4
 	int tabla_paginas;//4
 	double est_rafaga;// 8

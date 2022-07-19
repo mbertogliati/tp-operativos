@@ -1,0 +1,400 @@
+[INFO] 11:53:09:648 CONSOLA/(17059:17059): Iniciando conexión con Kernel
+[INFO] 11:53:09:652 CONSOLA/(17059:17059): Conexión exitosa!
+[INFO] 11:53:09:653 CONSOLA/(17059:17059): Creando paquete de instrucciones...
+[INFO] 11:53:09:655 CONSOLA/(17059:17059): Archivo de instrucciones leído correctamente
+[INFO] 11:53:09:655 CONSOLA/(17059:17059): Paquete creado exitosamente
+[INFO] 11:53:09:656 CONSOLA/(17059:17059): Enviando paquete
+[INFO] 11:53:09:657 CONSOLA/(17059:17059): Paquete enviado
+[INFO] 11:53:10:059 CONSOLA/(17061:17061): Iniciando conexión con Kernel
+[INFO] 11:53:10:060 CONSOLA/(17061:17061): Conexión exitosa!
+[INFO] 11:53:10:060 CONSOLA/(17061:17061): Creando paquete de instrucciones...
+[INFO] 11:53:10:060 CONSOLA/(17061:17061): Archivo de instrucciones leído correctamente
+[INFO] 11:53:10:060 CONSOLA/(17061:17061): Paquete creado exitosamente
+[INFO] 11:53:10:060 CONSOLA/(17061:17061): Enviando paquete
+[INFO] 11:53:10:060 CONSOLA/(17061:17061): Paquete enviado
+[INFO] 11:53:10:478 CONSOLA/(17063:17063): Iniciando conexión con Kernel
+[INFO] 11:53:10:480 CONSOLA/(17063:17063): Conexión exitosa!
+[INFO] 11:53:10:481 CONSOLA/(17063:17063): Creando paquete de instrucciones...
+[INFO] 11:53:10:481 CONSOLA/(17063:17063): Archivo de instrucciones leído correctamente
+[INFO] 11:53:10:481 CONSOLA/(17063:17063): Paquete creado exitosamente
+[INFO] 11:53:10:481 CONSOLA/(17063:17063): Enviando paquete
+[INFO] 11:53:10:481 CONSOLA/(17063:17063): Paquete enviado
+[INFO] 11:53:10:952 CONSOLA/(17065:17065): Iniciando conexión con Kernel
+[INFO] 11:53:10:953 CONSOLA/(17065:17065): Conexión exitosa!
+[INFO] 11:53:10:953 CONSOLA/(17065:17065): Creando paquete de instrucciones...
+[INFO] 11:53:10:953 CONSOLA/(17065:17065): Archivo de instrucciones leído correctamente
+[INFO] 11:53:10:953 CONSOLA/(17065:17065): Paquete creado exitosamente
+[INFO] 11:53:10:953 CONSOLA/(17065:17065): Enviando paquete
+[INFO] 11:53:10:953 CONSOLA/(17065:17065): Paquete enviado
+[INFO] 11:53:11:305 CONSOLA/(17067:17067): Iniciando conexión con Kernel
+[INFO] 11:53:11:305 CONSOLA/(17067:17067): Conexión exitosa!
+[INFO] 11:53:11:306 CONSOLA/(17067:17067): Creando paquete de instrucciones...
+[INFO] 11:53:11:306 CONSOLA/(17067:17067): Archivo de instrucciones leído correctamente
+[INFO] 11:53:11:306 CONSOLA/(17067:17067): Paquete creado exitosamente
+[INFO] 11:53:11:306 CONSOLA/(17067:17067): Enviando paquete
+[INFO] 11:53:11:306 CONSOLA/(17067:17067): Paquete enviado
+[INFO] 11:53:27:056 CONSOLA/(17059:17059): Terminando consola
+[ERROR] 11:54:34:787 CONSOLA/(17065:17065): Operación desconocida
+[ERROR] 11:54:34:787 CONSOLA/(17063:17063): Operación desconocida
+[ERROR] 11:54:34:787 CONSOLA/(17061:17061): Operación desconocida
+[ERROR] 11:54:34:788 CONSOLA/(17067:17067): Operación desconocida
+[INFO] 11:55:21:221 CONSOLA/(17415:17415): Iniciando conexión con Kernel
+[INFO] 11:55:21:222 CONSOLA/(17415:17415): Conexión exitosa!
+[INFO] 11:55:21:222 CONSOLA/(17415:17415): Creando paquete de instrucciones...
+[INFO] 11:55:21:222 CONSOLA/(17415:17415): Archivo de instrucciones leído correctamente
+[INFO] 11:55:21:222 CONSOLA/(17415:17415): Paquete creado exitosamente
+[INFO] 11:55:21:222 CONSOLA/(17415:17415): Enviando paquete
+[INFO] 11:55:21:222 CONSOLA/(17415:17415): Paquete enviado
+[INFO] 11:55:21:754 CONSOLA/(17417:17417): Iniciando conexión con Kernel
+[INFO] 11:55:21:765 CONSOLA/(17417:17417): Conexión exitosa!
+[INFO] 11:55:21:768 CONSOLA/(17417:17417): Creando paquete de instrucciones...
+[INFO] 11:55:21:769 CONSOLA/(17417:17417): Archivo de instrucciones leído correctamente
+[INFO] 11:55:21:771 CONSOLA/(17417:17417): Paquete creado exitosamente
+[INFO] 11:55:21:772 CONSOLA/(17417:17417): Enviando paquete
+[INFO] 11:55:21:773 CONSOLA/(17417:17417): Paquete enviado
+[INFO] 11:55:22:088 CONSOLA/(17419:17419): Iniciando conexión con Kernel
+[INFO] 11:55:22:088 CONSOLA/(17419:17419): Conexión exitosa!
+[INFO] 11:55:22:088 CONSOLA/(17419:17419): Creando paquete de instrucciones...
+[INFO] 11:55:22:088 CONSOLA/(17419:17419): Archivo de instrucciones leído correctamente
+[INFO] 11:55:22:088 CONSOLA/(17419:17419): Paquete creado exitosamente
+[INFO] 11:55:22:088 CONSOLA/(17419:17419): Enviando paquete
+[INFO] 11:55:22:088 CONSOLA/(17419:17419): Paquete enviado
+[INFO] 11:55:22:639 CONSOLA/(17421:17421): Iniciando conexión con Kernel
+[INFO] 11:55:22:640 CONSOLA/(17421:17421): Conexión exitosa!
+[INFO] 11:55:22:640 CONSOLA/(17421:17421): Creando paquete de instrucciones...
+[INFO] 11:55:22:640 CONSOLA/(17421:17421): Archivo de instrucciones leído correctamente
+[INFO] 11:55:22:640 CONSOLA/(17421:17421): Paquete creado exitosamente
+[INFO] 11:55:22:640 CONSOLA/(17421:17421): Enviando paquete
+[INFO] 11:55:22:640 CONSOLA/(17421:17421): Paquete enviado
+[INFO] 11:55:23:068 CONSOLA/(17423:17423): Iniciando conexión con Kernel
+[INFO] 11:55:23:071 CONSOLA/(17423:17423): Conexión exitosa!
+[INFO] 11:55:23:071 CONSOLA/(17423:17423): Creando paquete de instrucciones...
+[INFO] 11:55:23:071 CONSOLA/(17423:17423): Archivo de instrucciones leído correctamente
+[INFO] 11:55:23:071 CONSOLA/(17423:17423): Paquete creado exitosamente
+[INFO] 11:55:23:071 CONSOLA/(17423:17423): Enviando paquete
+[INFO] 11:55:23:071 CONSOLA/(17423:17423): Paquete enviado
+[INFO] 11:55:36:682 CONSOLA/(17415:17415): Terminando consola
+[INFO] 11:55:57:827 CONSOLA/(17417:17417): Terminando consola
+[INFO] 11:57:53:080 CONSOLA/(17419:17419): Terminando consola
+[ERROR] 12:17:35:402 CONSOLA/(17421:17421): Operación desconocida
+[ERROR] 12:17:35:402 CONSOLA/(17423:17423): Operación desconocida
+[INFO] 12:18:08:096 CONSOLA/(18877:18877): Iniciando conexión con Kernel
+[INFO] 12:18:08:098 CONSOLA/(18877:18877): Conexión exitosa!
+[INFO] 12:18:08:099 CONSOLA/(18877:18877): Creando paquete de instrucciones...
+[INFO] 12:18:08:099 CONSOLA/(18877:18877): Archivo de instrucciones leído correctamente
+[INFO] 12:18:08:100 CONSOLA/(18877:18877): Paquete creado exitosamente
+[INFO] 12:18:08:100 CONSOLA/(18877:18877): Enviando paquete
+[INFO] 12:18:08:100 CONSOLA/(18877:18877): Paquete enviado
+[INFO] 12:18:08:615 CONSOLA/(18879:18879): Iniciando conexión con Kernel
+[INFO] 12:18:08:615 CONSOLA/(18879:18879): Conexión exitosa!
+[INFO] 12:18:08:615 CONSOLA/(18879:18879): Creando paquete de instrucciones...
+[INFO] 12:18:08:615 CONSOLA/(18879:18879): Archivo de instrucciones leído correctamente
+[INFO] 12:18:08:616 CONSOLA/(18879:18879): Paquete creado exitosamente
+[INFO] 12:18:08:616 CONSOLA/(18879:18879): Enviando paquete
+[INFO] 12:18:08:616 CONSOLA/(18879:18879): Paquete enviado
+[INFO] 12:18:09:063 CONSOLA/(18881:18881): Iniciando conexión con Kernel
+[INFO] 12:18:09:063 CONSOLA/(18881:18881): Conexión exitosa!
+[INFO] 12:18:09:063 CONSOLA/(18881:18881): Creando paquete de instrucciones...
+[INFO] 12:18:09:063 CONSOLA/(18881:18881): Archivo de instrucciones leído correctamente
+[INFO] 12:18:09:063 CONSOLA/(18881:18881): Paquete creado exitosamente
+[INFO] 12:18:09:063 CONSOLA/(18881:18881): Enviando paquete
+[INFO] 12:18:09:063 CONSOLA/(18881:18881): Paquete enviado
+[INFO] 12:18:09:620 CONSOLA/(18883:18883): Iniciando conexión con Kernel
+[INFO] 12:18:09:635 CONSOLA/(18883:18883): Conexión exitosa!
+[INFO] 12:18:09:635 CONSOLA/(18883:18883): Creando paquete de instrucciones...
+[INFO] 12:18:09:636 CONSOLA/(18883:18883): Archivo de instrucciones leído correctamente
+[INFO] 12:18:09:636 CONSOLA/(18883:18883): Paquete creado exitosamente
+[INFO] 12:18:09:636 CONSOLA/(18883:18883): Enviando paquete
+[INFO] 12:18:09:636 CONSOLA/(18883:18883): Paquete enviado
+[INFO] 12:18:10:904 CONSOLA/(18889:18889): Iniciando conexión con Kernel
+[INFO] 12:18:10:905 CONSOLA/(18889:18889): Conexión exitosa!
+[INFO] 12:18:10:905 CONSOLA/(18889:18889): Creando paquete de instrucciones...
+[INFO] 12:18:10:905 CONSOLA/(18889:18889): Archivo de instrucciones leído correctamente
+[INFO] 12:18:10:905 CONSOLA/(18889:18889): Paquete creado exitosamente
+[INFO] 12:18:10:905 CONSOLA/(18889:18889): Enviando paquete
+[INFO] 12:18:10:905 CONSOLA/(18889:18889): Paquete enviado
+[INFO] 12:18:24:290 CONSOLA/(18877:18877): Terminando consola
+[INFO] 12:18:47:449 CONSOLA/(18879:18879): Terminando consola
+[INFO] 12:20:41:824 CONSOLA/(18881:18881): Terminando consola
+[INFO] 12:20:50:342 CONSOLA/(18889:18889): Terminando consola
+[INFO] 12:20:51:666 CONSOLA/(18883:18883): Terminando consola
+[INFO] 12:30:16:763 CONSOLA/(20259:20259): Iniciando conexión con Kernel
+[INFO] 12:30:16:768 CONSOLA/(20259:20259): Conexión exitosa!
+[INFO] 12:30:16:768 CONSOLA/(20259:20259): Creando paquete de instrucciones...
+[INFO] 12:30:16:768 CONSOLA/(20259:20259): Archivo de instrucciones leído correctamente
+[INFO] 12:30:16:768 CONSOLA/(20259:20259): Paquete creado exitosamente
+[INFO] 12:30:16:768 CONSOLA/(20259:20259): Enviando paquete
+[INFO] 12:30:16:768 CONSOLA/(20259:20259): Paquete enviado
+[INFO] 12:30:17:175 CONSOLA/(20261:20261): Iniciando conexión con Kernel
+[INFO] 12:30:17:175 CONSOLA/(20261:20261): Conexión exitosa!
+[INFO] 12:30:17:175 CONSOLA/(20261:20261): Creando paquete de instrucciones...
+[INFO] 12:30:17:175 CONSOLA/(20261:20261): Archivo de instrucciones leído correctamente
+[INFO] 12:30:17:175 CONSOLA/(20261:20261): Paquete creado exitosamente
+[INFO] 12:30:17:175 CONSOLA/(20261:20261): Enviando paquete
+[INFO] 12:30:17:176 CONSOLA/(20261:20261): Paquete enviado
+[INFO] 12:30:17:984 CONSOLA/(20263:20263): Iniciando conexión con Kernel
+[INFO] 12:30:17:986 CONSOLA/(20263:20263): Conexión exitosa!
+[INFO] 12:30:17:990 CONSOLA/(20263:20263): Creando paquete de instrucciones...
+[INFO] 12:30:17:991 CONSOLA/(20263:20263): Archivo de instrucciones leído correctamente
+[INFO] 12:30:17:992 CONSOLA/(20263:20263): Paquete creado exitosamente
+[INFO] 12:30:17:992 CONSOLA/(20263:20263): Enviando paquete
+[INFO] 12:30:17:992 CONSOLA/(20263:20263): Paquete enviado
+[INFO] 12:30:18:847 CONSOLA/(20265:20265): Iniciando conexión con Kernel
+[INFO] 12:30:18:847 CONSOLA/(20265:20265): Conexión exitosa!
+[INFO] 12:30:18:847 CONSOLA/(20265:20265): Creando paquete de instrucciones...
+[INFO] 12:30:18:848 CONSOLA/(20265:20265): Archivo de instrucciones leído correctamente
+[INFO] 12:30:18:848 CONSOLA/(20265:20265): Paquete creado exitosamente
+[INFO] 12:30:18:848 CONSOLA/(20265:20265): Enviando paquete
+[INFO] 12:30:18:848 CONSOLA/(20265:20265): Paquete enviado
+[INFO] 12:30:19:486 CONSOLA/(20267:20267): Iniciando conexión con Kernel
+[INFO] 12:30:19:486 CONSOLA/(20267:20267): Conexión exitosa!
+[INFO] 12:30:19:486 CONSOLA/(20267:20267): Creando paquete de instrucciones...
+[INFO] 12:30:19:486 CONSOLA/(20267:20267): Archivo de instrucciones leído correctamente
+[INFO] 12:30:19:486 CONSOLA/(20267:20267): Paquete creado exitosamente
+[INFO] 12:30:19:486 CONSOLA/(20267:20267): Enviando paquete
+[INFO] 12:30:19:486 CONSOLA/(20267:20267): Paquete enviado
+[INFO] 12:30:32:781 CONSOLA/(20259:20259): Terminando consola
+[INFO] 12:30:55:866 CONSOLA/(20261:20261): Terminando consola
+[INFO] 12:31:26:754 CONSOLA/(20263:20263): Terminando consola
+[INFO] 12:32:27:558 CONSOLA/(20265:20265): Terminando consola
+[INFO] 12:32:36:571 CONSOLA/(20267:20267): Terminando consola
+[INFO] 12:32:50:506 CONSOLA/(20573:20573): Iniciando conexión con Kernel
+[INFO] 12:32:50:508 CONSOLA/(20573:20573): Conexión exitosa!
+[INFO] 12:32:50:508 CONSOLA/(20573:20573): Creando paquete de instrucciones...
+[INFO] 12:32:50:508 CONSOLA/(20573:20573): Archivo de instrucciones leído correctamente
+[INFO] 12:32:50:508 CONSOLA/(20573:20573): Paquete creado exitosamente
+[INFO] 12:32:50:508 CONSOLA/(20573:20573): Enviando paquete
+[INFO] 12:32:50:508 CONSOLA/(20573:20573): Paquete enviado
+[INFO] 12:32:50:901 CONSOLA/(20575:20575): Iniciando conexión con Kernel
+[INFO] 12:32:50:903 CONSOLA/(20575:20575): Conexión exitosa!
+[INFO] 12:32:50:903 CONSOLA/(20575:20575): Creando paquete de instrucciones...
+[INFO] 12:32:50:903 CONSOLA/(20575:20575): Archivo de instrucciones leído correctamente
+[INFO] 12:32:50:903 CONSOLA/(20575:20575): Paquete creado exitosamente
+[INFO] 12:32:50:903 CONSOLA/(20575:20575): Enviando paquete
+[INFO] 12:32:50:903 CONSOLA/(20575:20575): Paquete enviado
+[INFO] 12:32:53:063 CONSOLA/(20588:20588): Iniciando conexión con Kernel
+[INFO] 12:32:53:063 CONSOLA/(20588:20588): Conexión exitosa!
+[INFO] 12:32:53:063 CONSOLA/(20588:20588): Creando paquete de instrucciones...
+[INFO] 12:32:53:063 CONSOLA/(20588:20588): Archivo de instrucciones leído correctamente
+[INFO] 12:32:53:063 CONSOLA/(20588:20588): Paquete creado exitosamente
+[INFO] 12:32:53:063 CONSOLA/(20588:20588): Enviando paquete
+[INFO] 12:32:53:063 CONSOLA/(20588:20588): Paquete enviado
+[INFO] 12:32:53:611 CONSOLA/(20590:20590): Iniciando conexión con Kernel
+[INFO] 12:32:53:613 CONSOLA/(20590:20590): Conexión exitosa!
+[INFO] 12:32:53:613 CONSOLA/(20590:20590): Creando paquete de instrucciones...
+[INFO] 12:32:53:614 CONSOLA/(20590:20590): Archivo de instrucciones leído correctamente
+[INFO] 12:32:53:614 CONSOLA/(20590:20590): Paquete creado exitosamente
+[INFO] 12:32:53:614 CONSOLA/(20590:20590): Enviando paquete
+[INFO] 12:32:53:614 CONSOLA/(20590:20590): Paquete enviado
+[INFO] 12:32:54:117 CONSOLA/(20592:20592): Iniciando conexión con Kernel
+[INFO] 12:32:54:147 CONSOLA/(20592:20592): Conexión exitosa!
+[INFO] 12:32:54:148 CONSOLA/(20592:20592): Creando paquete de instrucciones...
+[INFO] 12:32:54:148 CONSOLA/(20592:20592): Archivo de instrucciones leído correctamente
+[INFO] 12:32:54:148 CONSOLA/(20592:20592): Paquete creado exitosamente
+[INFO] 12:32:54:148 CONSOLA/(20592:20592): Enviando paquete
+[INFO] 12:32:54:148 CONSOLA/(20592:20592): Paquete enviado
+[INFO] 12:33:06:355 CONSOLA/(20573:20573): Terminando consola
+[INFO] 12:33:28:959 CONSOLA/(20575:20575): Terminando consola
+[INFO] 12:35:21:145 CONSOLA/(20588:20588): Terminando consola
+[INFO] 12:35:31:367 CONSOLA/(20592:20592): Terminando consola
+[INFO] 12:35:32:769 CONSOLA/(20590:20590): Terminando consola
+[INFO] 12:36:12:930 CONSOLA/(21001:21001): Iniciando conexión con Kernel
+[INFO] 12:36:12:931 CONSOLA/(21001:21001): Conexión exitosa!
+[INFO] 12:36:12:932 CONSOLA/(21001:21001): Creando paquete de instrucciones...
+[INFO] 12:36:12:932 CONSOLA/(21001:21001): Archivo de instrucciones leído correctamente
+[INFO] 12:36:12:933 CONSOLA/(21001:21001): Paquete creado exitosamente
+[INFO] 12:36:12:933 CONSOLA/(21001:21001): Enviando paquete
+[INFO] 12:36:12:933 CONSOLA/(21001:21001): Paquete enviado
+[INFO] 12:36:13:452 CONSOLA/(21003:21003): Iniciando conexión con Kernel
+[INFO] 12:36:13:454 CONSOLA/(21003:21003): Conexión exitosa!
+[INFO] 12:36:13:454 CONSOLA/(21003:21003): Creando paquete de instrucciones...
+[INFO] 12:36:13:454 CONSOLA/(21003:21003): Archivo de instrucciones leído correctamente
+[INFO] 12:36:13:454 CONSOLA/(21003:21003): Paquete creado exitosamente
+[INFO] 12:36:13:455 CONSOLA/(21003:21003): Enviando paquete
+[INFO] 12:36:13:455 CONSOLA/(21003:21003): Paquete enviado
+[INFO] 12:36:14:775 CONSOLA/(21008:21008): Iniciando conexión con Kernel
+[INFO] 12:36:14:779 CONSOLA/(21008:21008): Conexión exitosa!
+[INFO] 12:36:14:780 CONSOLA/(21008:21008): Creando paquete de instrucciones...
+[INFO] 12:36:14:781 CONSOLA/(21008:21008): Archivo de instrucciones leído correctamente
+[INFO] 12:36:14:781 CONSOLA/(21008:21008): Paquete creado exitosamente
+[INFO] 12:36:14:781 CONSOLA/(21008:21008): Enviando paquete
+[INFO] 12:36:14:781 CONSOLA/(21008:21008): Paquete enviado
+[INFO] 12:36:15:331 CONSOLA/(21010:21010): Iniciando conexión con Kernel
+[INFO] 12:36:15:333 CONSOLA/(21010:21010): Conexión exitosa!
+[INFO] 12:36:15:333 CONSOLA/(21010:21010): Creando paquete de instrucciones...
+[INFO] 12:36:15:333 CONSOLA/(21010:21010): Archivo de instrucciones leído correctamente
+[INFO] 12:36:15:333 CONSOLA/(21010:21010): Paquete creado exitosamente
+[INFO] 12:36:15:333 CONSOLA/(21010:21010): Enviando paquete
+[INFO] 12:36:15:333 CONSOLA/(21010:21010): Paquete enviado
+[INFO] 12:36:15:766 CONSOLA/(21012:21012): Iniciando conexión con Kernel
+[INFO] 12:36:15:769 CONSOLA/(21012:21012): Conexión exitosa!
+[INFO] 12:36:15:770 CONSOLA/(21012:21012): Creando paquete de instrucciones...
+[INFO] 12:36:15:770 CONSOLA/(21012:21012): Archivo de instrucciones leído correctamente
+[INFO] 12:36:15:770 CONSOLA/(21012:21012): Paquete creado exitosamente
+[INFO] 12:36:15:770 CONSOLA/(21012:21012): Enviando paquete
+[INFO] 12:36:15:770 CONSOLA/(21012:21012): Paquete enviado
+[INFO] 12:36:30:034 CONSOLA/(21001:21001): Terminando consola
+[INFO] 12:36:41:384 CONSOLA/(21008:21008): Terminando consola
+[INFO] 12:36:42:522 CONSOLA/(21003:21003): Terminando consola
+[INFO] 12:36:49:108 CONSOLA/(21012:21012): Terminando consola
+[INFO] 12:36:50:852 CONSOLA/(21010:21010): Terminando consola
+[INFO] 12:37:18:019 CONSOLA/(21109:21109): Iniciando conexión con Kernel
+[INFO] 12:37:18:020 CONSOLA/(21109:21109): Conexión exitosa!
+[INFO] 12:37:18:020 CONSOLA/(21109:21109): Creando paquete de instrucciones...
+[INFO] 12:37:18:020 CONSOLA/(21109:21109): Archivo de instrucciones leído correctamente
+[INFO] 12:37:18:020 CONSOLA/(21109:21109): Paquete creado exitosamente
+[INFO] 12:37:18:020 CONSOLA/(21109:21109): Enviando paquete
+[INFO] 12:37:18:020 CONSOLA/(21109:21109): Paquete enviado
+[INFO] 12:37:18:486 CONSOLA/(21111:21111): Iniciando conexión con Kernel
+[INFO] 12:37:18:488 CONSOLA/(21111:21111): Conexión exitosa!
+[INFO] 12:37:18:489 CONSOLA/(21111:21111): Creando paquete de instrucciones...
+[INFO] 12:37:18:489 CONSOLA/(21111:21111): Archivo de instrucciones leído correctamente
+[INFO] 12:37:18:489 CONSOLA/(21111:21111): Paquete creado exitosamente
+[INFO] 12:37:18:489 CONSOLA/(21111:21111): Enviando paquete
+[INFO] 12:37:18:489 CONSOLA/(21111:21111): Paquete enviado
+[INFO] 12:37:19:053 CONSOLA/(21115:21115): Iniciando conexión con Kernel
+[INFO] 12:37:19:088 CONSOLA/(21115:21115): Conexión exitosa!
+[INFO] 12:37:19:089 CONSOLA/(21115:21115): Creando paquete de instrucciones...
+[INFO] 12:37:19:090 CONSOLA/(21115:21115): Archivo de instrucciones leído correctamente
+[INFO] 12:37:19:090 CONSOLA/(21115:21115): Paquete creado exitosamente
+[INFO] 12:37:19:090 CONSOLA/(21115:21115): Enviando paquete
+[INFO] 12:37:19:090 CONSOLA/(21115:21115): Paquete enviado
+[INFO] 12:37:19:564 CONSOLA/(21118:21118): Iniciando conexión con Kernel
+[INFO] 12:37:19:568 CONSOLA/(21118:21118): Conexión exitosa!
+[INFO] 12:37:19:569 CONSOLA/(21118:21118): Creando paquete de instrucciones...
+[INFO] 12:37:19:569 CONSOLA/(21118:21118): Archivo de instrucciones leído correctamente
+[INFO] 12:37:19:569 CONSOLA/(21118:21118): Paquete creado exitosamente
+[INFO] 12:37:19:569 CONSOLA/(21118:21118): Enviando paquete
+[INFO] 12:37:19:569 CONSOLA/(21118:21118): Paquete enviado
+[INFO] 12:37:20:015 CONSOLA/(21120:21120): Iniciando conexión con Kernel
+[INFO] 12:37:20:017 CONSOLA/(21120:21120): Conexión exitosa!
+[INFO] 12:37:20:017 CONSOLA/(21120:21120): Creando paquete de instrucciones...
+[INFO] 12:37:20:017 CONSOLA/(21120:21120): Archivo de instrucciones leído correctamente
+[INFO] 12:37:20:017 CONSOLA/(21120:21120): Paquete creado exitosamente
+[INFO] 12:37:20:017 CONSOLA/(21120:21120): Enviando paquete
+[INFO] 12:37:20:017 CONSOLA/(21120:21120): Paquete enviado
+[INFO] 12:37:35:265 CONSOLA/(21109:21109): Terminando consola
+[ERROR] 12:42:30:077 CONSOLA/(21120:21120): Operación desconocida
+[ERROR] 12:42:30:077 CONSOLA/(21118:21118): Operación desconocida
+[ERROR] 12:42:30:078 CONSOLA/(21115:21115): Operación desconocida
+[ERROR] 12:42:30:078 CONSOLA/(21111:21111): Operación desconocida
+[INFO] 12:42:59:131 CONSOLA/(21644:21644): Iniciando conexión con Kernel
+[INFO] 12:42:59:132 CONSOLA/(21644:21644): Conexión exitosa!
+[INFO] 12:42:59:132 CONSOLA/(21644:21644): Creando paquete de instrucciones...
+[INFO] 12:42:59:132 CONSOLA/(21644:21644): Archivo de instrucciones leído correctamente
+[INFO] 12:42:59:132 CONSOLA/(21644:21644): Paquete creado exitosamente
+[INFO] 12:42:59:132 CONSOLA/(21644:21644): Enviando paquete
+[INFO] 12:42:59:132 CONSOLA/(21644:21644): Paquete enviado
+[INFO] 12:42:59:583 CONSOLA/(21646:21646): Iniciando conexión con Kernel
+[INFO] 12:42:59:583 CONSOLA/(21646:21646): Conexión exitosa!
+[INFO] 12:42:59:583 CONSOLA/(21646:21646): Creando paquete de instrucciones...
+[INFO] 12:42:59:583 CONSOLA/(21646:21646): Archivo de instrucciones leído correctamente
+[INFO] 12:42:59:584 CONSOLA/(21646:21646): Paquete creado exitosamente
+[INFO] 12:42:59:584 CONSOLA/(21646:21646): Enviando paquete
+[INFO] 12:42:59:584 CONSOLA/(21646:21646): Paquete enviado
+[INFO] 12:43:00:064 CONSOLA/(21654:21654): Iniciando conexión con Kernel
+[INFO] 12:43:00:067 CONSOLA/(21654:21654): Conexión exitosa!
+[INFO] 12:43:00:067 CONSOLA/(21654:21654): Creando paquete de instrucciones...
+[INFO] 12:43:00:067 CONSOLA/(21654:21654): Archivo de instrucciones leído correctamente
+[INFO] 12:43:00:068 CONSOLA/(21654:21654): Paquete creado exitosamente
+[INFO] 12:43:00:068 CONSOLA/(21654:21654): Enviando paquete
+[INFO] 12:43:00:068 CONSOLA/(21654:21654): Paquete enviado
+[INFO] 12:43:00:753 CONSOLA/(21658:21658): Iniciando conexión con Kernel
+[INFO] 12:43:00:756 CONSOLA/(21658:21658): Conexión exitosa!
+[INFO] 12:43:00:760 CONSOLA/(21658:21658): Creando paquete de instrucciones...
+[INFO] 12:43:00:762 CONSOLA/(21658:21658): Archivo de instrucciones leído correctamente
+[INFO] 12:43:00:763 CONSOLA/(21658:21658): Paquete creado exitosamente
+[INFO] 12:43:00:764 CONSOLA/(21658:21658): Enviando paquete
+[INFO] 12:43:00:765 CONSOLA/(21658:21658): Paquete enviado
+[INFO] 12:43:00:883 CONSOLA/(21660:21660): Iniciando conexión con Kernel
+[INFO] 12:43:00:888 CONSOLA/(21660:21660): Conexión exitosa!
+[INFO] 12:43:00:890 CONSOLA/(21660:21660): Creando paquete de instrucciones...
+[INFO] 12:43:00:891 CONSOLA/(21660:21660): Archivo de instrucciones leído correctamente
+[INFO] 12:43:00:891 CONSOLA/(21660:21660): Paquete creado exitosamente
+[INFO] 12:43:00:892 CONSOLA/(21660:21660): Enviando paquete
+[INFO] 12:43:00:894 CONSOLA/(21660:21660): Paquete enviado
+[INFO] 12:43:13:836 CONSOLA/(21644:21644): Terminando consola
+[INFO] 12:43:36:295 CONSOLA/(21646:21646): Terminando consola
+[INFO] 12:45:26:989 CONSOLA/(21654:21654): Terminando consola
+[INFO] 12:45:34:201 CONSOLA/(21660:21660): Terminando consola
+[INFO] 12:45:35:709 CONSOLA/(21658:21658): Terminando consola
+[INFO] 12:51:22:691 CONSOLA/(22056:22056): Iniciando conexión con Kernel
+[INFO] 12:51:22:694 CONSOLA/(22056:22056): Conexión exitosa!
+[INFO] 12:51:22:697 CONSOLA/(22056:22056): Creando paquete de instrucciones...
+[INFO] 12:51:22:698 CONSOLA/(22056:22056): Archivo de instrucciones leído correctamente
+[INFO] 12:51:22:698 CONSOLA/(22056:22056): Paquete creado exitosamente
+[INFO] 12:51:22:698 CONSOLA/(22056:22056): Enviando paquete
+[INFO] 12:51:22:698 CONSOLA/(22056:22056): Paquete enviado
+[INFO] 12:51:23:186 CONSOLA/(22058:22058): Iniciando conexión con Kernel
+[INFO] 12:51:23:188 CONSOLA/(22058:22058): Conexión exitosa!
+[INFO] 12:51:23:188 CONSOLA/(22058:22058): Creando paquete de instrucciones...
+[INFO] 12:51:23:188 CONSOLA/(22058:22058): Archivo de instrucciones leído correctamente
+[INFO] 12:51:23:189 CONSOLA/(22058:22058): Paquete creado exitosamente
+[INFO] 12:51:23:189 CONSOLA/(22058:22058): Enviando paquete
+[INFO] 12:51:23:189 CONSOLA/(22058:22058): Paquete enviado
+[INFO] 12:51:23:784 CONSOLA/(22060:22060): Iniciando conexión con Kernel
+[INFO] 12:51:23:785 CONSOLA/(22060:22060): Conexión exitosa!
+[INFO] 12:51:23:785 CONSOLA/(22060:22060): Creando paquete de instrucciones...
+[INFO] 12:51:23:785 CONSOLA/(22060:22060): Archivo de instrucciones leído correctamente
+[INFO] 12:51:23:785 CONSOLA/(22060:22060): Paquete creado exitosamente
+[INFO] 12:51:23:785 CONSOLA/(22060:22060): Enviando paquete
+[INFO] 12:51:23:785 CONSOLA/(22060:22060): Paquete enviado
+[INFO] 12:51:24:110 CONSOLA/(22062:22062): Iniciando conexión con Kernel
+[INFO] 12:51:24:113 CONSOLA/(22062:22062): Conexión exitosa!
+[INFO] 12:51:24:113 CONSOLA/(22062:22062): Creando paquete de instrucciones...
+[INFO] 12:51:24:114 CONSOLA/(22062:22062): Archivo de instrucciones leído correctamente
+[INFO] 12:51:24:114 CONSOLA/(22062:22062): Paquete creado exitosamente
+[INFO] 12:51:24:114 CONSOLA/(22062:22062): Enviando paquete
+[INFO] 12:51:24:114 CONSOLA/(22062:22062): Paquete enviado
+[INFO] 12:51:24:547 CONSOLA/(22064:22064): Iniciando conexión con Kernel
+[INFO] 12:51:24:550 CONSOLA/(22064:22064): Conexión exitosa!
+[INFO] 12:51:24:550 CONSOLA/(22064:22064): Creando paquete de instrucciones...
+[INFO] 12:51:24:552 CONSOLA/(22064:22064): Archivo de instrucciones leído correctamente
+[INFO] 12:51:24:552 CONSOLA/(22064:22064): Paquete creado exitosamente
+[INFO] 12:51:24:552 CONSOLA/(22064:22064): Enviando paquete
+[INFO] 12:51:24:553 CONSOLA/(22064:22064): Paquete enviado
+[INFO] 12:51:39:136 CONSOLA/(22056:22056): Terminando consola
+[INFO] 12:51:42:361 CONSOLA/(22060:22060): Terminando consola
+[INFO] 12:51:53:647 CONSOLA/(22058:22058): Terminando consola
+[INFO] 12:51:59:125 CONSOLA/(22064:22064): Terminando consola
+[INFO] 12:52:00:002 CONSOLA/(22062:22062): Terminando consola
+[INFO] 12:52:50:409 CONSOLA/(22146:22146): Iniciando conexión con Kernel
+[INFO] 12:52:50:416 CONSOLA/(22146:22146): Conexión exitosa!
+[INFO] 12:52:50:417 CONSOLA/(22146:22146): Creando paquete de instrucciones...
+[INFO] 12:52:50:417 CONSOLA/(22146:22146): Archivo de instrucciones leído correctamente
+[INFO] 12:52:50:417 CONSOLA/(22146:22146): Paquete creado exitosamente
+[INFO] 12:52:50:417 CONSOLA/(22146:22146): Enviando paquete
+[INFO] 12:52:50:418 CONSOLA/(22146:22146): Paquete enviado
+[INFO] 12:52:50:956 CONSOLA/(22148:22148): Iniciando conexión con Kernel
+[INFO] 12:52:50:957 CONSOLA/(22148:22148): Conexión exitosa!
+[INFO] 12:52:50:957 CONSOLA/(22148:22148): Creando paquete de instrucciones...
+[INFO] 12:52:50:957 CONSOLA/(22148:22148): Archivo de instrucciones leído correctamente
+[INFO] 12:52:50:957 CONSOLA/(22148:22148): Paquete creado exitosamente
+[INFO] 12:52:50:957 CONSOLA/(22148:22148): Enviando paquete
+[INFO] 12:52:50:958 CONSOLA/(22148:22148): Paquete enviado
+[INFO] 12:52:51:482 CONSOLA/(22153:22153): Iniciando conexión con Kernel
+[INFO] 12:52:51:483 CONSOLA/(22153:22153): Conexión exitosa!
+[INFO] 12:52:51:483 CONSOLA/(22153:22153): Creando paquete de instrucciones...
+[INFO] 12:52:51:483 CONSOLA/(22153:22153): Archivo de instrucciones leído correctamente
+[INFO] 12:52:51:483 CONSOLA/(22153:22153): Paquete creado exitosamente
+[INFO] 12:52:51:483 CONSOLA/(22153:22153): Enviando paquete
+[INFO] 12:52:51:483 CONSOLA/(22153:22153): Paquete enviado
+[INFO] 12:52:51:919 CONSOLA/(22155:22155): Iniciando conexión con Kernel
+[INFO] 12:52:51:925 CONSOLA/(22155:22155): Conexión exitosa!
+[INFO] 12:52:51:927 CONSOLA/(22155:22155): Creando paquete de instrucciones...
+[INFO] 12:52:51:928 CONSOLA/(22155:22155): Archivo de instrucciones leído correctamente
+[INFO] 12:52:51:928 CONSOLA/(22155:22155): Paquete creado exitosamente
+[INFO] 12:52:51:928 CONSOLA/(22155:22155): Enviando paquete
+[INFO] 12:52:51:928 CONSOLA/(22155:22155): Paquete enviado
+[INFO] 12:52:52:326 CONSOLA/(22157:22157): Iniciando conexión con Kernel
+[INFO] 12:52:52:327 CONSOLA/(22157:22157): Conexión exitosa!
+[INFO] 12:52:52:327 CONSOLA/(22157:22157): Creando paquete de instrucciones...
+[INFO] 12:52:52:327 CONSOLA/(22157:22157): Archivo de instrucciones leído correctamente
+[INFO] 12:52:52:327 CONSOLA/(22157:22157): Paquete creado exitosamente
+[INFO] 12:52:52:327 CONSOLA/(22157:22157): Enviando paquete
+[INFO] 12:52:52:327 CONSOLA/(22157:22157): Paquete enviado
+[INFO] 12:53:05:139 CONSOLA/(22146:22146): Terminando consola
+[INFO] 12:53:33:632 CONSOLA/(22148:22148): Terminando consola
+[INFO] 12:55:21:241 CONSOLA/(22153:22153): Terminando consola
+[INFO] 12:55:29:234 CONSOLA/(22157:22157): Terminando consola
+[INFO] 12:55:30:616 CONSOLA/(22155:22155): Terminando consola

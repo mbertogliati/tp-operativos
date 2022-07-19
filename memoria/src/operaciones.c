@@ -46,7 +46,7 @@ void suspender_proceso2(t_list* tabla1){
 				pagina->P = false;
 
 				//Busco el primer marco del grupo asignado
-				if(pagina->P && pagina->marco < marco_inicial)
+				if(pagina->marco < marco_inicial)
 					marco_inicial = pagina->marco;
 
 				if(strcmp(configuracion->algoritmo_reemplazo, "CLOCK")){
