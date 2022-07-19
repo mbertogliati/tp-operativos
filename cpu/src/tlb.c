@@ -18,7 +18,8 @@ int chequear_tlb(int pagina){
             break;
         }
     }
-
+    
+    list_iterator_destroy(iterador_tlb);
     if(no_se_encontro)
         return -1;
     
@@ -27,7 +28,6 @@ int chequear_tlb(int pagina){
         list_add(TLB,entrada_tlb);
     }
     
-    list_iterator_destroy(iterador_tlb);
     return entrada_tlb->marco;
 }
 

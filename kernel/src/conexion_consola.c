@@ -38,6 +38,7 @@ t_pcb *generar_pcb(int socket_cliente) {
 	pcb->fd = socket_cliente;
 
 	recibir_paquete_consola(buffer, size, pcb);
+	free(buffer);
 	return pcb;
 }
 

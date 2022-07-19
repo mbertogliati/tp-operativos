@@ -53,6 +53,7 @@ void *iniciar_conexion_dispatch(){
         buffer-> stream = recibir_buffer(&(buffer -> size), socket_dispatch);
         log_info(cpu_log,"Llego un PCB");
         pcb = desempaquetar_pcb(buffer->stream);
+        free(buffer->stream);
         log_info(cpu_log,"PCB obtenido!!!");
         ciclo_de_instruccion(pcb);
     }
