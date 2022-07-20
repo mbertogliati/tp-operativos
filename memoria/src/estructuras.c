@@ -7,6 +7,12 @@ void iniciar_estructuras(char* config_path){
 	log_info(memoria_log, "Memoria principal creada");
 	//tablas = list_create();
 
+	page_fault_counter = 0;
+	pid_actual = -1;
+
+	sem_init(&mutex_pf, 0, 1);
+	sem_init(&mutex_pid_actual, 0, 1);
+
 	tabla_planificacion = list_create();
 	for(int i = 0; i < configuracion->tam_memoria / configuracion->tam_pagina; i++){
 		t_tabla2* tabla2 = NULL;

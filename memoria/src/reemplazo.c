@@ -176,6 +176,8 @@ int clock_normal(int id_proceso, int pagina, int marco_inicio){
 	for(int i=0; i<2; i++){
 		for(; planificacion_ptrs[posicion_ptr] < configuracion->marcos_por_proceso; planificacion_ptrs[posicion_ptr]++){
 			pagina_actual = list_get(tabla_planificacion, marco_inicio + planificacion_ptrs[posicion_ptr]);
+			log_info(cpu_log, "Imprimo las posiciones que estoy chequeando:");
+			log_info(cpu_log, "%d \t PAG: %d  U=%d", marco_inicio+planificacion_ptrs[posicion_ptr], pagina_actual->pagina, pagina_actual->U);
 
 			if(pagina_actual->U){
 				pagina_actual->U = false;
@@ -185,6 +187,9 @@ int clock_normal(int id_proceso, int pagina, int marco_inicio){
 				sem_post(&mutex_tabla_planificacion);
 				//Se escribe la pagina en swap por si hubo modificacion:
 			    escribir_pagina_SWAP(pagina_actual->id, pagina_actual->pagina, pagina_actual->marco);
+				//Espera por acceso a disco
+				usleep(1000 * configuracion->retardo_swap);
+
 			    //Se lee la pagina de swap y se la pone en el marco (en memoria):
 			    leer_pagina_SWAP(id_proceso, pagina, pagina_actual -> marco);
 			    //Ahora se marca esa pagina como ausente, se deja la actualizacion de las tablas con la nueva pagina cargada a cargo
@@ -232,13 +237,13 @@ int clock_modificado(int id_proceso, int pagina, int marco_inicio){
 		log_info(cpu_log, "Imprimo las posiciones que estoy chequeando: ");
 		for(int j=0; j < configuracion->marcos_por_proceso; j++){//Recorre todo el grupo de marcos
 			pagina_actual = list_get(tabla_planificacion, marco_inicio + planificacion_ptrs[posicion_ptr]);
-			log_info(cpu_log, "Posicion: %d", marco_inicio+planificacion_ptrs[posicion_ptr]);
+			log_info(cpu_log, "%d \t PAG: %d  U=%d  M=%d", marco_inicio+planificacion_ptrs[posicion_ptr], pagina_actual->pagina, pagina_actual->U, pagina_actual->M);
 
 			if(!pagina_actual->U && !pagina_actual->M){//Si los dos son 0 da falso y se reemplaza
 				sem_post(&mutex_tabla_planificacion);
 				log_info(cpu_log, "Marco a reemplazar encontrado en marco %d", pagina_actual->marco);
 				leer_pagina_SWAP(id_proceso, pagina, pagina_actual -> marco);//En este caso no escribimos porque M=0
-				pagina_actual -> P = false;
+				pagina_actual -> P = 0;
 				planificacion_ptrs[posicion_ptr]++;
 			    return pagina_actual -> marco;
 			}
@@ -252,17 +257,22 @@ int clock_modificado(int id_proceso, int pagina, int marco_inicio){
 		log_info(cpu_log, "Ejecuto paso 2");
 		for(int j=0; j<configuracion->marcos_por_proceso; j++){
 			pagina_actual = list_get(tabla_planificacion, marco_inicio + planificacion_ptrs[posicion_ptr]);
+			log_info(cpu_log, "%d \t PAG: %d  U=%d  M=%d", marco_inicio+planificacion_ptrs[posicion_ptr], pagina_actual->pagina, pagina_actual->U, pagina_actual->M);
 
 			if(pagina_actual->M && !pagina_actual->U){//Solo se cumple si M=1 y U=0
 				sem_post(&mutex_tabla_planificacion);
 				log_info(cpu_log, "Marco a reemplazar encontrado en marco %d", pagina_actual->marco);
 				escribir_pagina_SWAP(id_proceso, pagina, pagina_actual -> marco);//Ahora si escribimos
+				//Espera por acceso a disco
+				usleep(1000 * configuracion->retardo_swap);
+
 			    leer_pagina_SWAP(id_proceso, pagina, pagina_actual -> marco);
-			    pagina_actual -> P = false;
+			    pagina_actual -> P = 0;
+				pagina_actual -> M = 0;
 			    planificacion_ptrs[posicion_ptr]++;
 			    return pagina_actual -> marco;
 			}
-			pagina_actual -> U = false; //En este paso si se cambian los bits U
+			pagina_actual -> U = 0; //En este paso si se cambian los bits U
 			log_info(cpu_log, "Bit de uso modificado en marco %d", pagina_actual->marco);
 
 			if(planificacion_ptrs[posicion_ptr] == configuracion->marcos_por_proceso - 1)

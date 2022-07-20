@@ -107,6 +107,8 @@ void *conectar_con_cpu(int* socket_cpu){
 
         buffer->stream = recibir_buffer(&(buffer->size), *socket_cpu);
         log_info(cpu_log, "Buffer Recibido!!!");
+		
+		usleep(1000 * configuracion->retardo_memoria);
 
         switch(instruccion_recibida) {
 		case DEVOLVER_INDICE_TABLA_NVL2:
@@ -129,7 +131,7 @@ void *conectar_con_cpu(int* socket_cpu){
 			log_error(cpu_log, "ERROR - La instruccion recibida del CPU es invalida");
 			break;
         }
-        free(buffer->stream); 
+        free(buffer->stream);
     }
     free(buffer);
     return NULL;
@@ -143,10 +145,37 @@ void enviar_paquete_configuraciones(int socket_cpu) {
 	log_info(cpu_log, "Paquete enviado");
 }
 
+void loguear_page_faults(int pid){
+
+	sem_wait(&mutex_pf);
+
+	if(pid_actual != pid){
+		if(page_fault_counter > 0){
+			log_warning(cpu_log,"PID: %d PAGE FAULTS: %d", pid_actual, page_fault_counter);
+			page_fault_counter = 0;
+		}
+		if(pid >= 0)
+			log_info(cpu_log,"Nuevo PID: %d", pid);
+		pid_actual = pid;
+	}
+
+	sem_post(&mutex_pf);
+
+}
+
 void devolver_indice(t_buffer *buffer, int socket_cpu) {
-	log_info(cpu_log, "El CPU quiere Tabla NVL 2");
 	int *dato = (int*) sacar_de_buffer(buffer, sizeof(int));
 	t_list* direccion_tabla1 = (t_list*)*dato;
+
+	int pid = ((t_tabla2*)(list_get( (t_list*) (list_get( direccion_tabla1 ,0)) ,0)))->id;
+
+	sem_wait(&mutex_pid_actual);
+	loguear_page_faults(pid);
+	sem_post(&mutex_pid_actual);
+
+	log_info(cpu_log, "El CPU quiere Tabla NVL 2");
+
+
 	int *indice = sacar_de_buffer(buffer, sizeof(int));
 	t_list *direccion_tabla2 = obtener_tabla2(direccion_tabla1, *indice);
 	send(socket_cpu, &direccion_tabla2, sizeof(int), 0);
@@ -270,18 +299,24 @@ void crear_tabla(t_buffer *buffer, int socket_kernel) {
 }
 
 void proceso_suspendido(t_buffer *buffer, int socket_kernel) {
-	log_info(kernel_log, "El kernel quiere suspender un proceso");
+	log_info(kernel_log, "El KERNEL quiere suspender un proceso");
 	//bool confirmacion = true;
 
-	log_info(kernel_log, "Recibiendo Proceso...");
 	int* aux = sacar_de_buffer(buffer, sizeof(int));
 	t_list *direccion_de_tabla = (t_list*)*aux;
 	free(aux);
-	log_info(kernel_log, "Proceso recibido! Tabla: %X", (int)direccion_de_tabla);
 
-	log_info(kernel_log, "Suspendiendo Proceso...");
+	int pid = ((t_tabla2*)(list_get( (t_list*) (list_get( direccion_de_tabla ,0)) ,0)))->id;
+
+	sem_wait(&mutex_pid_actual);
+	if(pid == pid_actual)
+		loguear_page_faults(-1);
+	sem_post(&mutex_pid_actual);
+
+	log_info(kernel_log, "Proceso recibido! PID: %d Tabla: %X  SUSPENDIENDO...",pid, (int)direccion_de_tabla);
+
 	suspender_proceso2(direccion_de_tabla);
-	log_info(kernel_log, "Proceso Suspendido!!!");
+	log_info(kernel_log, "PID: %d Suspendido!!!",pid);
 
 	//send(socket_kernel, &confirmacion, sizeof(bool), 0); ARREGLANDO CAGADAS DEL KERNEL 
 }
@@ -293,7 +328,15 @@ void liberar(t_buffer *buffer, int socket_kernel) {
 	int* aux = sacar_de_buffer(buffer, sizeof(int));
 	t_list *direccion_de_tabla = (t_list*)*aux;
 	free(aux);
-	log_info(kernel_log, "Proceso recibido! Tabla: %X", (int)direccion_de_tabla);
+
+	int pid = ((t_tabla2*)(list_get( (t_list*) (list_get( direccion_de_tabla ,0)) ,0)))->id;
+
+	sem_wait(&mutex_pid_actual);
+	if(pid == pid_actual)
+		loguear_page_faults(-1);
+	sem_post(&mutex_pid_actual);
+
+	log_info(kernel_log, "Proceso recibido! PID: %d Tabla: %X",pid, (int)direccion_de_tabla);
 	finalizar_proceso(direccion_de_tabla);
 
 	send(socket_kernel, &confirmacion, sizeof(bool), 0);

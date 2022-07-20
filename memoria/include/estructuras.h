@@ -6,6 +6,7 @@
 #include <commons/collections/list.h>
 #include <commons/string.h>
 #include <stdio.h>
+#include <semaphore.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -27,6 +28,10 @@ typedef struct{
 t_log *memoria_log;
 t_log *cpu_log;
 t_log *kernel_log;
+
+sem_t mutex_pf;
+sem_t mutex_pid_actual;
+
 void* memoria_principal;
 //t_list* tablas;
 t_list* tabla_planificacion;
@@ -42,6 +47,8 @@ typedef struct{
 } t_tabla2;
 
 int *planificacion_ptrs;
+int page_fault_counter;
+int pid_actual;
 
 void iniciar_estructuras(char* config_path);
 void cargar_configuraciones(char* path);

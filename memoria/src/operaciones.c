@@ -34,44 +34,46 @@ void suspender_proceso(int id_proceso){
 
 //Version con direccion de tabla1
 void suspender_proceso2(t_list* tabla1){
-	log_info(kernel_log, "Direccion Tabla 1: %X", (int) tabla1);
 	int marco_inicial = list_size(tabla_planificacion);
 
 	for(int i = 0; i < list_size(tabla1); i++){
 		t_list* tabla2 = list_get(tabla1, i);
 		for(int j = 0; j < list_size(tabla2); j++){
 			t_tabla2* pagina = list_get(tabla2, j);
-			if(i==0 && j==0)
-				log_info(kernel_log,"PID: %d", pagina->id);
 			if(pagina->P){
-				log_info(kernel_log, "Pagina %d presente en marco %d de memoria", pagina->pagina, pagina->marco);
+				log_info(kernel_log, "PAG: %d presente en MARCO: %d", pagina->pagina, pagina->marco);
 				pagina->P = false;
 
 				//Busco el primer marco del grupo asignado
 				if(pagina->marco < marco_inicial)
 					marco_inicial = pagina->marco;
 
-				if(strcmp(configuracion->algoritmo_reemplazo, "CLOCK")){
+				if(!strcmp(configuracion->algoritmo_reemplazo, "CLOCK")){
 					escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
 					log_info(kernel_log, "Pagina escrita a SWAP");
-				}else{
+				}
+				else{
 					if(pagina->M){
 						escribir_pagina_SWAP(pagina->id, pagina->pagina, pagina->marco);
-						log_info(kernel_log, "Pagina escrita a SWAP");
+						log_info(kernel_log, "PAG: %d escrita a SWAP",pagina->pagina);
+						pagina->M = 0;
 					}
-					log_info(kernel_log, "Pagina no escrita a SWAP");
+					else
+						log_info(kernel_log, "PAG: %d NO escrita a SWAP",pagina->pagina);
 				}
 			}
 		}
-		//Actualizo todos los marcos a la vez para evitar errores con los semaforos
-		if(marco_inicial != list_size(tabla_planificacion)){
-			sem_wait(&mutex_tabla_planificacion);
-			for(int i=0; i < configuracion->marcos_por_proceso; i++)
-				list_replace(tabla_planificacion, marco_inicial + i, NULL);
-			planificacion_ptrs[marco_inicial / configuracion->marcos_por_proceso] = 0;
-			sem_post(&mutex_tabla_planificacion);
-			log_info(kernel_log, "Marcos %d a %d vaciados de la tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso-1);
-		}
+	}
+	
+	//Actualizo todos los marcos a la vez para evitar errores con los semaforos
+	if(marco_inicial != list_size(tabla_planificacion)){
+		sem_wait(&mutex_tabla_planificacion);
+		for(int i=0; i < configuracion->marcos_por_proceso; i++)
+			list_replace(tabla_planificacion, marco_inicial + i, NULL);
+		planificacion_ptrs[marco_inicial / configuracion->marcos_por_proceso] = 0;
+		sem_post(&mutex_tabla_planificacion);
+
+		log_info(kernel_log, "Marcos %d a %d vaciados de la tabla de planificacion", marco_inicial, marco_inicial + configuracion->marcos_por_proceso-1);
 	}
 }
 
@@ -85,8 +87,6 @@ void finalizar_proceso(t_list* tabla1){
 		int tamanio_tabla2 = list_size(tabla2);
 		for(int j = 0; j < tamanio_tabla2; j++){
 			t_tabla2* pagina = list_get(tabla2, 0);
-			if(i==0 && j==0)
-				log_info(kernel_log,"PID: %d", pagina->id);
 			if(pagina->P && pagina->marco < marco_inicial){
 				marco_inicial = pagina->marco;
 				log_info(kernel_log,"Marco incial: %d", marco_inicial);
@@ -130,10 +130,14 @@ t_list *obtener_tabla2(t_list* tabla1, int indice){
 
 int obtener_marco(t_list* tabla2, int indice){
 	t_tabla2* pagina = list_get(tabla2, indice);
-
 	//De no estar cargada en memoria la carga, devuelve el marco al final
 	if(!pagina->P){
-		log_info(cpu_log, "La pagina %d no se encuentra presente en memoria", pagina->pagina);
+		log_warning(cpu_log, "PAGE FAULT! PID: %d PAG: %d",pagina->id, pagina->pagina);
+
+		sem_wait(&mutex_pf);
+		page_fault_counter++;
+		sem_post(&mutex_pf);
+
 		int marco = ejecutar_algoritmo_de_reemplazo(pagina->pagina, pagina->id);
 
 		//En caso de error se retorna inmediatamente -1
@@ -198,7 +202,7 @@ void leer_pagina_SWAP(int id_proceso, int pagina, int marco){
 	fclose(SWAP_file);
 
 	//Espera por acceso a disco
-	sleep(0.001 * configuracion->retardo_swap);
+	usleep(1000 * configuracion->retardo_swap);
 
 }
 
@@ -213,6 +217,4 @@ void escribir_pagina_SWAP(int id_proceso, int pagina, int marco){
 
 	fclose(SWAP_file);
 
-	//Espera por acceso a disco
-	sleep(0.001 * configuracion->retardo_swap);
 }
