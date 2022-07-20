@@ -419,8 +419,11 @@ void *thread_blocked(){
 				log_protegido(string_from_format("BLOCKED: Tiempo de espera excedido. Tiempo restante: %dms \n SUSPENDIENDO PID: %d...",pcb_bloqueado->milisegundos, pcb_bloqueado->pcb->id));
 				suspender_proceso(pcb_bloqueado->pcb);
 			}
+			else{
+				log_protegido(string_from_format("BLOCKED: El PID: %d ya habia sido SUSPENDIDO", pcb_bloqueado->pcb->id));
+			}
 			esperar_bloqueado(&(pcb_bloqueado->milisegundos), &(pcb_bloqueado->contador));
-			log_protegido(string_from_format("BLOCKED: PID: %d SUSPENDIDO. IO: %dms \t Tiempo total esperado: %dms. Agregando a suspendido ready... ",pcb_bloqueado->pcb->id,pcb_bloqueado->milisegundos,((int)tiempo_max_bloqueado()) - pcb_bloqueado->contador));
+			log_protegido(string_from_format("BLOCKED: PID: %d SUSPENDIDO. IO: %dms \t Tiempo total esperado: %dms. Agregando a suspendido ready... ",pcb_bloqueado->pcb->id,tiempo_total_espera,((int)tiempo_max_bloqueado()) - pcb_bloqueado->contador));
 
 			agregar_a_cola(suspendido_ready, pcb_bloqueado->pcb, msuspendido_ready);
 			sem_wait(&msuspendido_counter);
