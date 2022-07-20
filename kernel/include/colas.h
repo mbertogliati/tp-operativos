@@ -49,9 +49,12 @@ sem_t procesos_en_exit; //Inicializa en 0
 sem_t bloqueado; //Inicializa en 0
 sem_t suspendido;
 
+
+
 void inicializar_estructuras();
 int inicializar_threads();
 void log_protegido(char* mensaje);
+void* decrementador_cola_bloqueado(void* arg);
 void agregar_a_new(t_pcb *pcb);
 void *thread_ready();
 void *thread_execute();

@@ -37,6 +37,17 @@ void actualizar_tlb(int pagina, int marco){
     nueva_entrada->pagina = pagina;
     nueva_entrada->marco = marco;
 
+    t_list_iterator* iterador_tlb;
+
+    iterador_tlb = list_iterator_create(TLB);
+
+    while(list_iterator_has_next(iterador_tlb)){
+        if( ( (t_tlb*)list_iterator_next(iterador_tlb) )->marco == marco ){
+            list_replace_and_destroy_element(TLB,iterador_tlb->index,nueva_entrada,free);
+            list_iterator_destroy(iterador_tlb);
+            return;
+        }
+    }
     if(list_size(TLB) < cpuconfig.entradas_tlb){
         list_add(TLB, nueva_entrada);
         return;

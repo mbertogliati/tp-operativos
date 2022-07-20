@@ -46,18 +46,21 @@ void inicializar_estructuras() {
 }
 
 int inicializar_threads(){
-	pthread_t hilo_ready, hilo_execute, hilo_blocked, hilo_suspendido_blocked, hilo_exit;
+	pthread_t hilo_ready, hilo_execute, hilo_blocked, /*hilo_suspendido_blocked,*/ 
+			  hilo_exit, hilo_decrementador_cola_bloqueado;
 
 	pthread_create(&hilo_ready, NULL, &thread_ready, NULL);
 	pthread_create(&hilo_execute, NULL, &thread_execute, NULL);
 	pthread_create(&hilo_blocked, NULL, &thread_blocked, NULL);
-	pthread_create(&hilo_suspendido_blocked, NULL, &thread_suspendido_blocked, NULL);
+	//pthread_create(&hilo_suspendido_blocked, NULL, &thread_suspendido_blocked, NULL);
+	pthread_create(&hilo_decrementador_cola_bloqueado, NULL, &decrementador_cola_bloqueado, NULL);
 	pthread_create(&hilo_exit, NULL, &thread_exit, NULL);
 
 	pthread_setname_np(hilo_ready, "READY");
 	pthread_setname_np(hilo_execute, "EXEC");
 	pthread_setname_np(hilo_blocked, "BLOCK");
-	pthread_setname_np(hilo_suspendido_blocked, "SUS-BLOCK");
+	//pthread_setname_np(hilo_suspendido_blocked, "SUS-BLOCK");
+	pthread_setname_np(hilo_decrementador_cola_bloqueado, "DECRE-BLOCK");
 	pthread_setname_np(hilo_exit, "EXIT");
 
 	// pthread_join(hilo_ready, NULL);
@@ -88,7 +91,6 @@ void log_protegido(char* mensaje){
 	sem_post(&mlog);
 	free(mensaje);
 }
-
 // new
 void agregar_a_new(t_pcb *pcb) {
 	sem_wait(&mid_counter);
@@ -236,8 +238,8 @@ void *thread_ready(){
 }
 
 //execute
-t_pcb_con_milisegundos recibir_proceso(){
-	t_pcb_con_milisegundos proceso_para_devolver;
+t_pcb_recibido* recibir_proceso(){
+	t_pcb_recibido* proceso_para_devolver = malloc(sizeof(t_pcb_recibido));
 	t_pcb* pcb;
 	
 	//Saco el tiempo de IO que se lo pase como "codigo de operacion"
@@ -249,14 +251,10 @@ t_pcb_con_milisegundos recibir_proceso(){
 
 	pcb = desempaquetar_pcb(buffer->stream);
 	
-	if(IO == 0)
-		proceso_para_devolver.milisegundos = NULL;
-	else {
-		proceso_para_devolver.milisegundos = malloc(sizeof(int));
-		*(proceso_para_devolver.milisegundos) = IO;
-	}
-
-	proceso_para_devolver.pcb = pcb;
+	proceso_para_devolver->pcb = pcb;
+	proceso_para_devolver->milisegundos = IO;
+	proceso_para_devolver->contador = (int) tiempo_max_bloqueado();
+	
 	free(buffer->stream);
 	free(buffer);
 
@@ -276,7 +274,7 @@ double calcular_milisegundos(struct timeval tiempo_envio, struct timeval tiempo_
 void *thread_execute(){
 	struct timeval tiempo_envio, tiempo_retorno;
 	int buffer_vacio;
-	t_pcb_con_milisegundos proceso_recibido;
+	t_pcb_recibido* proceso_recibido;
 	double real;
 	while(1){
 		sem_wait(&procesos_en_ready);
@@ -298,7 +296,7 @@ void *thread_execute(){
 
 		proceso_recibido = recibir_proceso();
 		interrupcion = false;
-		chequear_instrucciones(proceso_recibido.pcb->instrucciones, proceso_recibido.pcb->cant_instrucciones);
+		chequear_instrucciones(proceso_recibido->pcb->instrucciones, proceso_recibido->pcb->cant_instrucciones);
 		//Chequea que el buffer de socket este vacio (que no haya quedado basura)
 		//De lo contrario termina el programa
 		ioctl(socket_dispatch, FIONREAD, &buffer_vacio);
@@ -307,45 +305,47 @@ void *thread_execute(){
 		gettimeofday(&tiempo_retorno, NULL);
 		log_protegido(string_from_format("EXECUTE:Proceso recibido de CPU."));
 
-		if(proceso_recibido.pcb->program_counter < proceso_recibido.pcb->cant_instrucciones){
+		if(proceso_recibido->pcb->program_counter < proceso_recibido->pcb->cant_instrucciones){
 			//Interrupcion
-			if(proceso_recibido.milisegundos == NULL){
+			if(proceso_recibido->milisegundos == 0){
 				log_protegido(string_from_format("EXECUTE:Proceso recibido por interrupcion."));
-				if(proceso_recibido.pcb->rafaga_inicial == 0){
-					proceso_recibido.pcb->rafaga_inicial = proceso_recibido.pcb->est_rafaga;
-					proceso_recibido.pcb->est_rafaga = proceso_recibido.pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
+				if(proceso_recibido->pcb->rafaga_inicial == 0){
+					proceso_recibido->pcb->rafaga_inicial = proceso_recibido->pcb->est_rafaga;
+					proceso_recibido->pcb->est_rafaga = proceso_recibido->pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
 				}else{
-					proceso_recibido.pcb->est_rafaga = proceso_recibido.pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
+					proceso_recibido->pcb->est_rafaga = proceso_recibido->pcb->est_rafaga - calcular_milisegundos(tiempo_envio, tiempo_retorno);
 				}
-				//log_protegido(string_from_format("EXECUTE:Rafaga actual del proceso %d: %lf",proceso_recibido.pcb->id, proceso_recibido.pcb->est_rafaga));
-				agregar_a_ready(proceso_recibido.pcb);
+				//log_protegido(string_from_format("EXECUTE:Rafaga actual del proceso %d: %lf",proceso_recibido->pcb->id, proceso_recibido->pcb->est_rafaga));
+				agregar_a_ready(proceso_recibido->pcb);
+				free(proceso_recibido);
 				log_protegido(string_from_format("EXECUTE:Se agrego el proceso a ready."));
 			}else{
 				//Espera
 				log_protegido(string_from_format("EXECUTE:Proceso recibido por I/O."));
 
 				//Hago la estimacion de la proxima rafaga
-				if(proceso_recibido.pcb->rafaga_inicial == 0){
-					calcular_estimacion(calcular_milisegundos(tiempo_envio, tiempo_retorno), proceso_recibido.pcb);
+				if(proceso_recibido->pcb->rafaga_inicial == 0){
+					calcular_estimacion(calcular_milisegundos(tiempo_envio, tiempo_retorno), proceso_recibido->pcb);
 				}else{
-					real = proceso_recibido.pcb->est_rafaga;
-					proceso_recibido.pcb->est_rafaga = proceso_recibido.pcb->rafaga_inicial;
-					real = proceso_recibido.pcb->est_rafaga - real + calcular_milisegundos(tiempo_envio, tiempo_retorno);
-					calcular_estimacion(real, proceso_recibido.pcb);
+					real = proceso_recibido->pcb->est_rafaga;
+					proceso_recibido->pcb->est_rafaga = proceso_recibido->pcb->rafaga_inicial;
+					real = proceso_recibido->pcb->est_rafaga - real + calcular_milisegundos(tiempo_envio, tiempo_retorno);
+					calcular_estimacion(real, proceso_recibido->pcb);
 				}
-				proceso_recibido.pcb->rafaga_inicial = 0;
+				proceso_recibido->pcb->rafaga_inicial = 0;
 
-				agregar_a_cola(bloqueado_queue, proceso_recibido.pcb, mbloqueado);
-				sem_wait(&mbloqueado_tiempo);
-				queue_push(bloqueado_tiempo, proceso_recibido.milisegundos);
-				sem_post(&mbloqueado_tiempo);
+				//agregar_a_cola(bloqueado_queue, proceso_recibido->pcb, mbloqueado);
+				sem_wait(&mbloqueado);
+				queue_push(bloqueado_queue, proceso_recibido);
+				sem_post(&mbloqueado);
 				log_protegido(string_from_format("EXECUTE:Se agrego el proceso a bloqueado."));
 				sem_post(&bloqueado);
 			}
 		}else{
 			//Exit
 			log_protegido(string_from_format("EXECUTE:Proceso finalizo sus instrucciones."));
-			agregar_a_cola(exit_queue, proceso_recibido.pcb, mexit);
+			agregar_a_cola(exit_queue, proceso_recibido->pcb, mexit);
+			free(proceso_recibido);
 			log_protegido(string_from_format("EXECUTE:Se agrego el proceso a exit."));
 			sem_post(&procesos_en_exit);
 			sem_post(&nivel_multiprogramacion);
@@ -354,69 +354,88 @@ void *thread_execute(){
 	}
 }
 
-//blocked
-int esperar_bloqueado(int tiempo_espera){
-	if(tiempo_espera > tiempo_max_bloqueado())
-		usleep(1000 * tiempo_max_bloqueado());
-	else
-		usleep(1000 * tiempo_espera);
+void suspender_proceso(t_pcb* pcb){
+	suspender_proceso_memoria(pcb->tabla_paginas);
+	sem_post(&nivel_multiprogramacion);
+}
 
-	return (tiempo_espera - tiempo_max_bloqueado());
+//blocked
+void* decrementador_cola_bloqueado(void* arg){
+	t_pcb_recibido* elemento_actual;
+	t_list_iterator* iterador_cola_bloqueado;
+
+	while(1){
+		sleep(1);
+		sem_wait(&mbloqueado);
+		iterador_cola_bloqueado = list_iterator_create(bloqueado_queue->elements);
+		while(list_iterator_has_next(iterador_cola_bloqueado)){
+			elemento_actual = (t_pcb_recibido*) list_iterator_next(iterador_cola_bloqueado);
+			(elemento_actual->contador)--;
+			if (elemento_actual -> contador == -1)
+				suspender_proceso(elemento_actual->pcb);
+		}
+		list_iterator_destroy(iterador_cola_bloqueado);
+		sem_post(&mbloqueado);
+	}
+}
+void esperar_bloqueado(int* tiempo_espera, int* resto){
+	usleep(1000 * (*tiempo_espera));
+	*resto -= (*tiempo_espera);
+	*tiempo_espera = 0;
 }
 
 void *thread_blocked(){
-	int *espera_restante;
+	int tiempo_total_espera;
 	while(1){
 		sem_wait(&bloqueado);
-		t_pcb* pcb = sacar_de_cola(bloqueado_queue, mbloqueado);
-		sem_wait(&mbloqueado_tiempo);
-		espera_restante = queue_pop(bloqueado_tiempo);
-		sem_post(&mbloqueado_tiempo);
-		log_protegido(string_from_format("BLOCKED:Realizando espera de %d milisegundos para el proceso %d en bloqueado.", *espera_restante, pcb->id));
-		*espera_restante = esperar_bloqueado(*espera_restante);
 
-		if(*espera_restante > 0){
-			log_protegido(string_from_format("BLOCKED:Espera mayor a la permitida en bloqueado, suspendiendo el proceso %d.", pcb->id));
-			suspender_proceso_memoria(pcb->tabla_paginas);
-			agregar_a_cola(suspendido_bloqueado, pcb, msuspendido_bloqueado);
-			sem_wait(&msuspendido_tiempo);
-			queue_push(suspendido_tiempo, espera_restante);
-			sem_post(&msuspendido_tiempo);
-			sem_post(&suspendido);
-			sem_post(&nivel_multiprogramacion);
-		}else{
-			log_protegido(string_from_format("BLOCKED:Espera en bloqueado completada, agregando a ready."));
-			free(espera_restante);
-			agregar_a_ready(pcb);
+		sem_wait(&mbloqueado);
+		t_pcb_recibido* pcb_bloqueado = queue_pop(bloqueado_queue);
+		sem_post(&mbloqueado);
+
+		tiempo_total_espera = pcb_bloqueado->milisegundos;
+		log_protegido(string_from_format("BLOCKED:Se ha bloqueado el PID: %d por %dms",pcb_bloqueado->pcb->id,tiempo_total_espera));
+
+		if(pcb_bloqueado->contador > 0){
+
+			if(pcb_bloqueado->milisegundos > pcb_bloqueado->contador)
+				esperar_bloqueado(&(pcb_bloqueado->contador), &(pcb_bloqueado->milisegundos));
+			else{
+				esperar_bloqueado(&(pcb_bloqueado->milisegundos), &(pcb_bloqueado->contador));
+			}
+
 		}
+
+		if(pcb_bloqueado->milisegundos > 0){
+			//Suspender
+			suspender_proceso(pcb_bloqueado->pcb);
+			esperar_bloqueado(&(pcb_bloqueado->milisegundos), &(pcb_bloqueado->contador));
+			agregar_a_cola(suspendido_ready, pcb_bloqueado->pcb, msuspendido_ready);
+			sem_wait(&msuspendido_counter);
+			suspendido_counter++;
+			sem_post(&msuspendido_counter);
+		
+			sem_post(&ready_disponible);
+			log_protegido(string_from_format("BLOCKED: Se ha SUSPENDIDO el PID: %d. Tiempo total de espera: %dms",pcb_bloqueado->pcb->id,((int)tiempo_max_bloqueado()) - pcb_bloqueado->contador));
+		}
+		else{
+			log_protegido(string_from_format("BLOCKED: Espera de PID: %d por %d completada exitosamente. Agregando a ready...",pcb_bloqueado->pcb->id,tiempo_total_espera));
+			agregar_a_ready(pcb_bloqueado->pcb);
+		}
+
+		free(pcb_bloqueado);
+
 	}
 }
 
 //suspendido-blocked
 void *thread_suspendido_blocked(){
-	int *tiempo_espera;
 	while(1){
 		sem_wait(&suspendido);
-		t_pcb* pcb = sacar_de_cola(suspendido_bloqueado, msuspendido_bloqueado);
-		sem_wait(&msuspendido_tiempo);
-		tiempo_espera = queue_pop(suspendido_tiempo);
-		sem_post(&msuspendido_tiempo);
-
-		log_protegido(string_from_format("SUSPENDIDO_BLOCKED:Realizando espera de %d milisegundos para el proceso %d en suspendido.", *tiempo_espera, pcb->id));
-		usleep(1000 * (*tiempo_espera));
-		free(tiempo_espera);
-
+		log_protegido(string_from_format("SUSPENDIDO_BLOCKED:ESTO NO DEBERIA MOSTRARSE HELP"));
 		log_protegido(string_from_format("SUSPENDIDO_BLOCKED:Espera en suspendido completada, agregando a suspendido-ready."));
-		
-		agregar_a_cola(suspendido_ready, pcb, msuspendido_ready);
-		
-
-		sem_wait(&msuspendido_counter);
-		suspendido_counter++;
-		sem_post(&msuspendido_counter);
-		
-		sem_post(&ready_disponible);
 	}
+	
 }
 
 

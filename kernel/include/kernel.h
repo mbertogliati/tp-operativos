@@ -14,9 +14,10 @@ t_log *logger;
 t_config *config;
 
 typedef struct{
-    int* milisegundos;
     t_pcb* pcb;
-} t_pcb_con_milisegundos;
+    int milisegundos;
+    int contador;
+} t_pcb_recibido;
 
 t_log *log_kernel;
 
