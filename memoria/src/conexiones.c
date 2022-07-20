@@ -271,7 +271,7 @@ void crear_tabla(t_buffer *buffer, int socket_kernel) {
 
 void proceso_suspendido(t_buffer *buffer, int socket_kernel) {
 	log_info(kernel_log, "El kernel quiere suspender un proceso");
-	bool confirmacion = true;
+	//bool confirmacion = true;
 
 	log_info(kernel_log, "Recibiendo Proceso...");
 	int* aux = sacar_de_buffer(buffer, sizeof(int));
@@ -283,7 +283,7 @@ void proceso_suspendido(t_buffer *buffer, int socket_kernel) {
 	suspender_proceso2(direccion_de_tabla);
 	log_info(kernel_log, "Proceso Suspendido!!!");
 
-	send(socket_kernel, &confirmacion, sizeof(bool), 0);
+	//send(socket_kernel, &confirmacion, sizeof(bool), 0); ARREGLANDO CAGADAS DEL KERNEL 
 }
 
 void liberar(t_buffer *buffer, int socket_kernel) {

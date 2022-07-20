@@ -151,7 +151,8 @@ uint32_t execute(const t_instruccion instruccion, const int tabla_paginas,  uint
 		escribir_a_memoria(tabla_paginas, instruccion.parametros[0], (void*) &operando);
 		break;
 	case NO_OP:
-		sleep(0.001 * cpuconfig.retardo_noop);
+		log_info(cpu_log, "NO_OP");
+		usleep(1000 * cpuconfig.retardo_noop);
 		break;
 	case IO:
 		return instruccion.parametros[0];

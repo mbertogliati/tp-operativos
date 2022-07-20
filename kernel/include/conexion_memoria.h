@@ -21,7 +21,7 @@ void *recibir_mensaje_memoria();
 void desconectar_memoria();
 
 int agregar_proceso_memoria(int pid, int tam_proceso);
-bool suspender_proceso_memoria(int direccion_tabla);
+bool suspender_proceso_memoria(int direccion_tabla, int pid);
 bool finalizar_proceso_memoria(int direccion_tabla);
 
 #endif /* CONEXION_MEMORIA_H_ */

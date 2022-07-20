@@ -44,20 +44,20 @@ int agregar_proceso_memoria(int pid, int tam_proceso){
 	return tabla_proceso;
 }
 
-bool suspender_proceso_memoria(int direccion_tabla){
-	log_protegido(string_from_format("MEMORIA:Suspendiendo Proceso..."));
-	log_protegido(string_from_format("MEMORIA:Enviando paquete a memoria, espero confirmacion de suspendimiento"));
+bool suspender_proceso_memoria(int direccion_tabla, int pid){
+	log_protegido(string_from_format("MEMORIA:Suspendiendo PID: %d", pid));
+	//log_protegido(string_from_format("MEMORIA:Enviando paquete a memoria, espero confirmacion de suspendimiento"));
 	t_paquete *instrucciones_a_memoria = crear_paquete(PROCESO_SUSPENDIDO);
 	agregar_a_paquete(instrucciones_a_memoria, &direccion_tabla, sizeof(int));
 	enviar_paquete(instrucciones_a_memoria, socket_memoria);
 
-	log_protegido(string_from_format("MEMORIA:Esperando respuesta..."));
-	bool confirmacion;
-	recv(socket_memoria, &confirmacion, sizeof(bool), MSG_WAITALL);
-	if(confirmacion)
-		log_protegido(string_from_format("MEMORIA:Habemos confirmacion de suspendimiento"));
-	else log_protegido(string_from_format("ERROR:La memoria rechazo la suspension"));
-	return confirmacion;
+	//log_protegido(string_from_format("MEMORIA:Esperando respuesta..."));
+	//bool confirmacion;
+	//recv(socket_memoria, &confirmacion, sizeof(bool), MSG_WAITALL);
+	//if(confirmacion)
+		//log_protegido(string_from_format("MEMORIA:Habemos confirmacion de suspendimiento"));
+	//else log_protegido(string_from_format("ERROR:La memoria rechazo la suspension"));
+	return true;
 }
 
 bool finalizar_proceso_memoria(int direccion_tabla){

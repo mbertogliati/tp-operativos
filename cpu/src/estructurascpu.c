@@ -22,7 +22,7 @@ t_config *cargar_config(char* path) {
 	cpu_log = log_create("logs/cpu.log", "CPU", true, LOG_LEVEL_INFO);
 	log_info(cpu_log, "Leyendo archivo de configuracion...");
 
-	if (!(config_cpu = config_create("config/cpu.config"))) {
+	if (!(config_cpu = config_create(path))) {
 		log_error(cpu_log, "ERROR - No se encontro el archivo de configuracion de CPU");
 		return NULL;
 	}
