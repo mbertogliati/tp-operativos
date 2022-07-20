@@ -386,6 +386,7 @@ void esperar_bloqueado(int* tiempo_espera, int* resto){
 
 void *thread_blocked(){
 	int tiempo_total_espera;
+	bool no_esta_suspendido;
 	while(1){
 		sem_wait(&bloqueado);
 
@@ -396,6 +397,11 @@ void *thread_blocked(){
 		tiempo_total_espera = pcb_bloqueado->milisegundos;
 		log_protegido(string_from_format("BLOCKED:Se ha bloqueado el PID: %d por %dms",pcb_bloqueado->pcb->id,tiempo_total_espera));
 
+		if(pcb_bloqueado->contador < 0)
+			no_esta_suspendido = false;
+		else
+			no_esta_suspendido = true;
+
 		if(pcb_bloqueado->contador > 0){
 
 			if(pcb_bloqueado->milisegundos > pcb_bloqueado->contador)
@@ -403,16 +409,18 @@ void *thread_blocked(){
 			else{
 				esperar_bloqueado(&(pcb_bloqueado->milisegundos), &(pcb_bloqueado->contador));
 			}
-
 		}
+
+	
 		//Si queda tiempo para seguir esperando, hay que suspender
 		if(pcb_bloqueado->milisegundos > 0){
 			//Suspender
-			log_protegido(string_from_format("BLOCKED: Tiempo de espera excedido. SUSPENDIENDO PID: %d...",pcb_bloqueado->pcb->id));
-			suspender_proceso(pcb_bloqueado->pcb);
+			if(no_esta_suspendido){
+				log_protegido(string_from_format("BLOCKED: Tiempo de espera excedido. Tiempo restante: %dms \n SUSPENDIENDO PID: %d...",pcb_bloqueado->milisegundos, pcb_bloqueado->pcb->id));
+				suspender_proceso(pcb_bloqueado->pcb);
+			}
 			esperar_bloqueado(&(pcb_bloqueado->milisegundos), &(pcb_bloqueado->contador));
-
-			log_protegido(string_from_format("BLOCKED: PID: %d SUSPENDIDO. Tiempo total de espera: %dms. Agregando a suspendido ready... ",pcb_bloqueado->pcb->id,((int)tiempo_max_bloqueado()) - pcb_bloqueado->contador));
+			log_protegido(string_from_format("BLOCKED: PID: %d SUSPENDIDO. IO: %dms \t Tiempo total esperado: %dms. Agregando a suspendido ready... ",pcb_bloqueado->pcb->id,pcb_bloqueado->milisegundos,((int)tiempo_max_bloqueado()) - pcb_bloqueado->contador));
 
 			agregar_a_cola(suspendido_ready, pcb_bloqueado->pcb, msuspendido_ready);
 			sem_wait(&msuspendido_counter);
@@ -438,7 +446,7 @@ void *thread_suspendido_blocked(){
 		log_protegido(string_from_format("SUSPENDIDO_BLOCKED:ESTO NO DEBERIA MOSTRARSE HELP"));
 		log_protegido(string_from_format("SUSPENDIDO_BLOCKED:Espera en suspendido completada, agregando a suspendido-ready."));
 	}
-	
+	return NULL;
 }
 
 
@@ -458,4 +466,5 @@ void *thread_exit(){
 		liberar_pcb(pcb);
 		log_protegido(string_from_format("EXIT:Proceso %d finalizado.", pid));
 	}
+	return NULL;
 }
