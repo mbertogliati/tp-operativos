@@ -2,7 +2,7 @@
 
 void inicializar_estructuras() {
 	sem_init(&mlog, 0, 1);
-	log_protegido(string_from_format("Inicializando estructuras   %d.", 99));
+	log_protegido(string_from_format("Inicializando estructuras"));
 
 	//Colas
 	new_queue = queue_create();

@@ -1,5 +1,7 @@
 #include "../include/consola.h"
 
+t_log *logger;
+
 int main(int argc, char **argv) {
 	FILE *f = son_argumentos_validos(argc, argv);
 	if(!f) return EXIT_FAILURE;
@@ -7,8 +9,8 @@ int main(int argc, char **argv) {
 	if(!conexion_exitosa(socket_kernel)) return EXIT_FAILURE;
 	t_paquete *paquete = crear_paquete_instrucciones(f, atoi(argv[2]));
 	enviar_paquete_instrucciones(paquete, socket_kernel);
-	terminar(socket_kernel);
-	return EXIT_SUCCESS;
+	if(terminar(socket_kernel)) return EXIT_SUCCESS;
+	return EXIT_FAILURE;
 }
 
 FILE *son_argumentos_validos(int cantidad_argumentos, char **argv) {

@@ -42,14 +42,22 @@ void enviar_paquete_instrucciones(t_paquete *paquete, int socket_kernel) {
 	log_info(logger, "Paquete enviado");
 }
 
-void terminar(int socket_kernel) {
+bool terminar(int socket_kernel) {
+	time_t inicio = time(NULL);
+
 	int mensaje;
 	recv(socket_kernel, &mensaje, sizeof(int), MSG_WAITALL);
-	if (mensaje == TERMINAR_CONSOLA) {
+
+	bool termino_exitoso = mensaje == TERMINAR_CONSOLA;
+
+	if (termino_exitoso) {
 		log_info(logger, "Terminando consola");
-		liberar_conexion(socket_kernel);
-		log_destroy(logger);
-		return;
+		log_info(logger, "Tiempo de ejecución del proceso: %g segundos", (float) (time(NULL) - inicio));
 	}
-	log_error(logger, "Operación desconocida");
+	else
+		log_error(logger, "Operación desconocida");
+
+	log_destroy(logger);
+	liberar_conexion(socket_kernel);
+	return termino_exitoso;
 }
